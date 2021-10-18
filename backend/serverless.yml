@@ -1,0 +1,27 @@
+service: ${file(${opt:config-file}):service}
+
+plugins:
+  - serverless-webpack
+
+custom:
+  webpack:
+    webpackConfig: './webpack.config.js'
+    includeModules: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: ap-southeast-1
+  role: arn:aws:iam::${env:PCC_AWS_ACCOUNT_NUMBER}:role/pcc-lambdaRole
+  versionFunctions: false
+  environment:
+    LAMBDA_REGION: ${self:provider.region}
+    SOWING_MYSQL_HOST: ${env:SOWING_MYSQL_HOST}
+    SOWING_MYSQL_USER: ${env:SOWING_MYSQL_USER}
+    SOWING_MYSQL_PASSWORD: ${env:SOWING_MYSQL_PASSWORD}
+    SOWING_MYSQL_DATABASE: ${env:SOWING_MYSQL_DATABASE}
+
+
+functions: ${file(${opt:config-file}):functions}
+resources: ${file(${opt:config-file}):resources}

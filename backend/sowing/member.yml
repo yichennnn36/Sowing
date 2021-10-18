@@ -1,0 +1,11 @@
+service: member
+
+functions:
+  doSignUp:
+    handler: sowing/index.doSignUp
+    description: function to sign up
+    events:
+      - http:
+          path: /sign-up
+          method: post
+          cors: true

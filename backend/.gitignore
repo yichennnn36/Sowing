@@ -1,0 +1,11 @@
+.vscode
+.misc
+
+# package directories
+node_modules
+
+# npm lock file
+package-lock.json
+
+# Serverless directories
+.serverless
