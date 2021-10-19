@@ -40,9 +40,46 @@ async function signUp({ username, hashPassword, nickname }) {
   }
 }
 
+async function getAuthInfo({ username, hashPassword }) {
+  logging.debug(`${MODEL_NAME}.getAuthInfo`, { username });
+
+  const [{
+    member_id: memberId,
+    nickname,
+  } = {}] = await mysqlConnector.query(SQL`
+    SELECT
+      member_id,
+      nickname
+    FROM member
+    WHERE (username, password) = (${username}, ${hashPassword})
+  `);
+
+  return { memberId, nickname };
+}
+
+async function updateToken({ memberId, token, tokenExpireStamp }) {
+  logging.debug(`${MODEL_NAME}.updateToken`, { memberId });
+
+  const { affectedRows = 0 } = await mysqlConnector.query(SQL`
+    UPDATE member
+    SET
+      token = ${token},
+      token_expire_stamp = ${tokenExpireStamp}
+    WHERE member_id = ${memberId}
+  `);
+
+  if (affectedRows <= 0) {
+    throw new errorHandling.SowingError({
+      errno: errorHandling.errno.ERR_USER_NOT_UPDATED,
+    });
+  }
+}
+
 const memberModel = {
   checkIfUserExist,
   signUp,
+  getAuthInfo,
+  updateToken,
 };
 
 export default memberModel;

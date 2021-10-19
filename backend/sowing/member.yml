@@ -9,3 +9,12 @@ functions:
           path: /sign-up
           method: post
           cors: true
+
+  doLogin:
+    handler: sowing/index.doLogin
+    description: function to login
+    events:
+      - http:
+          path: /login
+          method: post
+          cors: true
