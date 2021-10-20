@@ -4,9 +4,13 @@ import { errorHandling as errorHandlingBase } from '../../infrastructure';
 
 function getCorrespondingStatusCode(err) {
   switch (err.errno) {
+    case errno.ERR_USER_NOT_EXIST:
+    case errno.ERR_USER_LOGIN_FAILED:
+      return 401;
     case errno.ERR_USER_EXIST:
       return 409;
     case errno.ERR_USER_NOT_CREATED:
+    case errno.ERR_USER_NOT_UPDATED:
     default:
       return 500;
   }

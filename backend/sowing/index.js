@@ -8,3 +8,7 @@ export const doSignUp = requestHandling.createAPIGatewayEventHandler(
   dataValidation.Schema.SIGN_UP,
   memberHandler.signUp,
 );
+export const doLogin = requestHandling.createAPIGatewayEventHandler(
+  dataValidation.Schema.LOGIN,
+  memberHandler.login,
+);

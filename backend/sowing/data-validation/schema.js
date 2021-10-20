@@ -10,7 +10,14 @@ const SIGN_UP = {
     nickname: NICKNAME.required(),
   }),
 };
+const LOGIN = {
+  body: dataValidation.makeValidationSchema({
+    username: dataValidation.Schema.USERNAME.required(),
+    password: dataValidation.Schema.PASSWORD.required(),
+  }),
+};
 
 export {
   SIGN_UP,
+  LOGIN,
 };
