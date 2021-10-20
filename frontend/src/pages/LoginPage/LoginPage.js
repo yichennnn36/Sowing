@@ -41,7 +41,7 @@ const LoginPage = () => {
           </SiteButton>
         </SiteDescription>
       )}
-      {isRegister && <Register setIsRegister={setIsRegister} />}
+      {isRegister && <Register setIsRegister={setIsRegister} setIsLogin={setIsLogin} />}
       {isLogin && <Login setIsLogin={setIsLogin} />}
 
     </LoginPageWrapper>
