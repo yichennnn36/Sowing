@@ -2,29 +2,21 @@ import styled, { keyframes } from 'styled-components';
 import { flipInX } from 'react-animations';
 import { SiteDescription, DefaultButton } from '../../pages/LoginPage/LoginPageStyle';
 
-const FunctionBlock = styled(SiteDescription)`
+export const FunctionBlock = styled(SiteDescription)`
   animation: 1.5s ${keyframes`${flipInX}`};
 `;
 
-const InputWrapper = styled.div`
-  & .ant-input-affix-wrapper {
-    &:hover {
-      border-color: ${({ theme }) => theme.colors.primary}};
-    }
-  }
-
-  & > span {
-    margin-top: 20px;
-    border-radius: 6px;
-  }
+export const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
-const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-const StyleButton = styled(DefaultButton)`
+export const StyleButton = styled(DefaultButton)`
   background: ${({ theme }) => theme.colors.primary}};
   color: ${({ theme }) => theme.colors.white}};
   transition: transform 0.3s;
@@ -34,4 +26,16 @@ const StyleButton = styled(DefaultButton)`
   }
 `;
 
-export { FunctionBlock, InputWrapper, ButtonWrapper, StyleButton };
+export const Alert = styled.div`
+  color: ${({ theme }) => theme.colors.warning};
+  position: absolute;
+  bottom: 30%;
+  font-size: 16px;
+`;
+
+export const Success = styled.div`
+  color: ${({ theme }) => theme.colors.success};
+  position: absolute;
+  bottom: 30%;
+  font-size: 16px;
+`;

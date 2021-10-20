@@ -59,3 +59,34 @@ export const availableLocations = [
   "金門縣",
   "連江縣",
 ];
+
+export const checkValid = (e) => {
+  const { name, value } = e.target;
+  const usernameReg = /^[a-zA-Z\d]{6,12}$/;
+  const passwordReg = /^(?=.*[A-Za-z])(?=.*\d)[a-zA-Z\d@$!%*#?&]{6,12}$/;
+  const result = {};
+
+  if (name === 'username' && value) {
+    const usernameBoolean = usernameReg.test(value) ? true : false;
+    result.usernameBoolean = usernameBoolean;
+  }
+  if (name === 'password' && value) {
+    const passwordBoolean = passwordReg.test(value) ? true : false;
+    result.passwordBoolean = passwordBoolean;
+  }
+  return result;
+};
+
+const TOKEN_NAME = 'token';
+const USER_NAME = 'user';
+const EXPIRE_STAMP = 'expireStamp';
+
+export const setAuthToken = (user, token, time) => {
+  localStorage.setItem(USER_NAME, user);
+  localStorage.setItem(TOKEN_NAME, token);
+  localStorage.setItem(EXPIRE_STAMP, time);
+};
+
+export const getAuthToken = () => {
+  return localStorage.getItem(TOKEN_NAME);
+};
