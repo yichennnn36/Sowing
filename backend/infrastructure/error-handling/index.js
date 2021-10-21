@@ -25,17 +25,17 @@ function createHttpError(statusCode, err, properties) {
   const httpError = createError(statusCode, err, properties);
 
   if (!(httpError.toJSON instanceof Function)) {
-    httpError.toJSON = () => {
-      return Object.assign({
-        name:     httpError.name,
-        message:  httpError.message
-      }, properties);
-    };
+    httpError.toJSON = () => ({
+      name:     httpError.name,
+      message:  httpError.message,
+      ...properties,
+    });
   } else if (properties) {
     httpError.toOriginJSON = httpError.toJSON;
-    httpError.toJSON = () => {
-      return Object.assign(httpError.toOriginJSON(), properties);
-    };
+    httpError.toJSON = () => ({
+      ...httpError.toOriginJSON(),
+      ...properties,
+    });
   }
 
   return httpError;

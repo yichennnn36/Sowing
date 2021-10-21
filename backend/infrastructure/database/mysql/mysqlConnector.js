@@ -1,8 +1,5 @@
 import mysql from 'promise-mysql';
 import { Mutex } from 'async-mutex';
-import logging from '../../logging';
-
-const MODULE_NAME = 'mysqlConnector';
 
 const MysqlConnectionPool = Object.freeze({
   SOWING: 0,
@@ -26,33 +23,6 @@ class MysqlConnector {
 
     const pool = await this.mutex_.runExclusive(this.getConnectionPool_.bind(this, conn));
     return pool.query(sql);
-  }
-
-  async doTransaction(connectionPool, fn, ...args) {
-    logging.debug(`${MODULE_NAME}.${this.doTransaction.name}`, 'start');
-
-    const pool = await this.mutex_.runExclusive(this.getConnectionPool_.bind(this, connectionPool));
-    const conn = await pool.getConnection();
-    await conn.beginTransaction();
-
-    try {
-      const resp = await fn(conn, ...args);
-
-      logging.debug(`${MODULE_NAME}.${this.doTransaction.name}`, 'committing...');
-      await conn.commit();
-      logging.debug(`${MODULE_NAME}.${this.doTransaction.name}`, 'committed');
-
-      return resp;
-    } catch (err) {
-      logging.debug(`${MODULE_NAME}.${this.doTransaction.name}`, 'rolling back...');
-      await conn.rollback();
-      logging.debug(`${MODULE_NAME}.${this.doTransaction.name}`, 'rolled back');
-
-      throw err;
-    } finally {
-      conn.release();
-      logging.debug(`${MODULE_NAME}.${this.doTransaction.name}`, 'connection released');
-    }
   }
 
   async getConnectionPool_(type) {

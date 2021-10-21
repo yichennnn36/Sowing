@@ -43,7 +43,6 @@ async function parseAPIGatewayEvent({
       httpError.status = HttpStatus.UNAUTHORIZED;
       throw httpError;
     }
-
     req.user = { memberId };
   }
 
