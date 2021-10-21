@@ -29,3 +29,21 @@ CREATE TABLE IF NOT EXISTS `sowing`.`member`
 ENGINE InnoDB
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `sowing`.`event_ticket`
+(
+  `ticket_id`           SERIAL COMMENT 'ticket ID',
+  `member_id`           BIGINT NOT NULL COMMENT 'member ID',
+  `title`               VARCHAR(100) NOT NULL COMMENT 'ticket title',
+  `content`             TINYTEXT COMMENT 'ticket content',
+  `location`            VARCHAR(50) NOT NULL COMMENT 'event location',
+  `category`            INT UNSIGNED NOT NULL COMMENT 'ticket category',
+  `date`                DATETIME NOT NULL COMMENT 'event date',
+  `create_stamp`        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_stamp`        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ticket_id`),
+  KEY `idx_member_id` (`member_id`)
+)
+ENGINE InnoDB
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
