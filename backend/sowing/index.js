@@ -2,6 +2,7 @@ import dataValidation from './data-validation';
 import { requestHandling } from '../infrastructure';
 import {
   memberHandler,
+  sowingHandler,
 } from './handlers';
 
 export const doSignUp = requestHandling.createAPIGatewayEventHandler(
@@ -11,4 +12,9 @@ export const doSignUp = requestHandling.createAPIGatewayEventHandler(
 export const doLogin = requestHandling.createAPIGatewayEventHandler(
   dataValidation.Schema.LOGIN,
   memberHandler.login,
+);
+
+export const doCreateTicket = requestHandling.createAuthAPIGatewayEventHandler(
+  dataValidation.Schema.CREATE_TICKET,
+  sowingHandler.createTicket,
 );

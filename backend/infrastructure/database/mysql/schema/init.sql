@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS `sowing`.`event_ticket`
   `title`               VARCHAR(100) NOT NULL COMMENT 'ticket title',
   `content`             TINYTEXT COMMENT 'ticket content',
   `location`            VARCHAR(50) NOT NULL COMMENT 'event location',
+  `status`              VARCHAR(20) NOT NULL DEFAULT 'sowing' COMMENT 'ticket status e.g. sowing, watering, sprouting',
   `category`            INT UNSIGNED NOT NULL COMMENT 'ticket category',
   `date`                DATETIME NOT NULL COMMENT 'event date',
   `create_stamp`        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

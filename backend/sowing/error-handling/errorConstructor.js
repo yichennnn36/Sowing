@@ -11,6 +11,7 @@ function getCorrespondingStatusCode(err) {
       return 409;
     case errno.ERR_USER_NOT_CREATED:
     case errno.ERR_USER_NOT_UPDATED:
+    case errno.ERR_TICKET_NOT_CREATED:
     default:
       return 500;
   }

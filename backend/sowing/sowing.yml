@@ -1,0 +1,11 @@
+service: sowing
+
+functions:
+  doCreateTicket:
+    handler: sowing/index.doCreateTicket
+    description: function to create ticket
+    events:
+      - http:
+          path: /tickets
+          method: post
+          cors: true
