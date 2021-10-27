@@ -1,8 +1,10 @@
 import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
 import { Button, Radio } from 'antd';
+import { DefaultButton } from '../../constants/globalStyle';
+import { theme } from '../../constants/style';
 
-const TicketEditorWrapper = styled.div`
+export const TicketEditorWrapper = styled.div`
   &::before {
     content: '';
     position: absolute;
@@ -14,38 +16,38 @@ const TicketEditorWrapper = styled.div`
   }
 `;
 
-const Editor = styled.div`
+export const Editor = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   animation: .5s ${keyframes`${fadeIn}`};
   width: 500px;
-  height: 400px;
+  height: 82%;
   padding: 50px 30px 40px;
-  border: 2px solid ${({ theme }) => theme.colors.secondary};
+  border: 2px solid ${theme.COLOR.secondary};
   border-radius: 6px;
   background: white;
   box-shadow: 6px 6px 4px 3px rgb(0 0 0 / 10%);
 `;
 
-const InputBlock = styled.div`
+export const InputBlock = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
+  margin-bottom: 30px;
 `;
 
-const InputRadioBlock = styled.div`
+export const InputRadioBlock = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 24px;
+  margin-top: 50px;
 `;
 
-const Label = styled.label`
+export const Label = styled.label`
   font-size: 16px;
 `;
 
-const ButtonDelete = styled(Button)`
+export const ButtonClose = styled(Button)`
   position: absolute;
   top: 16px;
   right: 16px;
@@ -53,34 +55,50 @@ const ButtonDelete = styled(Button)`
   cursor: pointer;
 `;
 
-const ButtonSaveBlock = styled.div`
+export const ButtonSaveBlock = styled.div`
   text-align: end;
   margin-top: 40px;
+`;
 
-  & button {
-    background: ${({ theme }) => theme.colors.primary};
-    color: ${({ theme }) => theme.colors.white};
-  
-    &:focus, &:hover {
-      color: ${({ theme }) => theme.colors.primary};
-      border-color: ${({ theme }) => theme.colors.primary};
-    }
+export const StyleButton = styled(DefaultButton)`
+  background: ${theme.COLOR.primary}};
+  color: ${theme.COLOR.white}};
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.1);
   }
 `;
 
-const CategoryRadio = styled(Radio)`
-  margin: 0 10px;
+export const CategoryRadio = styled(Radio)`
+  margin: 0 16px;
 
   &:first-child {
     margin-left: 30px;
   }
-
   & .ant-radio-inner {
     background: ${props => props.color};
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
+
+    &::after {
+      top: 4px;
+      left: 4px;
+      display: block;
+      width: 12px;
+      height: 12px;
+      background-color: ${theme.COLOR.tertiary};
+    }
+  }
+  & .ant-radio-checked::after {
+    top: 0;
   }
 `;
 
-
-export { TicketEditorWrapper, Editor, InputBlock, InputRadioBlock, Label, ButtonDelete, ButtonSaveBlock, CategoryRadio };
+export const Alert = styled.div`
+  color: ${theme.COLOR.warning};
+  position: absolute;
+  bottom: 10%;
+  font-size: 16px;
+  font-weight: 500;
+`;
