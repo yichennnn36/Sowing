@@ -1,5 +1,8 @@
 const errMessage = {
-  EMPTY_FILEDS: 'All fileds are required！',
+  EMPTY_FILEDS: {
+    all: 'All fileds are required！',
+    required: '*Fileds are required！'
+  },
   INVALID_PARAMS: {
     username: 'Username does not conform to format！',
     password: 'Password does not conform to format！',

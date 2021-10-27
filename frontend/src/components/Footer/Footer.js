@@ -1,10 +1,13 @@
 import React from 'react';
 import { FooterWrapper, FooterLogo, FooterInfo } from './FooterStyle';
+import Logo from '../../image/sowingLogo.png';
 
 const Footer = () => {
   return (
     <FooterWrapper>
-      <FooterLogo>I am a Logo</FooterLogo>
+      <FooterLogo>
+        <img src={Logo} alt="logo" />
+      </FooterLogo>
       <FooterInfo>
         <a href="http://google.com">Contact</a>
         <a href="http://google.com">Github</a>

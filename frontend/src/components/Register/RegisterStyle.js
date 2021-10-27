@@ -1,9 +1,26 @@
 import styled, { keyframes } from 'styled-components';
 import { flipInX } from 'react-animations';
-import { SiteDescription, DefaultButton } from '../../pages/LoginPage/LoginPageStyle';
+import { SiteDescription } from '../../pages/IntroPage/IntroPageStyle';
+import { DefaultButton, DefaultAlert, DefaultSuccess } from '../../constants/globalStyle';
+import { MEDIA_QUERY, theme } from '../../constants/style';
 
 export const FunctionBlock = styled(SiteDescription)`
+  position: relative;
   animation: 1.5s ${keyframes`${flipInX}`};
+
+  ${MEDIA_QUERY.md}{
+    margin-top: 0;
+  }
+
+  & h2 {
+    font-size: ${theme.FONT_SIZE.subtitle};
+    font-family: ${theme.FONT.title};
+    color: ${theme.COLOR.primary}};
+
+    ${MEDIA_QUERY.md}{
+      font-size: 110px;
+    }
+  }
 `;
 
 export const InputWrapper = styled.div`
@@ -14,11 +31,12 @@ export const InputWrapper = styled.div`
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 80px;
 `;
 
 export const StyleButton = styled(DefaultButton)`
-  background: ${({ theme }) => theme.colors.primary}};
-  color: ${({ theme }) => theme.colors.white}};
+  background: ${theme.COLOR.primary}};
+  color: ${theme.COLOR.white}};
   transition: transform 0.3s;
 
   &:hover {
@@ -26,16 +44,12 @@ export const StyleButton = styled(DefaultButton)`
   }
 `;
 
-export const Alert = styled.div`
-  color: ${({ theme }) => theme.colors.warning};
+export const Alert = styled(DefaultAlert)`
   position: absolute;
-  bottom: 30%;
-  font-size: 16px;
+  bottom: 18%;
 `;
 
-export const Success = styled.div`
-  color: ${({ theme }) => theme.colors.success};
+export const Success = styled(DefaultSuccess)`
   position: absolute;
-  bottom: 30%;
-  font-size: 16px;
+  bottom: 18%;
 `;

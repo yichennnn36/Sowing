@@ -1,30 +1,45 @@
-import styled from 'styled-components';
-import { Layout, Avatar, Button } from 'antd';
+import React, { useState } from "react";
+import { Avatar } from 'antd';
+import { Link } from "react-router-dom";
 import { UserOutlined } from '@ant-design/icons';
-
-const HeaderWrapper = styled(Layout.Header)`
-  background: white;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-`;
-
-const MemberInfo = styled.div`
-  margin-right: 40px;
-
-  & span {
-    margin-left: 10px;
-  }
-`;
+import Menu from '../Menu/Menu';
+import { HeaderWrapper, SiteTitle, Nav, HeaderLeft, HeaderRight, MemberInfo, StyleButton } from './HeaderStyle';
+import { setAuthToken } from '../../utils';
+import { useHistory } from "react-router-dom";
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const history = useHistory();
+
+  const handleToggleMenu = () => {
+    setIsMenuOpen(isMenuOpen ? false : true);
+  };
+
+  const handleLogout = () => {
+    setAuthToken('');
+    history.push("/");
+  };
+
   return (
     <HeaderWrapper>
-      <MemberInfo>
-        <Avatar size="small" icon={<UserOutlined />} />
-        <span>Yichen</span>
-      </MemberInfo>
-      <Button>Log out</Button>
+      <HeaderLeft>
+        <Nav $active as={Link} to="/tasks">All Tasks</Nav>
+        <Nav as={Link} to="/timeLine">Time line</Nav>
+      </HeaderLeft>
+      <SiteTitle>Sowing</SiteTitle>
+      <HeaderRight>
+        <MemberInfo>
+          <Avatar size="small" icon={<UserOutlined />} />
+          <span>Yichen</span>
+        </MemberInfo>
+        <StyleButton onClick={handleLogout}>Log out</StyleButton>
+      </HeaderRight>
+      <Menu
+        isMenuOpen={isMenuOpen}
+        setIsMenuOpen={setIsMenuOpen}
+        handleLogout={handleLogout}
+        handleToggleMenu={handleToggleMenu}
+      />
     </HeaderWrapper>
   )
 };

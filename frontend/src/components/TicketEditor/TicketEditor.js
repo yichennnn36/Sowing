@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Input, DatePicker, Button, Radio } from 'antd';
+import { DatePicker, Radio, Input } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
+import error from '../../constants/error';
 import { categoryColors, availableLocations } from '../../utils';
 import {
   TicketEditorWrapper,
@@ -8,9 +9,11 @@ import {
   InputBlock,
   InputRadioBlock,
   Label,
-  ButtonDelete,
+  ButtonClose,
+  StyleButton,
   ButtonSaveBlock,
-  CategoryRadio
+  CategoryRadio,
+  Alert
 } from './TicketEditorStyle';
 
 const TicketEditor = ({
@@ -24,10 +27,12 @@ const TicketEditor = ({
   const [inputValue, setInputValue] = useState({
     title: '',
     locations: '',
+    description: '',
     startDate: '',
     endDate: '',
     category: 1,
   });
+  const [errMessage, setErrMessage] = useState([]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -52,78 +57,29 @@ const TicketEditor = ({
     const {
       title,
       locations,
+      description,
       startDate,
       endDate,
       category,
     } = inputValue;
 
-    const column = ticketsData.columns[ticketStatus.columnId];
-    const newTickets = Array.from(column.ticketIds);
-
-    newTickets.splice(newTickets.length, 0, `ticket-${id}`);
-
-    const newColumn = {
-      ...column,
-      ticketIds: newTickets
-    };
-
-    const postTickets = async () => {
-      const response = await fetch(`http://localhost:3003/tickets`, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          id: `ticket-${id}`,
-          title,
-          locations,
-          startDate,
-          endDate,
-          category,
-          status: ticketStatus.status
-        })
-      });
-      const data = await response.json();
-      return data;
-    };
-
-    const postColumns = async () => {
-      const response = await fetch(`http://localhost:3003/columns`, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          ...ticketsData.columns,
-          [newColumn.id]: newColumn
-        })
-      });
-      const data = await response.json();
-      return data;
-    };
-
-    const post = async () => {
-      const data = await Promise.all([
-        postTickets(),
-        postColumns()
-      ]);
-      return data;
+    if (!title || !locations || !startDate || !endDate) {
+      setErrMessage([error.EMPTY_FILEDS.required]);
     }
 
-    post();
-    setIsAddTicket(false);
+
   };
 
   return (
     <TicketEditorWrapper>
       <Editor>
-        <ButtonDelete
+        <ButtonClose
           onClick={() => setIsAddTicket(false)}
           icon={<CloseCircleOutlined />}
         />
 
         <InputBlock>
-          <Label htmlFor="title">Title</Label>
+          <Label htmlFor="title">* Title</Label>
           <Input
             id="title"
             name="title"
@@ -133,7 +89,7 @@ const TicketEditor = ({
         </InputBlock>
 
         <InputBlock>
-          <Label htmlFor="locations">Location</Label>
+          <Label htmlFor="locations">* Location</Label>
           <Input
             id="locations"
             list="location-list"
@@ -146,7 +102,17 @@ const TicketEditor = ({
         </InputBlock>
 
         <InputBlock>
-          <Label htmlFor="date">Date</Label>
+          <Label htmlFor="description">Description</Label>
+          <Input.TextArea
+            id="description"
+            name="description"
+            autoSize={{ minRows: 3, maxRows: 5 }}
+            onChange={handleInputChange}
+          />
+        </InputBlock>
+
+        <InputBlock>
+          <Label htmlFor="date">* Date</Label>
           <DatePicker.RangePicker
             id="date"
             onChange={handleDateChange}
@@ -154,8 +120,8 @@ const TicketEditor = ({
         </InputBlock>
 
         <InputRadioBlock>
-          <Label>Category</Label>
-          <Radio.Group name="category" onChange={handleInputChange}>
+          <Label>* Category</Label>
+          <Radio.Group name="category" defaultValue={categoryColors[0].label} onChange={handleInputChange}>
             {
               categoryColors.map((radio, index) => (
                 <CategoryRadio
@@ -167,9 +133,9 @@ const TicketEditor = ({
             }
           </Radio.Group>
         </InputRadioBlock>
-
+        {errMessage.length > 0 && <Alert>{errMessage[0]}</Alert>}
         <ButtonSaveBlock>
-          <Button onClick={handleSave}>Save</Button>
+          <StyleButton onClick={handleSave}>Save</StyleButton>
         </ButtonSaveBlock>
       </Editor>
     </TicketEditorWrapper>

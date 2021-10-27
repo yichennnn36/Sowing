@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { theme } from '../../constants/style';
 
 export const InputBlock = styled.div`
   display: flex;
@@ -13,19 +14,19 @@ export const InputBlock = styled.div`
   }
 
   & input {
-    border: 1px solid ${({ theme }) => theme.colors.white};
+    border: 1px solid ${theme.COLOR.white};
     border-radius: 10px;
     padding: 6px 10px 6px 36px;
     width: 100%;
 
     &:hover {
-      border-color: ${({ theme }) => theme.colors.primary};
+      border-color: ${theme.COLOR.primary};
     }
   }
 `;
 
 export const Alert = styled.div`
-  color: ${({ theme }) => theme.colors.warning};
+  color: ${theme.COLOR.warning};
   position: absolute;
   top: 100%;
   left: 2%;

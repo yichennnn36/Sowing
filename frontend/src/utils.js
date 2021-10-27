@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 export const categoryColors = [
   { label: 1, color: '#f4551c' },
   { label: 2, color: '#6cafff' },
@@ -60,22 +63,15 @@ export const availableLocations = [
   "連江縣",
 ];
 
-export const checkValid = (e) => {
-  const { name, value } = e.target;
-  const usernameReg = /^[a-zA-Z\d]{6,12}$/;
-  const passwordReg = /^(?=.*[A-Za-z])(?=.*\d)[a-zA-Z\d@$!%*#?&]{6,12}$/;
-  const result = {};
+export default function ScrollToTop() {
+  const { pathname } = useLocation();
 
-  if (name === 'username' && value) {
-    const usernameBoolean = usernameReg.test(value) ? true : false;
-    result.usernameBoolean = usernameBoolean;
-  }
-  if (name === 'password' && value) {
-    const passwordBoolean = passwordReg.test(value) ? true : false;
-    result.passwordBoolean = passwordBoolean;
-  }
-  return result;
-};
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 const TOKEN_NAME = 'token';
 const USER_NAME = 'user';

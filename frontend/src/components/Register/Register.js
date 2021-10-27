@@ -1,87 +1,37 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { RightCircleOutlined, LeftOutlined, UserOutlined, EyeInvisibleOutlined, SmileOutlined } from '@ant-design/icons';
 import { FunctionBlock, InputWrapper, ButtonWrapper, StyleButton, Alert, Success } from './RegisterStyle';
+import Loading from '../../components/Loading/Loading';
 import Input from '../Input/Input';
 import error from '../../constants/error';
-import success from '../../constants/success';
-import { register } from '../../api';
+import useRegister from '../../hooks/useRegister';
 
 const Register = ({ setIsRegister, setIsLogin }) => {
-  const [inputValue, setInputValue] = useState({
-    nickname: '',
-    username: '',
-    password: ''
-  });
-  const [successMessage, setSuccessMessage] = useState([]);
-  const [errMessage, setErrMessage] = useState([]);
-  const [hasErr, setHasErr] = useState(false);
-  const isClick = useRef(true);
+  const {
+    response,
+    isLoading,
+    inputValue,
+    handleInputChange,
+    setHasErr,
+    errMessage,
+    successMessage,
+    handleRegister
+  } = useRegister();
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setInputValue({
-      ...inputValue,
-      [name]: value
-    });
-  };
-
-  const handleRegister = () => {
-    const { nickname, username, password } = inputValue;
-
-    if (!nickname || !username || !password) {
-      setErrMessage([error.EMPTY_FILEDS]);
-      setHasErr(true);
-      return;
-    }
-
-    if (hasErr) return;
-
-    const fetchRegister = async () => {
-      let response;
-      try {
-        response = await register(username, password, nickname);
-      } catch (err) {
-        setErrMessage([error.FAIL_REGISTER[0]]);
-        setHasErr(true);
-        return;
-      }
-      // success
-      if (response.status === 204) {
-        setSuccessMessage([success.SUCCESS_REGISTER]);
-
-        setTimeout(() => {
-          setIsRegister(false);
-          setIsLogin(true);
-        }, 1800);
-        return;
-      };
-
-      const data = await response.json();
-      // error status
-      switch (data.errno) {
-        case 'ERR_USER_EXIST':
-          setErrMessage([error.FAIL_REGISTER[409]]);
-          setHasErr(true);
-          break;
-
-        default:
-          setErrMessage([error.FAIL_REGISTER[0]]);
-          setHasErr(true);
-      }
-    }
-
-    if (isClick.current) {
-      isClick.current = false;
-      fetchRegister();
-
+  useEffect(() => {
+    if (response && response.ok) {
       setTimeout(() => {
-        isClick.current = true;
-      }, 3000);
+        setIsRegister(false);
+        setIsLogin(true);
+      }, 1800);
     }
-  };
+  }, [response, setIsLogin, setIsRegister])
 
   return (
     <FunctionBlock>
+      {isLoading && <Loading />}
+      <h2>Register</h2>
       <InputWrapper>
         <Input
           type={'text'}
@@ -125,6 +75,11 @@ const Register = ({ setIsRegister, setIsLogin }) => {
       </ButtonWrapper>
     </FunctionBlock>
   )
-}
+};
+
+Register.propTypes = {
+  setIsRegister: PropTypes.bool,
+  setIsLogin: PropTypes.bool
+};
 
 export default Register;

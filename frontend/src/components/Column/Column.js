@@ -1,30 +1,8 @@
-import styled from 'styled-components';
-import { Button, Card } from 'antd';
+import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Droppable } from 'react-beautiful-dnd';
+import { Container, TicketList } from './ColumnStyle';
 import Ticket from '../Ticket/Ticket';
-
-const Container = styled(Card)`
-  width: 350px;
-  margin: 0 12px;
-  border-radius: 6px;
-  border-top-right-radius: 30px;
-  background: ${({ theme }) => theme.colors.light};
-  & button {
-    &:focus,&:hover {
-      color: ${({ theme }) => theme.colors.primary};
-      border-color: ${({ theme }) => theme.colors.primary};
-    }
-  }
-`;
-
-const TicketList = styled.div`
-  flex-grow: 1;
-  min-height: 500px;
-  background: ${props => props.isDraggingOver ?
-    `#fbfaf8` :
-    `inherit`};
-`;
 
 const Column = ({
   id,
