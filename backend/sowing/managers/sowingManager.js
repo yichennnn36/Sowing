@@ -10,7 +10,8 @@ async function createTicket({
   location,
   status,
   category,
-  date,
+  startDate,
+  endDate,
 }) {
   logging.debug(`${MANAGER_NAME}.createTicket`, {
     memberId,
@@ -19,7 +20,8 @@ async function createTicket({
     location,
     status,
     category,
-    date,
+    startDate,
+    endDate,
   });
 
   await sowingModel.createTicket({
@@ -29,7 +31,8 @@ async function createTicket({
     location,
     status,
     category,
-    date,
+    startDate,
+    endDate,
   });
 }
 

@@ -29,7 +29,8 @@ const CREATE_TICKET = {
     location: EVENT_LOCATION.required(),
     status: TICKET_STATUS,
     category: TICKET_CATEGORY.required(),
-    date: dataValidation.Schema.ISO_DATE.required(),
+    start_date: dataValidation.Schema.ISO_DATE.required(),
+    end_date: dataValidation.Schema.ISO_DATE.required(),
   }),
 };
 

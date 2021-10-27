@@ -12,7 +12,8 @@ async function createTicket({
   location,
   status = TicketStatus.SOWING,
   category,
-  date,
+  startDate,
+  endDate,
 }) {
   logging.debug(`${MODEL_NAME}.createTicket`, {
     memberId,
@@ -21,7 +22,8 @@ async function createTicket({
     location,
     status,
     category,
-    date,
+    startDate,
+    endDate,
   });
 
   const { affectedRows = 0 } = await mysqlConnector.query(SQL`
@@ -32,7 +34,8 @@ async function createTicket({
       location,
       status,
       category,
-      date
+      start_date,
+      end_date
     ) VALUES (
       ${memberId},
       ${title},
@@ -40,7 +43,8 @@ async function createTicket({
       ${location},
       ${status},
       ${category},
-      ${date}
+      ${startDate},
+      ${endDate}
     )
   `);
 

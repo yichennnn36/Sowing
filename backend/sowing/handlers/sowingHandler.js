@@ -16,7 +16,8 @@ async function createTicket(req, res) {
       location,
       status,
       category,
-      date,
+      start_date: startDate,
+      end_date: endDate,
     } = req.body;
 
     await sowingManager.createTicket({
@@ -26,7 +27,8 @@ async function createTicket(req, res) {
       location,
       status,
       category,
-      date,
+      startDate,
+      endDate,
     });
 
     res.status(requestHandling.HttpStatus.NO_CONTENT);
