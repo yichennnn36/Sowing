@@ -8,7 +8,7 @@ import Footer from './components/Footer/Footer';
 const App = () => {
   return (
     <Root>
-      <Router>
+      <Router basename="/Sowing">
         <GlobalStyle />
         <Switch>
           <Route exact path="/" component={IntroPage} />
