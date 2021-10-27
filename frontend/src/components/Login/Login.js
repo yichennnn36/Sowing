@@ -58,7 +58,7 @@ const Login = ({ setIsLogin }) => {
 };
 
 Login.propTypes = {
-  setIsLogin: PropTypes.bool
+  setIsLogin: PropTypes.func
 };
 
 export default Login;

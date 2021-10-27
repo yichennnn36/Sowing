@@ -78,8 +78,8 @@ const Register = ({ setIsRegister, setIsLogin }) => {
 };
 
 Register.propTypes = {
-  setIsRegister: PropTypes.bool,
-  setIsLogin: PropTypes.bool
+  setIsRegister: PropTypes.func,
+  setIsLogin: PropTypes.func
 };
 
 export default Register;

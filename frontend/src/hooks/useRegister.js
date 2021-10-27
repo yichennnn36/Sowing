@@ -26,6 +26,7 @@ const useRegister = () => {
   };
 
   const handleRegister = () => {
+    setErrMessage([]);
     const { nickname, username, password } = inputValue;
 
     if (!nickname || !username || !password) {
