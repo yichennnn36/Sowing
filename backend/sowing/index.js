@@ -18,3 +18,6 @@ export const doCreateTicket = requestHandling.createAuthAPIGatewayEventHandler(
   dataValidation.Schema.CREATE_TICKET,
   sowingHandler.createTicket,
 );
+export const doGetTickets = requestHandling.createAuthAPIGatewayEventHandler(
+  sowingHandler.getTickets,
+);

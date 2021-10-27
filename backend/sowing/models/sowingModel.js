@@ -55,8 +55,30 @@ async function createTicket({
   }
 }
 
+async function getTickets({ memberId }) {
+  logging.debug(`${MODEL_NAME}.getTickets`, { memberId });
+
+  const tickets = await mysqlConnector.query(SQL`
+    SELECT
+      ticket_id
+      title,
+      content,
+      location,
+      status,
+      category,
+      start_date,
+      end_date
+    FROM event_ticket
+    WHERE member_id = ${memberId}
+    ORDER BY ticket_id
+  `);
+
+  return tickets || [];
+}
+
 const sowingModel = {
   createTicket,
+  getTickets,
 };
 
 export default sowingModel;

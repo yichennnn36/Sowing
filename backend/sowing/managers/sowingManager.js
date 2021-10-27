@@ -36,8 +36,15 @@ async function createTicket({
   });
 }
 
+async function getTickets({ memberId }) {
+  logging.debug(`${MANAGER_NAME}.getTickets`, { memberId });
+
+  return sowingModel.getTickets({ memberId });
+}
+
 const sowingManager = {
   createTicket,
+  getTickets,
 };
 
 export default sowingManager;

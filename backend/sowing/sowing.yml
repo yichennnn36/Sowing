@@ -9,3 +9,12 @@ functions:
           path: /tickets
           method: post
           cors: true
+
+  doGetTickets:
+    handler: sowing/index.doGetTickets
+    description: function to get tickets
+    events:
+      - http:
+          path: /tickets
+          method: get
+          cors: true

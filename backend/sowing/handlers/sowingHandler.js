@@ -38,8 +38,24 @@ async function createTicket(req, res) {
   }
 }
 
+async function getTickets(req, res) {
+  try {
+    logging.debug(`${HANDLER_NAME}.getTickets`, req);
+
+    const { memberId } = req.user;
+
+    const tickets = await sowingManager.getTickets({ memberId });
+
+    res.status(requestHandling.HttpStatus.OK).json({ tickets });
+  } catch (err) {
+    const httpError = errorHandling.createHttpError(err);
+    res.status(httpError.status).json(httpError);
+  }
+}
+
 const sowingHandler = {
   createTicket,
+  getTickets,
 };
 
 export default sowingHandler;
