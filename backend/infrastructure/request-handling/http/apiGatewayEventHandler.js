@@ -36,7 +36,7 @@ async function parseAPIGatewayEvent({
   }
 
   if (auth) {
-    const { token } = headers ?? {};
+    const { Authorization: token } = headers ?? {};
     const { memberId } = await memberModel.getUserByToken({ token });
     if (!memberId) {
       const httpError = new errorHandling.ServiceError('Authorization error', 'ERR_NOT_AUTHORIZED');

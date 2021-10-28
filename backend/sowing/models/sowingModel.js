@@ -60,7 +60,7 @@ async function getTickets({ memberId }) {
 
   const tickets = await mysqlConnector.query(SQL`
     SELECT
-      ticket_id
+      ticket_id,
       title,
       content,
       location,
