@@ -1,21 +1,22 @@
 {
   "files": {
-    "main.js": "/Sowing/static/js/main.dbc26cb1.chunk.js",
-    "main.js.map": "/Sowing/static/js/main.dbc26cb1.chunk.js.map",
+    "main.js": "/Sowing/static/js/main.c955a63f.chunk.js",
+    "main.js.map": "/Sowing/static/js/main.c955a63f.chunk.js.map",
     "runtime-main.js": "/Sowing/static/js/runtime-main.573b9622.js",
     "runtime-main.js.map": "/Sowing/static/js/runtime-main.573b9622.js.map",
     "static/css/2.a95be28f.chunk.css": "/Sowing/static/css/2.a95be28f.chunk.css",
-    "static/js/2.458e6b2d.chunk.js": "/Sowing/static/js/2.458e6b2d.chunk.js",
-    "static/js/2.458e6b2d.chunk.js.map": "/Sowing/static/js/2.458e6b2d.chunk.js.map",
+    "static/js/2.73bc4a03.chunk.js": "/Sowing/static/js/2.73bc4a03.chunk.js",
+    "static/js/2.73bc4a03.chunk.js.map": "/Sowing/static/js/2.73bc4a03.chunk.js.map",
     "index.html": "/Sowing/index.html",
     "static/css/2.a95be28f.chunk.css.map": "/Sowing/static/css/2.a95be28f.chunk.css.map",
-    "static/js/2.458e6b2d.chunk.js.LICENSE.txt": "/Sowing/static/js/2.458e6b2d.chunk.js.LICENSE.txt",
-    "static/media/siteImage.65feb55f.png": "/Sowing/static/media/siteImage.65feb55f.png"
+    "static/js/2.73bc4a03.chunk.js.LICENSE.txt": "/Sowing/static/js/2.73bc4a03.chunk.js.LICENSE.txt",
+    "static/media/sowing-logo.caaec00a.svg": "/Sowing/static/media/sowing-logo.caaec00a.svg",
+    "static/media/sowing-siteImg.0b6f6fed.svg": "/Sowing/static/media/sowing-siteImg.0b6f6fed.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.573b9622.js",
     "static/css/2.a95be28f.chunk.css",
-    "static/js/2.458e6b2d.chunk.js",
-    "static/js/main.dbc26cb1.chunk.js"
+    "static/js/2.73bc4a03.chunk.js",
+    "static/js/main.c955a63f.chunk.js"
   ]
 }
