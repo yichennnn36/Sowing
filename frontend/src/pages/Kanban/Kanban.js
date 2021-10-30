@@ -37,7 +37,6 @@ const Kanban = () => {
 
   return (
     <>
-      {console.log('ticketsData', ticketsData)}
       {isLoadingTickets && <Loading $loadingKanban />}
       <Header />
       <KanbanWrapper>
