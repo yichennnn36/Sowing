@@ -6,10 +6,12 @@ import Menu from '../Menu/Menu';
 import { HeaderWrapper, SiteTitle, Nav, HeaderLeft, HeaderRight, MemberInfo, StyleButton } from './HeaderStyle';
 import { setAuthToken } from '../../utils';
 import { useHistory } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const history = useHistory();
+  const userdata = useSelector(store => store.user.userData);
 
   const handleToggleMenu = () => {
     setIsMenuOpen(isMenuOpen ? false : true);
@@ -30,7 +32,7 @@ const Header = () => {
       <HeaderRight>
         <MemberInfo>
           <Avatar size="small" icon={<UserOutlined />} />
-          <span>Yichen</span>
+          <span>{userdata.user}</span>
         </MemberInfo>
         <StyleButton onClick={handleLogout}>Log out</StyleButton>
       </HeaderRight>

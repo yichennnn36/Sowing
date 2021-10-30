@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { RightCircleOutlined } from '@ant-design/icons';
 import Login from '../../components/Login/Login';
 import Register from '../../components/Register/Register';
-import SiteImg from '../../image/siteImage.png';
-import 'antd/dist/antd.css';
 import {
   IntroPageWrapper,
   Main,
@@ -21,9 +19,7 @@ const IntroPage = () => {
   return (
     <IntroPageWrapper>
       <Main>
-        <SiteImage>
-          <img src={SiteImg} alt="site-pic" />
-        </SiteImage>
+        <SiteImage />
         {!isRegister && !isLogin && (
           <SiteDescription>
             <h1>Sowing</h1>

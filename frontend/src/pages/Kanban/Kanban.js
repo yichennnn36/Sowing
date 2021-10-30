@@ -1,43 +1,60 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from "react-router-dom";
+import { KanbanWrapper } from './KanbanStyle';
+import { getMe } from '../../redux/reducers/userReducer';
+import { getTicket, setInitalData } from '../../redux/reducers/ticketReducer';
+import { initialData } from '../../utils';
 import Section from '../../components/Section/Section';
 import TicketEditor from '../../components/TicketEditor/TicketEditor';
 import Header from '../../components/Header/Header';
-import { initialData } from '../../utils';
-import { KanbanWrapper } from './KanbanStyle';
+import Loading from '../../components/Loading/Loading';
 
 const Kanban = () => {
   const [isAddTicket, setIsAddTicket] = useState(false);
-  const [ticketsData, setTicketsData] = useState(initialData);
-  const [ticketStatus, setTicketStatus] = useState({
-    columnId: '',
-    status: ''
-  });
+  const [ticketStatus, setTicketStatus] = useState('');
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const isLoadingTickets = useSelector(store => store.ticket.isLoadingTickets);
+  const ticketsData = useSelector(store => store.ticket.ticketsData);
+  const errResponse = useSelector(store => store.ticket.getPostErrResponse);
 
-  const { tickets, columns, columnOrder } = ticketsData;
+  useEffect(() => {
+    dispatch(getMe());
+    dispatch(getTicket());
+
+    if (errResponse) {
+      alert(errResponse);
+      history.push('./');
+    }
+  }, [dispatch, history, errResponse]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setInitalData(initialData));
+    }
+  }, [dispatch])
 
   return (
     <>
+      {console.log('ticketsData', ticketsData)}
+      {isLoadingTickets && <Loading $loadingKanban />}
       <Header />
       <KanbanWrapper>
         <Section
-          tickets={tickets}
-          columns={columns}
-          columnOrder={columnOrder}
+          ticketsData={ticketsData}
           setIsAddTicket={setIsAddTicket}
           setTicketStatus={setTicketStatus}
-          ticketsData={ticketsData}
-          setTicketsData={setTicketsData}
         />
         {isAddTicket &&
           <TicketEditor
-            ticketsData={ticketsData}
-            setTicketsData={setTicketsData}
             setIsAddTicket={setIsAddTicket}
             ticketStatus={ticketStatus}
-          />}
+          />
+        }
       </KanbanWrapper>
     </>
   )
-}
+};
 
 export default Kanban;

@@ -1,8 +1,17 @@
-import React, { useState } from 'react';
-import { DatePicker, Radio, Input } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { DatePicker, Radio, Input, Select } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
+import { categoryColors, availableLocations, initialData } from '../../utils';
+import Loading from '../../components/Loading/Loading';
 import error from '../../constants/error';
-import { categoryColors, availableLocations } from '../../utils';
+import {
+  postTicket,
+  getTicket,
+  setNewPostResponse,
+  setNewPostErrMessage,
+  setInitalData
+} from '../../redux/reducers/ticketReducer';
 import {
   TicketEditorWrapper,
   Editor,
@@ -17,61 +26,84 @@ import {
 } from './TicketEditorStyle';
 
 const TicketEditor = ({
-  id,
-  ticketsData,
-  setTicketsData,
   setIsAddTicket,
   ticketStatus
 }) => {
-
   const [inputValue, setInputValue] = useState({
     title: '',
-    locations: '',
-    description: '',
-    startDate: '',
-    endDate: '',
+    location: '',
+    start_date: '',
+    end_date: '',
     category: 1,
+    status: ticketStatus
   });
-  const [errMessage, setErrMessage] = useState([]);
+  const dispatch = useDispatch();
+  const isLoading = useSelector(store => store.ticket.isLoadingPost);
+  const newPostResponse = useSelector(store => store.ticket.newPostResponse);
+  const newPostErrMessage = useSelector(store => store.ticket.newPostErrMessage);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
-    setInputValue({
+    setInputValue(inputValue => ({
       ...inputValue,
       [name]: value,
-    });
+    }));
+  };
+
+  const handleSelectChange = (value) => {
+    setInputValue(inputValue => ({
+      ...inputValue,
+      location: value,
+    }));
   };
 
   const handleDateChange = (value, dateString) => {
-    const [startDate, endDate] = dateString;
-
-    setInputValue({
+    const [start_date, end_date] = dateString;
+    setInputValue(inputValue => ({
       ...inputValue,
-      startDate,
-      endDate
-    });
+      start_date,
+      end_date
+    }));
   };
 
   const handleSave = () => {
+    dispatch(setNewPostErrMessage(null));
     const {
       title,
-      locations,
-      description,
-      startDate,
-      endDate,
-      category,
+      location,
+      start_date,
+      end_date,
     } = inputValue;
-
-    if (!title || !locations || !startDate || !endDate) {
-      setErrMessage([error.EMPTY_FILEDS.required]);
+    if (!title || !location || !start_date || !end_date) {
+      dispatch(setNewPostErrMessage(error.EMPTY_FILEDS.required));
+      return;
     }
-
-
+    dispatch(postTicket(inputValue));
   };
+
+  useEffect(() => {
+    if (newPostErrMessage) {
+      dispatch(setNewPostErrMessage(newPostErrMessage));
+      return;
+    }
+    if (newPostResponse) {
+      setIsAddTicket(false);
+      return;
+    }
+  }, [dispatch, newPostErrMessage, newPostResponse, setIsAddTicket]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setNewPostErrMessage(null));
+      dispatch(setNewPostResponse(null));
+      dispatch(setInitalData(initialData));
+      dispatch(getTicket());
+    }
+  }, [dispatch]);
 
   return (
     <TicketEditorWrapper>
+      {isLoading && <Loading />}
       <Editor>
         <ButtonClose
           onClick={() => setIsAddTicket(false)}
@@ -89,23 +121,25 @@ const TicketEditor = ({
         </InputBlock>
 
         <InputBlock>
-          <Label htmlFor="locations">* Location</Label>
-          <Input
-            id="locations"
-            list="location-list"
-            name="locations"
-            onChange={handleInputChange}
-          />
-          <datalist id="location-list">
-            {availableLocations.map((location, index) => <option key={index} value={location} />)}
-          </datalist>
+          <Label htmlFor="location">* Location</Label>
+          <Select
+            id="location"
+            placeholder="Choose one place"
+            onChange={handleSelectChange}
+          >
+            {availableLocations.map((location, index) => (
+              <Select.Option key={index} value={location}>
+                {location}
+              </Select.Option>
+            ))}
+          </Select>
         </InputBlock>
 
         <InputBlock>
-          <Label htmlFor="description">Description</Label>
+          <Label htmlFor="content">Content</Label>
           <Input.TextArea
-            id="description"
-            name="description"
+            id="content"
+            name="content"
             autoSize={{ minRows: 3, maxRows: 5 }}
             onChange={handleInputChange}
           />
@@ -133,9 +167,9 @@ const TicketEditor = ({
             }
           </Radio.Group>
         </InputRadioBlock>
-        {errMessage.length > 0 && <Alert>{errMessage[0]}</Alert>}
-        <ButtonSaveBlock>
-          <StyleButton onClick={handleSave}>Save</StyleButton>
+        {newPostErrMessage && <Alert>{newPostErrMessage}</Alert>}
+        <ButtonSaveBlock onClick={handleSave}>
+          <StyleButton>Save</StyleButton>
         </ButtonSaveBlock>
       </Editor>
     </TicketEditorWrapper>

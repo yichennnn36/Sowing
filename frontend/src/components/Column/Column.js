@@ -1,13 +1,12 @@
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Droppable } from 'react-beautiful-dnd';
-import { Container, TicketList } from './ColumnStyle';
+import { ColumnWrapper, TicketList } from './ColumnStyle';
 import Ticket from '../Ticket/Ticket';
 
 const Column = ({
   id,
   title,
-  columnStatus,
   ticketData,
   setIsAddTicket,
   setTicketStatus
@@ -15,16 +14,13 @@ const Column = ({
 
   const handleCilckAdd = () => {
     setIsAddTicket(true);
-    setTicketStatus({
-      columnId: id,
-      status: columnStatus
-    });
-  }
+    setTicketStatus(id);
+  };
 
   return (
     <Droppable droppableId={id} type="ticket">
       {(provided, snapshot) => (
-        <Container
+        <ColumnWrapper
           title={title}
         >
           <Button
@@ -47,14 +43,13 @@ const Column = ({
                       key={index}
                       index={index}
                       ticket={ticketContent}
-                      setIsAddTicket={setIsAddTicket}
                     />
                   )
                 })
             }
             {provided.placeholder}
           </TicketList>
-        </Container>
+        </ColumnWrapper>
       )}
     </Droppable>
   )

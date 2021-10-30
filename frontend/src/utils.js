@@ -12,27 +12,20 @@ export const categoryColors = [
 export const initialData = {
   tickets: [],
   columns: {
-    'column-1': {
-      id: 'column-1',
+    'sowing': {
       title: 'Sowing',
-      status: 'todo',
       ticketIds: []
     },
-    'column-2': {
-      id: 'column-2',
+    'watering': {
       title: 'Watering',
-      status: 'doing',
       ticketIds: []
     },
-    'column-3': {
-      id: 'column-3',
+    'sprouting': {
       title: 'Sprouting',
-      status: 'doing',
       ticketIds: []
     }
   },
-  columnOrder: ['column-1', 'column-2', 'column-3'],
-  isLoading: true
+  columnOrder: ['sowing', 'watering', 'sprouting']
 };
 
 export const availableLocations = [
@@ -69,13 +62,12 @@ export default function ScrollToTop() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
   return null;
 }
 
-const TOKEN_NAME = 'token';
-const USER_NAME = 'user';
-const EXPIRE_STAMP = 'expireStamp';
+export const TOKEN_NAME = 'token';
+export const USER_NAME = 'user';
+export const EXPIRE_STAMP = 'expireStamp';
 
 export const setAuthToken = (user, token, time) => {
   localStorage.setItem(USER_NAME, user);
@@ -83,6 +75,6 @@ export const setAuthToken = (user, token, time) => {
   localStorage.setItem(EXPIRE_STAMP, time);
 };
 
-export const getAuthToken = () => {
-  return localStorage.getItem(TOKEN_NAME);
+export const getAuthToken = (name) => {
+  return localStorage.getItem(name);
 };

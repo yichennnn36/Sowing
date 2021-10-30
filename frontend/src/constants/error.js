@@ -15,6 +15,10 @@ const errMessage = {
     400: 'Incorrect username or password, please try again！',
     401: 'Username is not exist！',
     0: 'Something wrong, Please try again！'
+  },
+  FAIL_POST: {
+    400: '* fileds is not allowed to be empty！',
+    0: 'Something wrong, Please try again！'
   }
 };
 
