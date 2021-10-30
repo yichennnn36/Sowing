@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { GlobalStyle, Root } from './constants/globalStyle';
+import 'antd/dist/antd.css';
 import IntroPage from './pages/IntroPage/IntroPage';
 import Kanban from './pages/Kanban/Kanban';
 import Footer from './components/Footer/Footer';

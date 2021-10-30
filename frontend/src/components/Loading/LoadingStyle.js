@@ -9,7 +9,7 @@ export const LoadingWrapper = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  background: ${theme.COLOR.shadow};
+  background: ${props => props.$loadingKanban ? `${theme.COLOR.white}` : `${theme.COLOR.shadow}`};
 `;
 
 export const LoadingIcon = styled(RedoOutlined)`

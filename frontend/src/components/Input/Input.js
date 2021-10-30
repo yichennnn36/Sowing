@@ -8,7 +8,6 @@ const Input = ({
   prefix,
   value,
   handleInputChange,
-  setHasErr,
   errorMessage
 }) => {
   const [isValid, setIsValid] = useState({
@@ -24,13 +23,13 @@ const Input = ({
     if (name === 'username' && value) {
       const usernameBoolean = usernameReg.test(value) ? true : false;
       setIsValid({ ...isValid, username: usernameBoolean });
-      usernameBoolean ? setHasErr(false) : setHasErr(true);
+      // usernameBoolean ? setHasErr(false) : setHasErr(true);
       return;
     }
     if (name === 'password' && value) {
       const passwordBoolean = passwordReg.test(value) ? true : false;
       setIsValid({ ...isValid, password: passwordBoolean });
-      passwordBoolean ? setHasErr(false) : setHasErr(true);
+      // passwordBoolean ? setHasErr(false) : setHasErr(true);
       return;
     }
   };

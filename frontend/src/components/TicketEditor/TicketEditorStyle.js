@@ -7,7 +7,8 @@ import { theme } from '../../constants/style';
 export const TicketEditorWrapper = styled.div`
   &::before {
     content: '';
-    position: absolute;
+    position: fixed;
+    z-index: 2;
     top: 0;
     right: 0;
     left: 0;
@@ -17,13 +18,14 @@ export const TicketEditorWrapper = styled.div`
 `;
 
 export const Editor = styled.div`
-  position: absolute;
-  top: 50%;
+  position: fixed;
+  z-index: 3;
+  top: 440px;
   left: 50%;
   transform: translate(-50%, -50%);
   animation: .5s ${keyframes`${fadeIn}`};
   width: 500px;
-  height: 82%;
+  height: 600px;
   padding: 50px 30px 40px;
   border: 2px solid ${theme.COLOR.secondary};
   border-radius: 6px;

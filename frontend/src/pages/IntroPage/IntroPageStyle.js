@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { DefaultButton } from '../../constants/globalStyle';
 import { MEDIA_QUERY, theme } from '../../constants/style';
+import { ReactComponent as SiteImg } from '../../image/sowing-siteImg.svg';
 
 export const IntroPageWrapper = styled.div``;
 
@@ -10,7 +11,7 @@ export const Main = styled.div`
   padding: 20px 20px 40px;
   text-align: center;
 
-  ${MEDIA_QUERY.md}{
+  ${MEDIA_QUERY.md} {
     height: 680px;
     display: flex;
     align-items: center;
@@ -22,20 +23,20 @@ export const Section = styled.div`
   background: ${theme.COLOR.white};
   height: 800px;
 
-  ${MEDIA_QUERY.md}{
+  ${MEDIA_QUERY.md} {
     height: 680px;
   }
 `;
 
-export const SiteImage = styled.div`
-  & img {
-    transform: scale(0.7);
-    margin: -50px auto 0;
+export const SiteImage = styled(SiteImg)`
+  width: 500px;
+  height: 500px;
+  margin: 50px 0;
 
-    ${MEDIA_QUERY.md}{
-      transform: scale(0.8);
-      margin-left: 60px;
-    }
+  ${MEDIA_QUERY.md} {
+    width: 560px;
+    height: 560px;
+    margin: 0 20px;
   }
 `;
 
@@ -43,7 +44,7 @@ export const SiteDescription = styled.div`
   width: 340px;
   margin: 0 auto;
 
-  ${MEDIA_QUERY.md}{
+  ${MEDIA_QUERY.md} {
     text-align: left;
   }
 
@@ -63,7 +64,7 @@ export const SiteDescription = styled.div`
     margin-top: -30px;
     color: ${theme.COLOR.tertiary}};
 
-    ${MEDIA_QUERY.md}{
+    ${MEDIA_QUERY.md} {
       margin-top: -50px;
     }
   }

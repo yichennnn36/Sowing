@@ -1,14 +1,19 @@
 import styled from 'styled-components';
 import { Card } from 'antd';
-import { theme } from '../../constants/style';
+import { theme, MEDIA_QUERY } from '../../constants/style';
 
-export const Container = styled(Card)`
-  min-width: 380px;
-  margin: 0 12px;
+export const ColumnWrapper = styled(Card)`
+  min-width: 360px;
+  max-width: 480px;
+  margin: 16px auto;
   border-radius: 6px;
-  border-top-right-radius: 30px;
   background: ${theme.COLOR.card};
 
+  ${MEDIA_QUERY.md} {
+    min-width: 380px;
+    flex: 1;
+    margin: 0 12px;
+  }
   & button {
     &:focus,&:hover {
       color: ${theme.COLOR.primary};

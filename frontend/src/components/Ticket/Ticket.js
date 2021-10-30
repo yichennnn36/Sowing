@@ -1,42 +1,52 @@
-import { Card, Avatar, Menu } from 'antd';
 import { Draggable } from 'react-beautiful-dnd';
 import { EditOutlined, DeleteOutlined, EnvironmentFilled, PushpinFilled } from '@ant-design/icons';
 import { categoryColors } from '../../utils';
-import { Container } from './TicketStyle';
+import { TicketWrapper, Subject, TicketTitle, FunctionBar, Info } from './TicketStyle';
 
-const Ticket = ({ ticket, index, setIsAddTicket }) => {
-  const color = categoryColors[ticket.category - 1].color;
+const Ticket = ({ ticket, index }) => {
+  const {
+    id,
+    title,
+    category,
+    start_date,
+    end_date,
+    location,
+    content
+  } = ticket;
+  const color = categoryColors[category - 1].color;
+  const ticketId = `ticket-${id}`;
 
   return (
-    <Draggable draggableId={ticket.id} index={index}>
+    <Draggable draggableId={ticketId} index={index}>
       {(provided, snapshot) => (
 
-        <Container
+        <TicketWrapper
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           isDragging={snapshot.isDragging}
+          key={ticketId}
         >
-
-          <Card
-            size="small"
-            title={ticket.title}
-            extra={[
-              <PushpinFilled style={{ color: `${color}` }} />,
-              <EditOutlined
-                key="edit"
-
-              />,
-              <DeleteOutlined
-                key="delete"
-
-              />
-            ]}
-          >
-            <p>{<EnvironmentFilled />} {ticket.locations}</p>
-            <p>{`${ticket.startDate} ～ ${ticket.endDate}`}</p>
-          </Card>
-        </Container>
+          <Subject>
+            <TicketTitle>
+              <PushpinFilled style={{ color: `${color}` }} />
+              <span>{title}</span>
+            </TicketTitle>
+            <FunctionBar>
+              <EditOutlined key="edit" />
+              <DeleteOutlined key="delete" />
+            </FunctionBar>
+          </Subject>
+          <Info>
+            {
+              start_date === end_date ?
+                (<span>{`${start_date.slice(0, 10)}`}</span>) :
+                (<span>{`${start_date.slice(0, 10)}～ ${end_date.slice(0, 10)}`}</span>)
+            }
+            <span>{<EnvironmentFilled />} {location}</span>
+            <p>{content}</p>
+          </Info>
+        </TicketWrapper>
       )}
     </Draggable>
   )

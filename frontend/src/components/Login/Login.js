@@ -12,8 +12,7 @@ const Login = ({ setIsLogin }) => {
     isLoading,
     inputValue,
     handleInputChange,
-    setHasErr,
-    errMessage,
+    errorMessage,
     handleLogin
   } = useLogin();
 
@@ -25,25 +24,23 @@ const Login = ({ setIsLogin }) => {
         <Input
           type={'text'}
           name={'username'}
-          placeholder="Username (6-12碼英數字)"
+          placeholder="Username (6-12碼英文或數字)"
           prefix={<UserOutlined />}
           value={inputValue.username}
           handleInputChange={handleInputChange}
-          setHasErr={setHasErr}
           errorMessage={error.INVALID_PARAMS.username}
         />
         <Input
           type={'password'}
           name={'password'}
-          placeholder="Password (6-12碼英數字)"
+          placeholder="Password (6-12碼英文及數字)"
           prefix={<EyeInvisibleOutlined />}
           value={inputValue.password}
           handleInputChange={handleInputChange}
-          setHasErr={setHasErr}
           errorMessage={error.INVALID_PARAMS.password}
         />
       </InputWrapper>
-      {errMessage.length > 0 && <Alert>{errMessage[0]}</Alert>}
+      {errorMessage && <Alert>{errorMessage}</Alert>}
       <ButtonWrapper>
         <StyleButton onClick={() => setIsLogin(false)}>
           <span>{<LeftOutlined />}</span>

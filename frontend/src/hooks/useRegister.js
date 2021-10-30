@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { register, setRegisterResponse } from '../redux/reducers/userReducer';
+import { register, setRegisterResponse, setErrorMessage, setSuccessMessage } from '../redux/reducers/userReducer';
 import error from '../constants/error';
-import success from '../constants/success';
 
 const useRegister = () => {
   const [inputValue, setInputValue] = useState({
@@ -10,12 +9,11 @@ const useRegister = () => {
     username: '',
     password: ''
   });
-  const [successMessage, setSuccessMessage] = useState([]);
-  const [errMessage, setErrMessage] = useState([]);
-  const [hasErr, setHasErr] = useState(false);
   const dispatch = useDispatch();
   const isLoading = useSelector(store => store.user.isLoadingRegister);
   const response = useSelector(store => store.user.registerResponse);
+  const successMessage = useSelector(store => store.user.successMessage);
+  const errorMessage = useSelector(store => store.user.errorMessage);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -26,44 +24,29 @@ const useRegister = () => {
   };
 
   const handleRegister = () => {
-    setErrMessage([]);
+    dispatch(setErrorMessage(null));
     const { nickname, username, password } = inputValue;
-
     if (!nickname || !username || !password) {
-      setErrMessage([error.EMPTY_FILEDS.all]);
-      setHasErr(true);
+      dispatch(setErrorMessage(error.EMPTY_FILEDS.all));
       return;
     }
-
-    if (hasErr) return;
-
     dispatch(register(username, password, nickname));
   };
 
   useEffect(() => {
-    // success
-    if (response) {
-      if (response.ok) {
-        setSuccessMessage([success.SUCCESS_REGISTER]);
-      } else {
-        // error status
-        switch (response.errno) {
-          case 'ERR_USER_EXIST':
-            setErrMessage([error.FAIL_REGISTER[409]]);
-            setHasErr(true);
-            break;
-
-          default:
-            setErrMessage([error.FAIL_REGISTER[0]]);
-            setHasErr(true);
-        }
-      }
+    if (successMessage) {
+      return dispatch(setSuccessMessage(successMessage));
     }
-  }, [response]);
+    if (errorMessage) {
+      return dispatch(setErrorMessage(errorMessage));
+    }
+  }, [dispatch, successMessage, errorMessage]);
 
   useEffect(() => {
     return () => {
       dispatch(setRegisterResponse(null));
+      dispatch(setErrorMessage(null));
+      dispatch(setSuccessMessage(null));
     }
   }, [dispatch]);
 
@@ -72,11 +55,10 @@ const useRegister = () => {
     isLoading,
     inputValue,
     handleInputChange,
-    setHasErr,
-    errMessage,
+    errorMessage,
     successMessage,
     handleRegister
   }
-}
+};
 
 export default useRegister;

@@ -13,20 +13,19 @@ const Register = ({ setIsRegister, setIsLogin }) => {
     isLoading,
     inputValue,
     handleInputChange,
-    setHasErr,
-    errMessage,
     successMessage,
+    errorMessage,
     handleRegister
   } = useRegister();
 
   useEffect(() => {
-    if (response && response.ok) {
+    if (response && successMessage) {
       setTimeout(() => {
         setIsRegister(false);
         setIsLogin(true);
-      }, 1800);
+      }, 1500);
     }
-  }, [response, setIsLogin, setIsRegister])
+  }, [response, successMessage, setIsLogin, setIsRegister]);
 
   return (
     <FunctionBlock>
@@ -44,26 +43,24 @@ const Register = ({ setIsRegister, setIsLogin }) => {
         <Input
           type={'text'}
           name={'username'}
-          placeholder="Username (6-12碼英數字)"
+          placeholder="Username (6-12碼英文或數字)"
           prefix={<UserOutlined />}
           value={inputValue.username}
           handleInputChange={handleInputChange}
-          setHasErr={setHasErr}
           errorMessage={error.INVALID_PARAMS.username}
         />
         <Input
           type={'password'}
           name={'password'}
-          placeholder="Password (6-12碼英數字)"
+          placeholder="Password (6-12碼英文及數字)"
           prefix={<EyeInvisibleOutlined />}
           value={inputValue.password}
           handleInputChange={handleInputChange}
-          setHasErr={setHasErr}
           errorMessage={error.INVALID_PARAMS.password}
         />
       </InputWrapper>
-      {errMessage.length > 0 && <Alert>{errMessage[0]}</Alert>}
-      {successMessage.length > 0 && <Success>{successMessage[0]}</Success>}
+      {errorMessage && <Alert>{errorMessage}</Alert>}
+      {successMessage && <Success>{successMessage}</Success>}
       <ButtonWrapper>
         <StyleButton onClick={() => setIsRegister(false)}>
           <span>{<LeftOutlined />}</span>

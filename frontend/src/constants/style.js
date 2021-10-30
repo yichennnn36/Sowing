@@ -20,6 +20,7 @@ export const theme = {
     fs4: "24px",
     fs5: "18px",
     fs6: "16px",
+    fs7: "12px",
   },
   FONT: {
     title: "'Fredoka One', cursive",
