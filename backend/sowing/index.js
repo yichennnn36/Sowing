@@ -21,3 +21,7 @@ export const doCreateTicket = requestHandling.createAuthAPIGatewayEventHandler(
 export const doGetTickets = requestHandling.createAuthAPIGatewayEventHandler(
   sowingHandler.getTickets,
 );
+export const doUpdateTicketStatus = requestHandling.createAuthAPIGatewayEventHandler(
+  dataValidation.Schema.UPDATE_TICKET_STATUS,
+  sowingHandler.updateTicketStatus,
+);

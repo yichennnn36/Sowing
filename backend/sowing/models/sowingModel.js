@@ -76,9 +76,44 @@ async function getTickets({ memberId }) {
   return tickets || [];
 }
 
+async function updateTicketStatus({
+  memberId,
+  ticketId,
+  currentStatus,
+  newStatus,
+}) {
+  logging.debug(`${MODEL_NAME}.updateTicketStatus`, {
+    memberId,
+    ticketId,
+    currentStatus,
+    newStatus,
+  });
+
+  const { affectedRows = 0 } = await mysqlConnector.query(SQL`
+    UPDATE event_ticket
+    SET status = ${newStatus}
+    WHERE (
+      ticket_id,
+      member_id,
+      status
+    ) = (
+      ${ticketId},
+      ${memberId},
+      ${currentStatus}
+    )
+  `);
+
+  if (affectedRows <= 0) {
+    throw new errorHandling.SowingError({
+      errno: errorHandling.errno.ERR_TICKET_NOT_UPDATED,
+    });
+  }
+}
+
 const sowingModel = {
   createTicket,
   getTickets,
+  updateTicketStatus,
 };
 
 export default sowingModel;

@@ -42,9 +42,33 @@ async function getTickets({ memberId }) {
   return sowingModel.getTickets({ memberId });
 }
 
+async function updateTicketStatus({
+  memberId,
+  ticketId,
+  currentStatus,
+  newStatus,
+}) {
+  logging.debug(`${MANAGER_NAME}.updateTicketStatus`, {
+    memberId,
+    ticketId,
+    currentStatus,
+    newStatus,
+  });
+
+  if (currentStatus === newStatus) return;
+
+  await sowingModel.updateTicketStatus({
+    memberId,
+    ticketId,
+    currentStatus,
+    newStatus,
+  });
+}
+
 const sowingManager = {
   createTicket,
   getTickets,
+  updateTicketStatus,
 };
 
 export default sowingManager;

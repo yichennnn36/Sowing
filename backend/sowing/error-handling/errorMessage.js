@@ -6,6 +6,7 @@ const errorMessage = Object.freeze({
   ERR_USER_NOT_UPDATED: 'User not updated',
   ERR_USER_LOGIN_FAILED: 'User login failed',
   ERR_TICKET_NOT_CREATED: 'Ticket not created',
+  ERR_TICKET_NOT_UPDATED: 'Ticket not updated',
 });
 
 export default errorMessage;

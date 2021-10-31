@@ -2,6 +2,7 @@ import Joi from 'joi';
 import { dataValidation } from '../../infrastructure';
 
 const NICKNAME = Joi.string();
+const TICKET_ID = Joi.number().positive();
 const TICKET_TITLE = Joi.string();
 const TICKET_CONTENT = Joi.string();
 const TICKET_CATEGORY = Joi.number();
@@ -34,8 +35,19 @@ const CREATE_TICKET = {
   }),
 };
 
+const UPDATE_TICKET_STATUS = {
+  params: dataValidation.makeValidationSchema({
+    ticket_id: TICKET_ID.required(),
+  }),
+  body: dataValidation.makeValidationSchema({
+    current_status: TICKET_STATUS.required(),
+    new_status: TICKET_STATUS.required(),
+  }),
+};
+
 export {
   SIGN_UP,
   LOGIN,
   CREATE_TICKET,
+  UPDATE_TICKET_STATUS,
 };

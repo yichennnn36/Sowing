@@ -53,9 +53,35 @@ async function getTickets(req, res) {
   }
 }
 
+async function updateTicketStatus(req, res) {
+  try {
+    logging.debug(`${HANDLER_NAME}.updateTicketStatus`, req);
+
+    const { memberId } = req.user;
+    const { ticket_id: ticketId } = req.params;
+    const {
+      current_status: currentStatus,
+      new_status: newStatus,
+    } = req.body;
+
+    await sowingManager.updateTicketStatus({
+      memberId,
+      ticketId,
+      currentStatus,
+      newStatus,
+    });
+
+    res.status(requestHandling.HttpStatus.NO_CONTENT);
+  } catch (err) {
+    const httpError = errorHandling.createHttpError(err);
+    res.status(httpError.status).json(httpError);
+  }
+}
+
 const sowingHandler = {
   createTicket,
   getTickets,
+  updateTicketStatus,
 };
 
 export default sowingHandler;

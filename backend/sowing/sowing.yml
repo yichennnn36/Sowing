@@ -18,3 +18,12 @@ functions:
           path: /tickets
           method: get
           cors: true
+
+  doUpdateTicketStatus:
+    handler: sowing/index.doUpdateTicketStatus
+    description: function to update ticket's status
+    events:
+      - http:
+          path: /tickets/{ticket_id}/status
+          method: put
+          cors: true
