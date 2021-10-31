@@ -27,3 +27,12 @@ functions:
           path: /tickets/{ticket_id}/status
           method: put
           cors: true
+
+  doDeleteTicket:
+    handler: sowing/index.doDeleteTicket
+    description: function to delete ticket
+    events:
+      - http:
+          path: /tickets/{ticket_id}
+          method: delete
+          cors: true

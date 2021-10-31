@@ -110,10 +110,32 @@ async function updateTicketStatus({
   }
 }
 
+async function deleteTicket({ memberId, ticketId }) {
+  logging.debug(`${MODEL_NAME}.deleteTicket`, { memberId, ticketId });
+
+  const { affectedRows = 0 } = await mysqlConnector.query(SQL`
+    DELETE FROM event_ticket
+    WHERE (
+      ticket_id,
+      member_id
+    ) = (
+      ${ticketId},
+      ${memberId}
+    )
+  `);
+
+  if (affectedRows <= 0) {
+    throw new errorHandling.SowingError({
+      errno: errorHandling.errno.ERR_TICKET_NOT_DELETED,
+    });
+  }
+}
+
 const sowingModel = {
   createTicket,
   getTickets,
   updateTicketStatus,
+  deleteTicket,
 };
 
 export default sowingModel;

@@ -34,7 +34,6 @@ const CREATE_TICKET = {
     end_date: dataValidation.Schema.ISO_DATE.required(),
   }),
 };
-
 const UPDATE_TICKET_STATUS = {
   params: dataValidation.makeValidationSchema({
     ticket_id: TICKET_ID.required(),
@@ -44,10 +43,16 @@ const UPDATE_TICKET_STATUS = {
     new_status: TICKET_STATUS.required(),
   }),
 };
+const DELETE_TICKET = {
+  params: dataValidation.makeValidationSchema({
+    ticket_id: TICKET_ID.required(),
+  }),
+};
 
 export {
   SIGN_UP,
   LOGIN,
   CREATE_TICKET,
   UPDATE_TICKET_STATUS,
+  DELETE_TICKET,
 };

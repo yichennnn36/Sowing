@@ -25,3 +25,7 @@ export const doUpdateTicketStatus = requestHandling.createAuthAPIGatewayEventHan
   dataValidation.Schema.UPDATE_TICKET_STATUS,
   sowingHandler.updateTicketStatus,
 );
+export const doDeleteTicket = requestHandling.createAuthAPIGatewayEventHandler(
+  dataValidation.Schema.DELETE_TICKET,
+  sowingHandler.deleteTicket,
+);

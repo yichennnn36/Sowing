@@ -65,10 +65,17 @@ async function updateTicketStatus({
   });
 }
 
+async function deleteTicket({ memberId, ticketId }) {
+  logging.debug(`${MANAGER_NAME}.deleteTicket`, { memberId, ticketId });
+
+  await sowingModel.deleteTicket({ memberId, ticketId });
+}
+
 const sowingManager = {
   createTicket,
   getTickets,
   updateTicketStatus,
+  deleteTicket,
 };
 
 export default sowingManager;
