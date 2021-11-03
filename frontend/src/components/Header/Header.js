@@ -25,8 +25,9 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <HeaderLeft>
-        <Nav $active as={Link} to="/tasks">All Tasks</Nav>
-        <Nav as={Link} to="/timeLine">Time line</Nav>
+        <Nav $active as={Link} to="/board">My Board</Nav>
+        <Nav as={Link} to="/timeLine">Timeline</Nav>
+        <Nav as={Link} to="/map">My Map</Nav>
       </HeaderLeft>
       <SiteTitle>Sowing</SiteTitle>
       <HeaderRight>
@@ -38,7 +39,6 @@ const Header = () => {
       </HeaderRight>
       <Menu
         isMenuOpen={isMenuOpen}
-        setIsMenuOpen={setIsMenuOpen}
         handleLogout={handleLogout}
         handleToggleMenu={handleToggleMenu}
       />

@@ -19,6 +19,12 @@ export const SiteTitle = styled.div`
   font-family: ${theme.FONT.title};
   font-size: ${theme.FONT_SIZE.fs1};
   color: ${theme.COLOR.primary}};
+
+  ${MEDIA_QUERY.md} {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+  }
 `;
 
 export const HeaderLeft = styled.div`

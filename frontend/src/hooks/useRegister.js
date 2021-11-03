@@ -1,19 +1,33 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { register, setRegisterResponse, setErrorMessage, setSuccessMessage } from '../redux/reducers/userReducer';
+import {
+  selectResponse,
+  selectStatus,
+  selectError,
+  selectSuccess,
+  registerAsync,
+  setErrorMessage,
+  setSuccessMessage,
+  setResponse
+} from '../redux/reducers/userReducer';
 import error from '../constants/error';
+import success from '../constants/success';
 
 const useRegister = () => {
+  const dispatch = useDispatch();
+  const status = useSelector(selectStatus);
+  const response = useSelector(selectResponse);
+  const successMessage = useSelector(selectSuccess);
+  const errorMessage = useSelector(selectError);
   const [inputValue, setInputValue] = useState({
     nickname: '',
     username: '',
     password: ''
   });
-  const dispatch = useDispatch();
-  const isLoading = useSelector(store => store.user.isLoadingRegister);
-  const response = useSelector(store => store.user.registerResponse);
-  const successMessage = useSelector(store => store.user.successMessage);
-  const errorMessage = useSelector(store => store.user.errorMessage);
+  const [isValid, setIsValid] = useState({
+    username: true,
+    password: true
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,21 +44,34 @@ const useRegister = () => {
       dispatch(setErrorMessage(error.EMPTY_FILEDS.all));
       return;
     }
-    dispatch(register(username, password, nickname));
+    dispatch(registerAsync(inputValue));
   };
 
   useEffect(() => {
-    if (successMessage) {
-      return dispatch(setSuccessMessage(successMessage));
-    }
     if (errorMessage) {
       return dispatch(setErrorMessage(errorMessage));
     }
-  }, [dispatch, successMessage, errorMessage]);
+    if (response) {
+      if (response.errno) {
+        switch (response.errno) {
+          case 'ERR_USER_EXIST':
+            dispatch(setErrorMessage(error.FAIL_REGISTER[409]));
+            break;
+          case 'ERR_INVALID_PARAMS':
+            dispatch(setErrorMessage(error.FAIL_REGISTER[400]));
+            break;
+          default:
+            dispatch(setErrorMessage(error.FAIL_REGISTER[0]));
+            break;
+        }
+      }
+      dispatch(setSuccessMessage(success.SUCCESS_REGISTER));
+    }
+  }, [dispatch, response, successMessage, errorMessage]);
 
   useEffect(() => {
     return () => {
-      dispatch(setRegisterResponse(null));
+      dispatch(setResponse(null));
       dispatch(setErrorMessage(null));
       dispatch(setSuccessMessage(null));
     }
@@ -52,12 +79,14 @@ const useRegister = () => {
 
   return {
     response,
-    isLoading,
+    status,
     inputValue,
     handleInputChange,
-    errorMessage,
     successMessage,
-    handleRegister
+    errorMessage,
+    handleRegister,
+    isValid,
+    setIsValid
   }
 };
 

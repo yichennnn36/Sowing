@@ -8,7 +8,8 @@ const SectionWrapper = styled(Layout.Content)`
 
   ${MEDIA_QUERY.md} {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    overflow-x: scroll;
   }
 `;
 

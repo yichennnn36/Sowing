@@ -4,6 +4,7 @@ import { MEDIA_QUERY, theme } from '../../constants/style';
 
 export const MenuWrapper = styled.div`
   position: relative;
+  background: ${theme.COLOR.light};
 
   ${MEDIA_QUERY.md} {
     display: none;

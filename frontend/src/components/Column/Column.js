@@ -1,16 +1,23 @@
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Droppable } from 'react-beautiful-dnd';
 import { ColumnWrapper, TicketList } from './ColumnStyle';
 import Ticket from '../Ticket/Ticket';
+import { selectTickets } from '../../redux/reducers/ticketReducer';
 
 const Column = ({
   id,
   title,
-  ticketData,
   setIsAddTicket,
   setTicketStatus
 }) => {
+  let neededTickets = [];
+  const tickets = useSelector(selectTickets);
+  if (tickets.length > 0) {
+    neededTickets = tickets.filter(ticket => ticket.status === id);
+  }
 
   const handleCilckAdd = () => {
     setIsAddTicket(true);
@@ -18,11 +25,9 @@ const Column = ({
   };
 
   return (
-    <Droppable droppableId={id} type="ticket">
+    <Droppable droppableId={id}>
       {(provided, snapshot) => (
-        <ColumnWrapper
-          title={title}
-        >
+        <ColumnWrapper title={title}>
           <Button
             type="dashed" icon={<PlusOutlined />}
             onClick={handleCilckAdd}
@@ -33,16 +38,14 @@ const Column = ({
             isDraggingOver={snapshot.isDraggingOver}
           >
             {
-              ticketData.length > 0 &&
-              ticketData
+              neededTickets.length > 0 &&
+              neededTickets
                 .map((ticket, index) => {
-                  const [ticketContent] = [...ticket];
-
                   return (
                     <Ticket
                       key={index}
                       index={index}
-                      ticket={ticketContent}
+                      ticket={ticket}
                     />
                   )
                 })
@@ -53,6 +56,13 @@ const Column = ({
       )}
     </Droppable>
   )
+};
+
+Column.propTypes = {
+  id: PropTypes.string,
+  title: PropTypes.string,
+  setIsAddTicket: PropTypes.func,
+  setTicketStatus: PropTypes.func
 };
 
 export default Column;

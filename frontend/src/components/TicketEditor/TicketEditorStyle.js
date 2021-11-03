@@ -20,7 +20,7 @@ export const TicketEditorWrapper = styled.div`
 export const Editor = styled.div`
   position: fixed;
   z-index: 3;
-  top: 440px;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   animation: .5s ${keyframes`${fadeIn}`};

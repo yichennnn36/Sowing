@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { DatePicker, Radio, Input, Select } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
-import { categoryColors, availableLocations, initialData } from '../../utils';
-import Loading from '../../components/Loading/Loading';
+import { categoryColors, availableLocations } from '../../utils';
 import error from '../../constants/error';
 import {
-  postTicket,
-  getTicket,
-  setNewPostResponse,
-  setNewPostErrMessage,
-  setInitalData
+  postTicketAsync,
+  setPostTicketError
 } from '../../redux/reducers/ticketReducer';
 import {
   TicketEditorWrapper,
@@ -37,10 +34,8 @@ const TicketEditor = ({
     category: 1,
     status: ticketStatus
   });
+  const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
-  const isLoading = useSelector(store => store.ticket.isLoadingPost);
-  const newPostResponse = useSelector(store => store.ticket.newPostResponse);
-  const newPostErrMessage = useSelector(store => store.ticket.newPostErrMessage);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -67,7 +62,8 @@ const TicketEditor = ({
   };
 
   const handleSave = () => {
-    dispatch(setNewPostErrMessage(null));
+    setErrorMessage(null);
+    dispatch(setPostTicketError(null));
     const {
       title,
       location,
@@ -75,35 +71,15 @@ const TicketEditor = ({
       end_date,
     } = inputValue;
     if (!title || !location || !start_date || !end_date) {
-      dispatch(setNewPostErrMessage(error.EMPTY_FILEDS.required));
+      setErrorMessage(error.EMPTY_FILEDS.required);
       return;
     }
-    dispatch(postTicket(inputValue));
+    dispatch(postTicketAsync(inputValue));
+    setIsAddTicket(false);
   };
-
-  useEffect(() => {
-    if (newPostErrMessage) {
-      dispatch(setNewPostErrMessage(newPostErrMessage));
-      return;
-    }
-    if (newPostResponse) {
-      setIsAddTicket(false);
-      return;
-    }
-  }, [dispatch, newPostErrMessage, newPostResponse, setIsAddTicket]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(setNewPostErrMessage(null));
-      dispatch(setNewPostResponse(null));
-      dispatch(setInitalData(initialData));
-      dispatch(getTicket());
-    }
-  }, [dispatch]);
 
   return (
     <TicketEditorWrapper>
-      {isLoading && <Loading />}
       <Editor>
         <ButtonClose
           onClick={() => setIsAddTicket(false)}
@@ -167,13 +143,18 @@ const TicketEditor = ({
             }
           </Radio.Group>
         </InputRadioBlock>
-        {newPostErrMessage && <Alert>{newPostErrMessage}</Alert>}
+        {errorMessage && <Alert>{errorMessage}</Alert>}
         <ButtonSaveBlock onClick={handleSave}>
           <StyleButton>Save</StyleButton>
         </ButtonSaveBlock>
       </Editor>
     </TicketEditorWrapper>
   )
-}
+};
+
+TicketEditor.propTypes = {
+  setIsAddTicket: PropTypes.func,
+  ticketStatus: PropTypes.string
+};
 
 export default TicketEditor;

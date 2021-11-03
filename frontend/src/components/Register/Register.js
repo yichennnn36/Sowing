@@ -10,12 +10,14 @@ import useRegister from '../../hooks/useRegister';
 const Register = ({ setIsRegister, setIsLogin }) => {
   const {
     response,
-    isLoading,
+    status,
     inputValue,
     handleInputChange,
     successMessage,
     errorMessage,
-    handleRegister
+    handleRegister,
+    isValid,
+    setIsValid
   } = useRegister();
 
   useEffect(() => {
@@ -29,7 +31,7 @@ const Register = ({ setIsRegister, setIsLogin }) => {
 
   return (
     <FunctionBlock>
-      {isLoading && <Loading />}
+      {status === 'loading' && <Loading />}
       <h2>Register</h2>
       <InputWrapper>
         <Input
@@ -48,6 +50,8 @@ const Register = ({ setIsRegister, setIsLogin }) => {
           value={inputValue.username}
           handleInputChange={handleInputChange}
           errorMessage={error.INVALID_PARAMS.username}
+          isValid={isValid}
+          setIsValid={setIsValid}
         />
         <Input
           type={'password'}
@@ -57,6 +61,8 @@ const Register = ({ setIsRegister, setIsLogin }) => {
           value={inputValue.password}
           handleInputChange={handleInputChange}
           errorMessage={error.INVALID_PARAMS.password}
+          isValid={isValid}
+          setIsValid={setIsValid}
         />
       </InputWrapper>
       {errorMessage && <Alert>{errorMessage}</Alert>}

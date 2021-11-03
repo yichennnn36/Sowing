@@ -1,91 +1,102 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { fetchAllTicket, fetchPostTicket } from '../../api';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { fetchAllTicket, fetchPostTicket, fetchDeleteTicket } from '../../api';
 import { initialData } from '../../utils';
-import error from '../../constants/error';
+
+export const getTicketsAsync = createAsyncThunk(
+  'ticket/getTickets',
+  async () => {
+    const response = await fetchAllTicket();
+    return response;
+  }
+);
+
+export const postTicketAsync = createAsyncThunk(
+  'ticket/postTicket',
+  async (userData) => {
+    const response = await fetchPostTicket(userData);
+    return response;
+
+  }
+);
+
+export const deleteTicketAsync = createAsyncThunk(
+  'ticket/deleteTicket',
+  async (id) => {
+    const response = await fetchDeleteTicket(id);
+    return response;
+  }
+);
 
 export const ticketReducer = createSlice({
-  name: 'tickets',
+  name: 'ticket',
   initialState: {
-    isLoadingTickets: false,
+    status: 'idle',
     ticketsData: initialData,
-    getPostErrResponse: null,
-    isLoadingPost: false,
-    newPostResponse: null,
-    newPostErrMessage: null
+    getTicketsError: null,
+    deleteError: null,
+    postTicketError: null
   },
   reducers: {
-    setIsLoadingTicket: (state, action) => {
-      state.isLoadingTickets = action.payload;
-    },
     setInitalData: (state, action) => {
       state.ticketsData = action.payload;
     },
-    setTicketsData: (state, action) => {
-      state.ticketsData.tickets = action.payload;
+    setGetTicketsError: (state, action) => {
+      state.getTicketsError = action.payload;
     },
-    setTicketsColumn: (state, action) => {
-      for (let value of action.payload) {
-        state.ticketsData.columns[value.status].ticketIds.push(value.ticket_id)
-      }
+    setDeleteError: (state, action) => {
+      state.deleteError = action.payload;
     },
-    setGetPostErrResponse: (state, action) => {
-      state.getPostErrResponse = action.payload;
-    },
-    setIsLoadingPost: (state, action) => {
-      state.isLoadingPost = action.payload;
-    },
-    setNewPostResponse: (state, action) => {
-      state.newPostResponse = action.payload;
-    },
-    setNewPostErrMessage: (state, action) => {
-      state.newPostErrMessage = action.payload;
+    setPostTicketError: (state, action) => {
+      state.postTicketError = action.payload;
     }
-  }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getTicketsAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getTicketsAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        if (action.payload.tickets) {
+          state.ticketsData.tickets = action.payload.tickets;
+          for (let value of action.payload.tickets) {
+            state.ticketsData.columns[value.status].ticketIds.push(value.ticket_id)
+          }
+        } else {
+          state.getTicketsError = action.payload.errno;
+        }
+      })
+      .addCase(deleteTicketAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(deleteTicketAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.deleteError = action.payload.errno;
+      })
+      .addCase(postTicketAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(postTicketAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.postTicketError = action.payload.errno;
+      })
+  },
 });
 
 export const {
-  setIsLoadingTicket,
   setInitalData,
-  setTicketsData,
-  setTicketsColumn,
-  setGetPostErrResponse,
-  setIsLoadingPost,
-  setNewPostResponse,
-  setNewPostErrMessage
+  setGetTicketsError,
+  setDeleteError,
+  setPostTicketError
 } = ticketReducer.actions;
 
-export const getTicket = () => dispatch => {
-  dispatch(setIsLoadingTicket(true));
-  fetchAllTicket()
-    .then(response => {
-      dispatch(setTicketsData(response.tickets));
-      dispatch(setTicketsColumn(response.tickets));
-      dispatch(setIsLoadingTicket(false));
-    })
-    .catch(error => {
-      dispatch(setGetPostErrResponse(error.FAIL_LOGIN[0]));
-    })
-};
-
-export const postTicket = (data) => dispatch => {
-  dispatch(setIsLoadingPost(true));
-  fetchPostTicket(data)
-    .then(response => {
-      if (response.errno) {
-        switch (response.errno) {
-          case 'ERR_INVALID_PARAMS':
-            dispatch(setNewPostErrMessage(error.FAIL_POST[400]));
-            break;
-          default:
-            dispatch(setNewPostErrMessage(error.FAIL_POST[0]));
-            break;
-        }
-      }
-      dispatch(setNewPostResponse(response));
-      dispatch(setIsLoadingPost(false));
-    })
-    .catch(error => console.log('error', error))
-
-};
+export const selectTicketsData = state => state.ticket.ticketsData;
+export const selectTickets = state => state.ticket.ticketsData.tickets;
+export const selectColumnOrder = state => state.ticket.ticketsData.columnOrder;
+export const selectColumns = state => state.ticket.ticketsData.columns;
+export const selectStatus = state => state.ticket.status;
+export const selectGetTicketsError = state => state.ticket.getTicketsError;
+export const selectDeleteError = state => state.ticket.deleteError;
+export const selectPostTicketError = state => state.ticket.postTicketError;
 
 export default ticketReducer.reducer;

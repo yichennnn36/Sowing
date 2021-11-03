@@ -3,7 +3,8 @@ import { theme } from '../../constants/style';
 
 export const TicketWrapper = styled.div`
   margin-top: 10px;
-  background: ${theme.COLOR.light};
+  background: ${props => props.isDragging ?
+    `lightgrey` : `${theme.COLOR.light}`};
   padding: 10px 20px;
   border-radius: 6px;
   border-top-right-radius: 30px;

@@ -1,20 +1,31 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { login, setLoginResponse, setErrorMessage } from '../redux/reducers/userReducer';
 import { setAuthToken } from '../utils';
+import {
+  selectResponse,
+  selectStatus,
+  selectError,
+  loginAsync,
+  setErrorMessage,
+  setResponse
+} from '../redux/reducers/userReducer';
 import error from '../constants/error';
 
 const useLogin = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const status = useSelector(selectStatus);
+  const response = useSelector(selectResponse);
+  const errorMessage = useSelector(selectError);
   const [inputValue, setInputValue] = useState({
     username: '',
     password: ''
   });
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const isLoading = useSelector(store => store.user.isLoadingLogin);
-  const response = useSelector(store => store.user.loginResponse);
-  const errorMessage = useSelector(store => store.user.errorMessage);
+  const [isValid, setIsValid] = useState({
+    username: true,
+    password: true
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -31,34 +42,54 @@ const useLogin = () => {
       dispatch(setErrorMessage(error.EMPTY_FILEDS.all));
       return;
     }
-    dispatch(login(username, password));
+    if (!isValid.username || !isValid.password) return;
+    dispatch(loginAsync(inputValue));
   };
 
   useEffect(() => {
     if (errorMessage) {
-      dispatch(setErrorMessage(errorMessage));
-      return;
+      return dispatch(setErrorMessage(errorMessage));
     }
-    if (response && response.member_id) {
-      const { nickname, token, token_expire_stamp } = response;
-      setAuthToken(nickname, token, token_expire_stamp);
-      history.push('./kanban');
+    if (response) {
+      if (response.errno) {
+        switch (response.errno) {
+          case 'ERR_USER_LOGIN_FAILED':
+            dispatch(setErrorMessage(error.FAIL_LOGIN[400]));
+            break;
+          case 'ERR_USER_NOT_EXIST':
+            dispatch(setErrorMessage(error.FAIL_LOGIN[401]));
+            break;
+          case 'ERR_INVALID_PARAMS':
+            dispatch(setErrorMessage(error.FAIL_LOGIN[402]));
+            break;
+          default:
+            dispatch(setErrorMessage(error.FAIL_LOGIN[0]));
+            break;
+        }
+      }
+      if (response.member_id) {
+        const { nickname, token, token_expire_stamp } = response;
+        setAuthToken(nickname, token, token_expire_stamp);
+        history.push('./board');
+      }
     }
   }, [dispatch, errorMessage, history, response]);
 
   useEffect(() => {
     return () => {
-      dispatch(setLoginResponse(null));
+      dispatch(setResponse(null));
       dispatch(setErrorMessage(null));
     }
   }, [dispatch]);
 
   return {
-    isLoading,
+    status,
     inputValue,
     handleInputChange,
     errorMessage,
-    handleLogin
+    handleLogin,
+    isValid,
+    setIsValid
   }
 };
 

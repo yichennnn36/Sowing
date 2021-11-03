@@ -6,6 +6,7 @@ import {
   IntroPageWrapper,
   Main,
   Section,
+  SiteTitle,
   SiteImage,
   SiteDescription,
   SiteButton,
@@ -19,15 +20,19 @@ const IntroPage = () => {
   return (
     <IntroPageWrapper>
       <Main>
+        <SiteTitle>Sowing</SiteTitle>
         <SiteImage />
         {!isRegister && !isLogin && (
           <SiteDescription>
-            <h1>Sowing</h1>
-            <p>Record
+            <h1>
+              Make it Easier for You to
               <br />
-              your trip or outdoor life
+              Record your Trip and
               <br />
-              with the Sowing！
+              Outdoor life
+            </h1>
+            <p>
+              This website provides a bulletin board that allows you to easily make travel cards and categorize them. In addition, there is also a clear timeline list and categorized map, allowing you to quickly find places you have visited and plan your future itinerary.
             </p>
             <SiteButton>
               <StyleButton onClick={() => setIsRegister(true)}>
@@ -41,8 +46,17 @@ const IntroPage = () => {
             </SiteButton>
           </SiteDescription>
         )}
-        {isRegister && <Register setIsRegister={setIsRegister} setIsLogin={setIsLogin} />}
-        {isLogin && <Login setIsLogin={setIsLogin} />}
+        {isRegister &&
+          <Register
+            setIsRegister={setIsRegister}
+            setIsLogin={setIsLogin}
+          />
+        }
+        {isLogin &&
+          <Login
+            setIsLogin={setIsLogin}
+          />
+        }
       </Main>
       <Section></Section>
     </IntroPageWrapper>

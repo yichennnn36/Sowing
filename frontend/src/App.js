@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { GlobalStyle, Root } from './constants/globalStyle';
 import 'antd/dist/antd.css';
 import IntroPage from './pages/IntroPage/IntroPage';
-import Kanban from './pages/Kanban/Kanban';
+import Board from './pages/Board/Board';
 import Footer from './components/Footer/Footer';
 
 const App = () => {
@@ -13,8 +13,8 @@ const App = () => {
         <GlobalStyle />
         <Switch>
           <Route exact path="/" component={IntroPage} />
-          <Route path="/HomePage/:id" />
-          <Route path="/kanban" component={Kanban} />
+          <Route path="/homePage/:id" />
+          <Route path="/board" component={Board} />
         </Switch>
       </Router>
       <Footer />

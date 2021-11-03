@@ -13,6 +13,8 @@ export const Main = styled.div`
 
   ${MEDIA_QUERY.md} {
     height: 680px;
+    margin: 40px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
   }
@@ -40,40 +42,60 @@ export const SiteImage = styled(SiteImg)`
   }
 `;
 
+export const SiteTitle = styled.h1`
+  font-size: ${theme.FONT_SIZE.fs3};
+  font-family: ${theme.FONT.title};
+  color: ${theme.COLOR.tertiary}};
+  position: absolute;
+  top: 4px;
+  left: 12px;
+
+  ${MEDIA_QUERY.md}{
+    top: 50px;
+    left: 65px;
+  }
+`;
+
 export const SiteDescription = styled.div`
-  width: 340px;
+  max-width: 500px;
   margin: 0 auto;
 
   ${MEDIA_QUERY.md} {
+    min-width: 300px;
     text-align: left;
+    margin-top: 60px;
   }
 
   & h1 {
     font-size: ${theme.FONT_SIZE.title};
     font-family: ${theme.FONT.title};
-    color: ${theme.COLOR.primary}};
+    color: ${theme.COLOR.primary};
+    text-align: center;
 
     ${MEDIA_QUERY.md}{
-      font-size: 110px;
+      text-align: left;
     }
   }
   & > p {
-    font-size: ${theme.FONT_SIZE.fs4};
+    font-size: ${theme.FONT_SIZE.fs5};
     font-family: ${theme.FONT.content};
     font-weight: 600;
-    margin-top: -30px;
-    color: ${theme.COLOR.tertiary}};
 
     ${MEDIA_QUERY.md} {
-      margin-top: -50px;
+
     }
   }
 `;
 
 export const SiteButton = styled.div`
+  max-width: 360px;
   display: flex;
   justify-content: space-between;
-  margin-top: 50px;
+  margin: 50px auto;
+
+  ${MEDIA_QUERY.md} {
+    margin: 50px 0;
+  }
 `;
 
 export const StyleButton = styled(DefaultButton)`

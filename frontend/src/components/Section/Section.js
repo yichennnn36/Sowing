@@ -1,13 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 import SectionWrapper from './SectionStyle';
 import Column from '../Column/Column';
+import {
+  selectColumnOrder,
+  selectColumns
+} from '../../redux/reducers/ticketReducer';
 
 const Section = ({
-  ticketsData,
   setIsAddTicket,
   setTicketStatus
 }) => {
+  const columnOrder = useSelector(selectColumnOrder);
+  const columns = useSelector(selectColumns);
 
   const onDragEnd = (result) => {
     // const { destination, draggableId, source } = result;
@@ -69,7 +76,6 @@ const Section = ({
     //   }
     // ))
   };
-  const { tickets, columns, columnOrder } = ticketsData;
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -77,14 +83,12 @@ const Section = ({
         {
           columnOrder.map((columnId) => {
             const column = columns[columnId];
-            const ticketData = column.ticketIds.map(ticketId => tickets.filter(ticket => ticket.ticket_id === ticketId));
 
             return (
               <Column
                 key={columnId}
                 id={columnId}
                 title={column.title}
-                ticketData={ticketData}
                 setIsAddTicket={setIsAddTicket}
                 setTicketStatus={setTicketStatus}
               />
@@ -94,6 +98,11 @@ const Section = ({
       </SectionWrapper>
     </DragDropContext>
   )
-}
+};
+
+Section.propTypes = {
+  setIsAddTicket: PropTypes.func,
+  setTicketStatus: PropTypes.func
+};
 
 export default Section;

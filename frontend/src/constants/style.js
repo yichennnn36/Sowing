@@ -12,8 +12,7 @@ export const theme = {
     black: 'black'
   },
   FONT_SIZE: {
-    title: "90px",
-    subtitle: "50px",
+    title: "42px",
     fs1: "40px",
     fs2: "32px",
     fs3: "28px",

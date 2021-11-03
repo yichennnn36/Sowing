@@ -20,11 +20,20 @@ export const ColumnWrapper = styled(Card)`
       border-color: ${theme.COLOR.primary};
     }
   }
+  & .ant-card-head-title {
+    font-family: ${theme.FONT.content};
+    font-size: ${theme.FONT_SIZE.fs4};
+    color: ${theme.COLOR.tertiary};
+    font-weight: 600;
+  }
 `;
 
 export const TicketList = styled.div`
   flex-grow: 1;
   min-height: 500px;
-  background: ${props => props.isDraggingOver ?
-    `#fbfaf8` : `inherit`};
+`;
+
+export const Area = styled.div`
+  background: lightgrey;
+  height: 50px;
 `;
