@@ -48,6 +48,19 @@ const DELETE_TICKET = {
     ticket_id: TICKET_ID.required(),
   }),
 };
+const UPDATE_TICKET_INFO = {
+  params: dataValidation.makeValidationSchema({
+    ticket_id: TICKET_ID.required(),
+  }),
+  body: dataValidation.makeValidationSchema({
+    title: TICKET_TITLE,
+    content: TICKET_CONTENT,
+    location: EVENT_LOCATION,
+    category: TICKET_CATEGORY,
+    start_date: dataValidation.Schema.ISO_DATE,
+    end_date: dataValidation.Schema.ISO_DATE,
+  }),
+};
 
 export {
   SIGN_UP,
@@ -55,4 +68,5 @@ export {
   CREATE_TICKET,
   UPDATE_TICKET_STATUS,
   DELETE_TICKET,
+  UPDATE_TICKET_INFO,
 };

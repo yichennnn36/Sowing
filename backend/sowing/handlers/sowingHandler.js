@@ -94,11 +94,45 @@ async function deleteTicket(req, res) {
   }
 }
 
+async function updateTicketInfo(req, res) {
+  try {
+    logging.debug(`${HANDLER_NAME}.updateTicketInfo`, req);
+
+    const { memberId } = req.user;
+    const { ticket_id: ticketId } = req.params;
+    const {
+      title,
+      content,
+      location,
+      category,
+      start_date: startDate,
+      end_date: endDate,
+    } = req.body;
+
+    await sowingManager.updateTicketInfo({
+      memberId,
+      ticketId,
+      title,
+      content,
+      location,
+      category,
+      startDate,
+      endDate,
+    });
+
+    res.status(requestHandling.HttpStatus.NO_CONTENT);
+  } catch (err) {
+    const httpError = errorHandling.createHttpError(err);
+    res.status(httpError.status).json(httpError);
+  }
+}
+
 const sowingHandler = {
   createTicket,
   getTickets,
   updateTicketStatus,
   deleteTicket,
+  updateTicketInfo,
 };
 
 export default sowingHandler;

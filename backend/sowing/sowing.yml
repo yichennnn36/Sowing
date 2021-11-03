@@ -36,3 +36,12 @@ functions:
           path: /tickets/{ticket_id}
           method: delete
           cors: true
+
+  doUpdateTicketInfo:
+    handler: sowing/index.doUpdateTicketInfo
+    description: function to update ticket's info
+    events:
+      - http:
+          path: /tickets/{ticket_id}
+          method: put
+          cors: true

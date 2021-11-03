@@ -29,3 +29,7 @@ export const doDeleteTicket = requestHandling.createAuthAPIGatewayEventHandler(
   dataValidation.Schema.DELETE_TICKET,
   sowingHandler.deleteTicket,
 );
+export const doUpdateTicketInfo = requestHandling.createAuthAPIGatewayEventHandler(
+  dataValidation.Schema.UPDATE_TICKET_INFO,
+  sowingHandler.updateTicketInfo,
+);

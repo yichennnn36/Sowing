@@ -131,11 +131,56 @@ async function deleteTicket({ memberId, ticketId }) {
   }
 }
 
+async function updateTicketInfo({
+  memberId,
+  ticketId,
+  title,
+  content,
+  location,
+  category,
+  startDate,
+  endDate,
+}) {
+  logging.debug(`${MODEL_NAME}.updateTicketInfo`, {
+    memberId,
+    ticketId,
+    title,
+    content,
+    location,
+    category,
+    startDate,
+    endDate,
+  });
+
+  const stat = SQL`
+    UPDATE event_ticket
+    SET update_stamp = NOW()
+  `;
+
+  if (title) { stat.append(SQL`, title = ${title}`); }
+  if (content) { stat.append(SQL`, content = ${content}`); }
+  if (location) { stat.append(SQL`, location = ${location}`); }
+  if (category) { stat.append(SQL`, category = ${category}`); }
+  if (startDate) { stat.append(SQL`, start_date = ${startDate}`); }
+  if (endDate) { stat.append(SQL`, end_date = ${endDate}`); }
+
+  stat.append(SQL` WHERE (member_id, ticket_id) = (${memberId}, ${ticketId})`);
+
+  const { affectedRows = 0 } = await mysqlConnector.query(stat);
+
+  if (affectedRows <= 0) {
+    throw new errorHandling.SowingError({
+      errno: errorHandling.errno.ERR_TICKET_NOT_UPDATED,
+    });
+  }
+}
+
 const sowingModel = {
   createTicket,
   getTickets,
   updateTicketStatus,
   deleteTicket,
+  updateTicketInfo,
 };
 
 export default sowingModel;
