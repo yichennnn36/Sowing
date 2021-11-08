@@ -48,9 +48,6 @@ const useRegister = () => {
   };
 
   useEffect(() => {
-    if (errorMessage) {
-      return dispatch(setErrorMessage(errorMessage));
-    }
     if (response) {
       if (response.errno) {
         switch (response.errno) {
@@ -64,8 +61,10 @@ const useRegister = () => {
             dispatch(setErrorMessage(error.FAIL_REGISTER[0]));
             break;
         }
+      } else {
+        dispatch(setErrorMessage(null));
+        dispatch(setSuccessMessage(success.SUCCESS_REGISTER));
       }
-      dispatch(setSuccessMessage(success.SUCCESS_REGISTER));
     }
   }, [dispatch, response, successMessage, errorMessage]);
 

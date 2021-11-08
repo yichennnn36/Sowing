@@ -41,7 +41,6 @@ export const HeaderLeft = styled.div`
 export const Nav = styled.div`
   color: ${theme.COLOR.white};
   background: transparent;
-  ${props => props.$active && `background: ${theme.COLOR.shadow};`};
   padding: 27px 20px;
   font-weight: 500;
 

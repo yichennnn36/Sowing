@@ -1,12 +1,42 @@
 import styled from 'styled-components';
-import { theme } from '../../constants/style';
+import { theme, MEDIA_QUERY } from '../../constants/style';
+
+export const SearchWrapper = styled.div`
+  width: 480px;
+  padding: 50px 40px;
+  margin: 0 auto;
+  
+  ${MEDIA_QUERY.md} {
+    border-right: 1px solid ${theme.COLOR.card};
+  }
+`;
+
+export const InputWrapper = styled.div`
+  border: 2px solid ${theme.COLOR.secondary};
+  border-radius: 20px;
+  padding: 6px 12px;
+  margin-bottom: 50px;
+
+  & svg {
+    color: ${theme.COLOR.tertiary};
+  }
+  & input {
+    border: transparent;
+    margin-left: 10px;
+
+    &:focus-visible {
+      outline: transparent;
+    }
+  }
+`;
 
 export const TicketWrapper = styled.div`
-  margin-top: 10px;
-  background: ${theme.COLOR.light};
+  margin: 16px 0;
   padding: 10px 20px;
+  border: 2px dashed ${theme.COLOR.secondary};
   border-radius: 6px;
   border-top-right-radius: 30px;
+  transition: 0.5s;
 `;
 
 export const Subject = styled.div`
@@ -26,13 +56,6 @@ export const TicketTitle = styled.div`
   }
   & svg {
     margin-right: 10px;
-  }
-`;
-
-export const FunctionBar = styled.div`
-  & svg {
-    margin-left: 14px;
-    font-size: ${theme.FONT_SIZE.fs6};
   }
 `;
 

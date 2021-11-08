@@ -25,8 +25,8 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <HeaderLeft>
-        <Nav $active as={Link} to="/board">My Board</Nav>
-        <Nav as={Link} to="/timeLine">Timeline</Nav>
+        <Nav as={Link} to="/board">My Board</Nav>
+        <Nav as={Link} to="/time">My Time</Nav>
         <Nav as={Link} to="/map">My Map</Nav>
       </HeaderLeft>
       <SiteTitle>Sowing</SiteTitle>

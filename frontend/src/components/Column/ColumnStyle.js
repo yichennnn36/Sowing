@@ -2,17 +2,31 @@ import styled from 'styled-components';
 import { Card } from 'antd';
 import { theme, MEDIA_QUERY } from '../../constants/style';
 
-export const ColumnWrapper = styled(Card)`
+export const ColumnWrapper = styled.div`
   min-width: 360px;
-  max-width: 480px;
   margin: 16px auto;
-  border-radius: 6px;
-  background: ${theme.COLOR.card};
+  ${props => props.isOver &&
+    `border: 2px dashed ${theme.COLOR.shadow}`
+  };
 
-  ${MEDIA_QUERY.md} {
-    min-width: 380px;
+  ${MEDIA_QUERY.lg} {
     flex: 1;
     margin: 0 12px;
+  }
+`;
+
+export const Container = styled(Card)`
+  border-radius: 6px;
+  background: ${theme.COLOR.card};
+  max-height: 800px;
+  overflow-y: scroll;
+
+  ${MEDIA_QUERY.md} {
+    height: 1000px;
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
   & button {
     &:focus,&:hover {
@@ -31,9 +45,4 @@ export const ColumnWrapper = styled(Card)`
 export const TicketList = styled.div`
   flex-grow: 1;
   min-height: 500px;
-`;
-
-export const Area = styled.div`
-  background: lightgrey;
-  height: 50px;
 `;

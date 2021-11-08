@@ -12,7 +12,7 @@ export const theme = {
     black: 'black'
   },
   FONT_SIZE: {
-    title: "42px",
+    title: "46px",
     fs1: "40px",
     fs2: "32px",
     fs3: "28px",
@@ -28,6 +28,6 @@ export const theme = {
 };
 
 export const MEDIA_QUERY = {
-  lg: "@media screen and (min-width: 1080px)",
+  lg: "@media screen and (min-width: 1200px)",
   md: "@media screen and (min-width: 768px)",
 };

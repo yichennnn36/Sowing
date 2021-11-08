@@ -1,11 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchAllTicket, fetchPostTicket, fetchDeleteTicket } from '../../api';
 import { initialData } from '../../utils';
+import {
+  fetchAllTickets,
+  fetchPostTicket,
+  fetchDeleteTicket,
+  fetchEditTicket,
+  fetchUpdateTicketStatus
+} from '../../api';
 
 export const getTicketsAsync = createAsyncThunk(
   'ticket/getTickets',
   async () => {
-    const response = await fetchAllTicket();
+    const response = await fetchAllTickets();
     return response;
   }
 );
@@ -15,7 +21,6 @@ export const postTicketAsync = createAsyncThunk(
   async (userData) => {
     const response = await fetchPostTicket(userData);
     return response;
-
   }
 );
 
@@ -27,6 +32,22 @@ export const deleteTicketAsync = createAsyncThunk(
   }
 );
 
+export const editTicketAsync = createAsyncThunk(
+  'ticket/editTicket',
+  async (ticketData) => {
+    const response = await fetchEditTicket(ticketData);
+    return response;
+  }
+);
+
+export const updateTicketStatusAsync = createAsyncThunk(
+  'ticket/updateStatus',
+  async (ticketStatus) => {
+    const response = await fetchUpdateTicketStatus(ticketStatus);
+    return response;
+  }
+);
+
 export const ticketReducer = createSlice({
   name: 'ticket',
   initialState: {
@@ -34,11 +55,20 @@ export const ticketReducer = createSlice({
     ticketsData: initialData,
     getTicketsError: null,
     deleteError: null,
-    postTicketError: null
+    postTicketError: null,
+    editError: null,
+    updateTicketStatusError: null
   },
   reducers: {
-    setInitalData: (state, action) => {
+    setInitialData: (state, action) => {
       state.ticketsData = action.payload;
+    },
+    setInitialError: (state, action) => {
+      state.getTicketsError = action.payload;
+      state.deleteError = action.payload;
+      state.postTicketError = action.payload;
+      state.editError = action.payload;
+      state.updateTicketStatusError = action.payload;
     },
     setGetTicketsError: (state, action) => {
       state.getTicketsError = action.payload;
@@ -48,6 +78,12 @@ export const ticketReducer = createSlice({
     },
     setPostTicketError: (state, action) => {
       state.postTicketError = action.payload;
+    },
+    setEditError: (state, action) => {
+      state.editError = action.payload;
+    },
+    setUpdateTicketStatusError: (state, action) => {
+      state.updateTicketStatusError = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -66,30 +102,39 @@ export const ticketReducer = createSlice({
           state.getTicketsError = action.payload.errno;
         }
       })
-      .addCase(deleteTicketAsync.pending, (state) => {
-        state.status = 'loading';
-      })
       .addCase(deleteTicketAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.deleteError = action.payload.errno;
-      })
-      .addCase(postTicketAsync.pending, (state) => {
-        state.status = 'loading';
       })
       .addCase(postTicketAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.postTicketError = action.payload.errno;
       })
+      .addCase(editTicketAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(editTicketAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.editError = action.payload.errno;
+      })
+      .addCase(updateTicketStatusAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.updateTicketStatusError = action.payload.errno;
+      })
   },
 });
 
 export const {
-  setInitalData,
+  setInitialData,
+  setInitialError,
   setGetTicketsError,
   setDeleteError,
-  setPostTicketError
+  setPostTicketError,
+  setEditError,
+  setUpdateTicketStatusError,
 } = ticketReducer.actions;
 
+export const selectState = state => state.ticket;
 export const selectTicketsData = state => state.ticket.ticketsData;
 export const selectTickets = state => state.ticket.ticketsData.tickets;
 export const selectColumnOrder = state => state.ticket.ticketsData.columnOrder;
@@ -98,5 +143,7 @@ export const selectStatus = state => state.ticket.status;
 export const selectGetTicketsError = state => state.ticket.getTicketsError;
 export const selectDeleteError = state => state.ticket.deleteError;
 export const selectPostTicketError = state => state.ticket.postTicketError;
+export const selectEditError = state => state.ticket.editError;
+export const selectUpdatTicketStatusError = state => state.ticket.updateTicketStatusError;
 
 export default ticketReducer.reducer;

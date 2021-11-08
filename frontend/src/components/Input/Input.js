@@ -4,6 +4,7 @@ const Input = ({
   type,
   name,
   placeholder,
+  defaultValue,
   prefix,
   value,
   handleInputChange,
@@ -38,6 +39,7 @@ const Input = ({
         onChange={handleInputChange}
         value={value}
         onBlur={handleCheckValid}
+        defaultValue={defaultValue}
       />
       {isValid && !isValid[name] && <Alert>{errorMessage}</Alert>}
     </InputBlock>

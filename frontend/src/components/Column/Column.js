@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { useDrop } from 'react-dnd'
+import { ItemTypes } from '../../constants/itemTypes';
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { Droppable } from 'react-beautiful-dnd';
-import { ColumnWrapper, TicketList } from './ColumnStyle';
-import Ticket from '../Ticket/Ticket';
+import { ColumnWrapper, Container, TicketList } from './ColumnStyle';
 import { selectTickets } from '../../redux/reducers/ticketReducer';
+import Ticket from '../Ticket/Ticket';
 
 const Column = ({
   id,
   title,
   setIsAddTicket,
-  setTicketStatus
+  setTicketStatus,
+  handleDrag
 }) => {
   let neededTickets = [];
   const tickets = useSelector(selectTickets);
@@ -19,42 +21,48 @@ const Column = ({
     neededTickets = tickets.filter(ticket => ticket.status === id);
   }
 
+  const [{ isOver }, dropRef] = useDrop({
+    accept: ItemTypes.TICKET,
+    drop: (item) => {
+      handleDrag(item, id);
+    },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+    }),
+  });
+
   const handleCilckAdd = () => {
-    setIsAddTicket(true);
+    setIsAddTicket(() => ({
+      id: null,
+      open: true
+    }));
     setTicketStatus(id);
   };
 
   return (
-    <Droppable droppableId={id}>
-      {(provided, snapshot) => (
-        <ColumnWrapper title={title}>
-          <Button
-            type="dashed" icon={<PlusOutlined />}
-            onClick={handleCilckAdd}
-          />
-          <TicketList
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-            isDraggingOver={snapshot.isDraggingOver}
-          >
-            {
-              neededTickets.length > 0 &&
-              neededTickets
-                .map((ticket, index) => {
-                  return (
-                    <Ticket
-                      key={index}
-                      index={index}
-                      ticket={ticket}
-                    />
-                  )
-                })
-            }
-            {provided.placeholder}
-          </TicketList>
-        </ColumnWrapper>
-      )}
-    </Droppable>
+    <ColumnWrapper ref={dropRef} isOver={isOver}>
+      <Container title={title}>
+        <Button
+          type="dashed" icon={<PlusOutlined />}
+          onClick={handleCilckAdd}
+        />
+        <TicketList>
+          {
+            neededTickets.length > 0 &&
+            neededTickets
+              .map((ticket, index) => {
+                return (
+                  <Ticket
+                    key={index}
+                    ticket={ticket}
+                    setIsAddTicket={setIsAddTicket}
+                  />
+                )
+              })
+          }
+        </TicketList>
+      </Container>
+    </ColumnWrapper>
   )
 };
 
@@ -62,7 +70,8 @@ Column.propTypes = {
   id: PropTypes.string,
   title: PropTypes.string,
   setIsAddTicket: PropTypes.func,
-  setTicketStatus: PropTypes.func
+  setTicketStatus: PropTypes.func,
+  handleDrag: PropTypes.func
 };
 
 export default Column;

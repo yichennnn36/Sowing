@@ -25,7 +25,7 @@ const IntroPage = () => {
         {!isRegister && !isLogin && (
           <SiteDescription>
             <h1>
-              Make it Easier for You to
+              Make it Easier to
               <br />
               Record your Trip and
               <br />

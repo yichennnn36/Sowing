@@ -17,7 +17,7 @@ const Menu = ({ isMenuOpen, handleLogout, handleToggleMenu }) => {
           <span>Yichen</span>
         </MemberInfo>
         <Link to="/board">My Board</Link>
-        <Link to="/timeLine">Timeline</Link>
+        <Link to="/time">My Time</Link>
         <Link to="/map">My Map</Link>
         <StyleButton onClick={handleLogout}>
           Log out

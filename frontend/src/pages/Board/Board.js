@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { BoardWrapper, TagWrapper } from './BoardStyle';
+import { BoardWrapper } from './BoardStyle';
 import { getMe } from '../../redux/reducers/userReducer';
 import {
   getTicketsAsync,
-  selectTicketsData,
   selectStatus,
-  selectGetTicketsError,
-  selectDeleteError,
-  selectPostTicketError,
-  setInitalData,
-  setGetTicketsError,
-  setDeleteError,
-  setPostTicketError
+  selectState,
+  setInitialData,
+  setInitialError
 } from '../../redux/reducers/ticketReducer';
 import { initialData } from '../../utils';
 import Section from '../../components/Section/Section';
@@ -26,13 +21,19 @@ import error from '../../constants/error';
 const Board = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const ticketsData = useSelector(selectTicketsData);
   const status = useSelector(selectStatus);
-  const getTicketsError = useSelector(selectGetTicketsError);
-  const deleteError = useSelector(selectDeleteError);
-  const postTicketError = useSelector(selectPostTicketError);
-
-  const [isAddTicket, setIsAddTicket] = useState(false);
+  const boardData = useSelector(selectState);
+  const {
+    getTicketsError,
+    postTicketError,
+    deleteError,
+    editError,
+    updateTicketStatusError
+  } = boardData;
+  const [isAddTicket, setIsAddTicket] = useState({
+    id: null,
+    open: false
+  });
   const [ticketStatus, setTicketStatus] = useState('');
 
   useEffect(() => {
@@ -46,24 +47,29 @@ const Board = () => {
       return;
     }
     if (postTicketError) {
-      alert('新增失敗，請再試一次');
+      alert(error.FAIL_POST[0]);
       return;
     }
     if (deleteError) {
-      alert('刪除失敗，請再試一次');
+      alert(error.FAIL_DELETE[0]);
       return;
     }
-  }, [dispatch, history, getTicketsError, deleteError, postTicketError]);
+    if (editError) {
+      alert(error.FAIL_EDIT[0]);
+      return;
+    }
+    if (updateTicketStatusError) {
+      alert(error.FAIL_DRAG[0]);
+      return;
+    }
+  }, [dispatch, history, getTicketsError, postTicketError, deleteError, editError, updateTicketStatusError]);
 
   useEffect(() => {
     return () => {
-      console.log('return effect')
-      dispatch(setInitalData(initialData));
-      dispatch(setGetTicketsError(null));
-      dispatch(setDeleteError(null));
-      dispatch(setPostTicketError(null));
+      dispatch(setInitialData(initialData));
+      dispatch(setInitialError(null));
     }
-  }, [dispatch])
+  }, [dispatch]);
 
   return (
     <>
@@ -75,8 +81,9 @@ const Board = () => {
           setIsAddTicket={setIsAddTicket}
           setTicketStatus={setTicketStatus}
         />
-        {isAddTicket &&
+        {isAddTicket.open &&
           <TicketEditor
+            isAddTicket={isAddTicket}
             setIsAddTicket={setIsAddTicket}
             ticketStatus={ticketStatus}
           />

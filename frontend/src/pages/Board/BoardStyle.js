@@ -1,8 +1,14 @@
 import styled from 'styled-components';
-import { theme } from '../../constants/style';
+import { MEDIA_QUERY, theme } from '../../constants/style';
 
 export const BoardWrapper = styled.div`
   position: relative;
-  margin: 80px 20px 0;
   background: ${theme.COLOR.white}};
+  padding: 10px 24px;
+
+  ${MEDIA_QUERY.md} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;

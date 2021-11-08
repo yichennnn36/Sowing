@@ -1,102 +1,68 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { DragDropContext } from 'react-beautiful-dnd';
 import SectionWrapper from './SectionStyle';
 import Column from '../Column/Column';
 import {
   selectColumnOrder,
-  selectColumns
+  selectColumns,
+  updateTicketStatusAsync,
+  setUpdateTicketStatusError
 } from '../../redux/reducers/ticketReducer';
 
 const Section = ({
   setIsAddTicket,
   setTicketStatus
 }) => {
+  const [dragStatus, setDragStatus] = useState({
+    id: '',
+    current_status: '',
+    new_status: '',
+    update: false
+  });
+  const dispatch = useDispatch();
   const columnOrder = useSelector(selectColumnOrder);
   const columns = useSelector(selectColumns);
 
-  const onDragEnd = (result) => {
-    // const { destination, draggableId, source } = result;
+  const handleDrag = (item, finish) => {
+    dispatch(setUpdateTicketStatusError(null));
+    const { id, start } = item;
+    if (start === finish) return;
 
-    // if (!destination) return;
-    // if (
-    //   destination.index === source.index &&
-    //   destination.droppableId === source.droppableId
-    // ) return;
-
-    // const start = columns[source.droppableId];
-    // const finish = columns[destination.droppableId];
-
-    // if (start === finish) {
-    //   const column = columns[source.droppableId];
-    //   const newTickets = Array.from(column.ticketIds);
-
-    //   newTickets.splice(source.index, 1);
-    //   newTickets.splice(destination.index, 0, draggableId);
-
-    //   const newColumn = {
-    //     ...column,
-    //     ticketIds: newTickets
-    //   };
-
-    //   return setTicketsData(ticketsData => (
-    //     {
-    //       ...ticketsData,
-    //       columns: {
-    //         ...columns,
-    //         [newColumn.id]: newColumn
-    //       }
-    //     }
-    //   ));
-    // }
-
-    // const startTicketIds = Array.from(start.ticketIds);
-    // startTicketIds.splice(source.index, 1);
-    // const newStart = {
-    //   ...start,
-    //   ticketIds: startTicketIds
-    // };
-
-    // const finishTicketIds = Array.from(finish.ticketIds);
-    // finishTicketIds.splice(destination.index, 0, draggableId);
-    // const newFinish = {
-    //   ...finish,
-    //   ticketIds: finishTicketIds
-    // };
-
-    // setTicketsData(ticketsData => (
-    //   {
-    //     ...ticketsData,
-    //     columns: {
-    //       ...columns,
-    //       [newStart.id]: newStart,
-    //       [newFinish.id]: newFinish
-    //     }
-    //   }
-    // ))
+    setDragStatus(dragStatus => ({
+      ...dragStatus,
+      id,
+      current_status: start,
+      new_status: finish,
+      update: true
+    }));
   };
 
-  return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <SectionWrapper>
-        {
-          columnOrder.map((columnId) => {
-            const column = columns[columnId];
+  useEffect(() => {
+    if (dragStatus.update) {
+      dispatch(updateTicketStatusAsync(dragStatus));
+    }
+  }, [dispatch, dragStatus])
 
-            return (
-              <Column
-                key={columnId}
-                id={columnId}
-                title={column.title}
-                setIsAddTicket={setIsAddTicket}
-                setTicketStatus={setTicketStatus}
-              />
-            )
-          })
-        }
-      </SectionWrapper>
-    </DragDropContext>
+  return (
+    <SectionWrapper>
+      {
+        columnOrder.map((columnId) => {
+          const column = columns[columnId];
+
+          return (
+            <Column
+              key={columnId}
+              id={columnId}
+              title={column.title}
+              setIsAddTicket={setIsAddTicket}
+              setTicketStatus={setTicketStatus}
+              handleDrag={handleDrag}
+            />
+          )
+        })
+      }
+    </SectionWrapper>
   )
 };
 

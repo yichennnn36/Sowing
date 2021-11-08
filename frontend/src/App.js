@@ -4,17 +4,20 @@ import { GlobalStyle, Root } from './constants/globalStyle';
 import 'antd/dist/antd.css';
 import IntroPage from './pages/IntroPage/IntroPage';
 import Board from './pages/Board/Board';
+import Time from './pages/Time/Time';
 import Footer from './components/Footer/Footer';
+import { ScrollToTop } from './utils';
 
 const App = () => {
   return (
     <Root>
       <Router basename="/Sowing">
         <GlobalStyle />
+        <ScrollToTop />
         <Switch>
           <Route exact path="/" component={IntroPage} />
-          <Route path="/homePage/:id" />
           <Route path="/board" component={Board} />
+          <Route path="/time" component={Time} />
         </Switch>
       </Router>
       <Footer />

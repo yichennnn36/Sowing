@@ -47,7 +47,7 @@ export const fetchLogin = async (userData) => {
   }
 };
 
-export const fetchAllTicket = async () => {
+export const fetchAllTickets = async () => {
   const token = getAuthToken(TOKEN_NAME);
   if (!token) return;
   try {
@@ -59,8 +59,8 @@ export const fetchAllTicket = async () => {
     });
     return response.json();
   } catch (error) {
-    alert("操作失敗，發生錯誤");
-    console.log('error, error');
+    alert('操作失敗，發生錯誤');
+    console.log('error', error);
   }
 };
 
@@ -102,5 +102,53 @@ export const fetchDeleteTicket = async (id) => {
   } catch (error) {
     alert("操作失敗，發生錯誤");
     console.log('error', error);
+  }
+};
+
+export const fetchUpdateTicketStatus = async (ticketStatus) => {
+  const token = getAuthToken(TOKEN_NAME);
+  const { id, current_status, new_status } = ticketStatus;
+  const status = { current_status, new_status };
+  try {
+    const response = await fetch(`${TICKET_URL}/${id}/status`, {
+      method: 'PUT',
+      body: JSON.stringify(status),
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json'
+      }
+    });
+    if (response.status >= 200 && response.status < 400) {
+      return { ok: response.ok };
+    };
+    return response.json();
+  } catch (error) {
+    alert("操作失敗，發生錯誤");
+    console.log(error);
+  }
+};
+
+export const fetchEditTicket = async (data) => {
+  const token = getAuthToken(TOKEN_NAME);
+  const { ticket_id } = data;
+  delete data.ticket_id;
+  delete data.status;
+  if (!data.content) delete data.content;
+  try {
+    const response = await fetch(`${TICKET_URL}/${ticket_id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json'
+      }
+    });
+    if (response.status >= 200 && response.status < 400) {
+      return { ok: response.ok };
+    };
+    return response.json();
+  } catch (error) {
+    alert("操作失敗，發生錯誤");
+    console.log(error);
   }
 };

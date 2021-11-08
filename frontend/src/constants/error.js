@@ -10,20 +10,26 @@ const errMessage = {
   FAIL_REGISTER: {
     400: 'Username or Password does not conform to format！',
     409: 'Username is already exist！',
-    0: 'Something wrong, Please try again！'
+    0: '註冊出了錯誤，請稍後再試一次！'
   },
   FAIL_LOGIN: {
     400: 'Incorrect username or password, please try again！',
     401: 'Username is not exist！',
     402: 'Username or Password does not conform to format！',
-    0: 'Something wrong, Please try again！'
+    0: '登入出了錯誤，請稍後再試一次！'
   },
   FAIL_POST: {
     400: '* fileds is not allowed to be empty！',
-    0: 'Something wrong, Please try again！'
+    0: '新增出了錯誤，請稍後再試一次！'
   },
   FAIL_DELETE: {
-    0: 'Something wrong, Please try again！'
+    0: '刪除出了錯誤，請稍後再試一次！'
+  },
+  FAIL_EDIT: {
+    0: '編輯出了錯誤，請稍後再試一次！'
+  },
+  FAIL_DRAG: {
+    0: '拖曳出了錯誤，請稍後再試一次！'
   }
 };
 

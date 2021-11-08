@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import moment from 'moment';
 
 export const categoryColors = [
   { label: 1, color: '#f4551c' },
@@ -13,15 +14,15 @@ export const initialData = {
   tickets: [],
   columns: {
     'sowing': {
-      title: 'Sowing',
+      title: 'Sowing (Todo)',
       ticketIds: []
     },
     'watering': {
-      title: 'Watering',
+      title: 'Watering (Doing)',
       ticketIds: []
     },
     'sprouting': {
-      title: 'Sprouting',
+      title: 'Sprouting (Done)',
       ticketIds: []
     }
   },
@@ -56,14 +57,14 @@ export const availableLocations = [
   "連江縣",
 ];
 
-export default function ScrollToTop() {
+export const ScrollToTop = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
   return null;
-}
+};
 
 export const TOKEN_NAME = 'token';
 export const USER_NAME = 'user';
@@ -78,3 +79,8 @@ export const setAuthToken = (user, token, time) => {
 export const getAuthToken = (name) => {
   return localStorage.getItem(name);
 };
+
+export const timeFormator = (date) => {
+  const timeFormat = 'YYYY-MM-DD';
+  return moment(date).format(timeFormat);
+}
