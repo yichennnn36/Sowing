@@ -1,16 +1,36 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchRegister, fetchLogin } from '../../api';
 import { getAuthToken, TOKEN_NAME, USER_NAME, EXPIRE_STAMP } from '../../utils';
-import error from '../../constants/error';
-import success from '../../constants/success';
+
+export const registerAsync = createAsyncThunk(
+  'user/register',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const response = await fetchRegister(userData);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const loginAsync = createAsyncThunk(
+  'user/login',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const response = await fetchLogin(userData);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 
 export const userReducer = createSlice({
-  name: 'users',
+  name: 'user',
   initialState: {
-    isLoadingRegister: false,
-    registerResponse: null,
-    isLoadingLogin: false,
-    loginResponse: null,
+    response: null,
+    status: 'idle',
     successMessage: null,
     errorMessage: null,
     userData: {
@@ -20,17 +40,8 @@ export const userReducer = createSlice({
     }
   },
   reducers: {
-    setIsLoadingRegister: (state, action) => {
-      state.isLoadingRegister = action.payload;
-    },
-    setRegisterResponse: (state, action) => {
-      state.registerResponse = action.payload;
-    },
-    setIsLoadingLogin: (state, action) => {
-      state.isLoadingLogin = action.payload;
-    },
-    setLoginResponse: (state, action) => {
-      state.loginResponse = action.payload;
+    setResponse: (state, action) => {
+      state.response = action.payload;
     },
     setSuccessMessage: (state, action) => {
       state.successMessage = action.payload;
@@ -41,62 +52,45 @@ export const userReducer = createSlice({
     setUserData: (state, action) => {
       state.userData = action.payload;
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(registerAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(registerAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.response = action.payload;
+      })
+      .addCase(registerAsync.rejected, (state, action) => {
+        state.status = 'error';
+        state.errorMessage = action.payload;
+      })
+      .addCase(loginAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(loginAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.response = action.payload;
+      })
+      .addCase(loginAsync.rejected, (state, action) => {
+        state.status = 'error';
+        state.errorMessage = action.payload;
+      });
   }
 });
 
 export const {
-  setIsLoadingRegister,
-  setRegisterResponse,
-  setIsLoadingLogin,
-  setLoginResponse,
+  setResponse,
   setSuccessMessage,
   setErrorMessage,
   setUserData
 } = userReducer.actions;
 
-export const register = (username, password, nickname) => dispatch => {
-  dispatch(setIsLoadingRegister(true));
-  fetchRegister(username, password, nickname)
-    .then(response => {
-      if (response.errno) {
-        switch (response.errno) {
-          case 'ERR_USER_EXIST':
-            dispatch(setErrorMessage(error.FAIL_REGISTER[409]));
-            break;
-          default:
-            dispatch(setErrorMessage(error.FAIL_REGISTER[0]));
-            break;
-        }
-      }
-      dispatch(setRegisterResponse(response));
-      dispatch(setSuccessMessage(success.SUCCESS_REGISTER));
-      dispatch(setIsLoadingRegister(false));
-    })
-    .catch(error => console.log('error', error))
-};
-
-export const login = (username, password) => dispatch => {
-  dispatch(setIsLoadingLogin(true));
-  fetchLogin(username, password)
-    .then(response => {
-      if (response.errno) {
-        switch (response.errno) {
-          case 'ERR_USER_LOGIN_FAILED':
-            dispatch(setErrorMessage(error.FAIL_LOGIN[400]));
-            break;
-          case 'ERR_USER_NOT_EXIST':
-            dispatch(setErrorMessage(error.FAIL_LOGIN[401]));
-            break;
-          default:
-            dispatch(setErrorMessage(error.FAIL_LOGIN[0]));
-            break;
-        }
-      }
-      dispatch(setLoginResponse(response));
-      dispatch(setIsLoadingLogin(false));
-    })
-    .catch(error => console.log('error', error))
-};
+export const selectResponse = state => state.user.response;
+export const selectStatus = state => state.user.status;
+export const selectError = state => state.user.errorMessage;
+export const selectSuccess = state => state.user.successMessage;
 
 export const getMe = () => dispatch => {
   const data = {

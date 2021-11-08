@@ -9,16 +9,18 @@ import useLogin from '../../hooks/useLogin';
 
 const Login = ({ setIsLogin }) => {
   const {
-    isLoading,
+    status,
     inputValue,
     handleInputChange,
     errorMessage,
-    handleLogin
+    handleLogin,
+    isValid,
+    setIsValid
   } = useLogin();
 
   return (
     <FunctionBlock>
-      {isLoading && <Loading />}
+      {status === 'loading' && <Loading />}
       <h2>Login</h2>
       <InputWrapper>
         <Input
@@ -29,6 +31,8 @@ const Login = ({ setIsLogin }) => {
           value={inputValue.username}
           handleInputChange={handleInputChange}
           errorMessage={error.INVALID_PARAMS.username}
+          isValid={isValid}
+          setIsValid={setIsValid}
         />
         <Input
           type={'password'}
@@ -38,6 +42,8 @@ const Login = ({ setIsLogin }) => {
           value={inputValue.password}
           handleInputChange={handleInputChange}
           errorMessage={error.INVALID_PARAMS.password}
+          isValid={isValid}
+          setIsValid={setIsValid}
         />
       </InputWrapper>
       {errorMessage && <Alert>{errorMessage}</Alert>}

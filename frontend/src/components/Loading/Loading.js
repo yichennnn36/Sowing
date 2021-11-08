@@ -1,7 +1,7 @@
 import React from 'react';
 import { LoadingWrapper, LoadingIcon } from './LoadingStyle';
 
-const Loading = ({ $loadingKanban }) => {
+const Loading = () => {
   return (
     <LoadingWrapper>
       <LoadingIcon />

@@ -10,16 +10,13 @@ export const FunctionBlock = styled(SiteDescription)`
 
   ${MEDIA_QUERY.md}{
     margin-top: 0;
+    min-width: 400px;
   }
 
   & h2 {
-    font-size: ${theme.FONT_SIZE.subtitle};
+    font-size: ${theme.FONT_SIZE.fs1};
     font-family: ${theme.FONT.title};
-    color: ${theme.COLOR.primary}};
-
-    ${MEDIA_QUERY.md}{
-      font-size: 110px;
-    }
+    color: ${theme.COLOR.tertiary}};
   }
 `;
 
