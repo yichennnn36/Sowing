@@ -6,8 +6,7 @@ import { TimeWrapper } from './TimeStyle';
 import { initialData } from '../../utils';
 import {
   getTicketsAsync,
-  selectStatus,
-  selectTickets,
+  selectTicketsData,
   selectState,
   setInitialData,
   setInitialError
@@ -21,10 +20,9 @@ import error from '../../constants/error';
 const Time = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const status = useSelector(selectStatus);
   const boardData = useSelector(selectState);
-  const tickets = useSelector(selectTickets);
-  const { getTicketsError } = boardData;
+  const { tickets } = useSelector(selectTicketsData);
+  const { status, getTicketsError } = boardData;
 
   useEffect(() => {
     dispatch(getMe());

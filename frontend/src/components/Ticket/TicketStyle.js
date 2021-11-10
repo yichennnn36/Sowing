@@ -7,6 +7,10 @@ export const TicketWrapper = styled.div`
   padding: 10px 20px;
   border-radius: 6px;
   border-top-right-radius: 30px;
+
+  &:hover {
+    cursor: grab;
+  }
 `;
 
 export const Subject = styled.div`

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Timeline as TimelineBlock } from 'antd';
-import { EnvironmentFilled } from '@ant-design/icons';
+import { EnvironmentFilled, PushpinFilled } from '@ant-design/icons';
 import { TimelineWrapper } from './TimelineStyle';
 import { categoryColors, timeFormator } from '../../utils';
 
@@ -33,7 +33,7 @@ const Timeline = ({ tickets }) => {
             return (
               <TimelineBlock.Item
                 key={index}
-                color={color}
+                dot={<PushpinFilled style={{ fontSize: '16px', color: `${color}` }} />}
                 label={dateFormat}
               >
                 {title} <EnvironmentFilled /> {location}

@@ -1,17 +1,16 @@
 import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { selectTickets } from '../redux/reducers/ticketReducer';
+import { selectTicketsData } from '../redux/reducers/ticketReducer';
 
 const useSearch = () => {
   let isSearching = false;
   let keepSearchedTickets = [];
   let isOnComposition = false;
-  const titleField = useRef('');
-  const tickets = useSelector(selectTickets);
+  const searchFieldRef = useRef('');
+  const { tickets } = useSelector(selectTicketsData);
   const [searchedResult, setSearchedResult] = useState([]);
 
   const handleTicketSearch = (searchWord) => {
-    console.log('search')
     if (!isSearching) {
       isSearching = true;
       keepSearchedTickets = [...tickets];
@@ -30,28 +29,26 @@ const useSearch = () => {
   };
 
   const handleComposition = (e) => {
-    console.log('e type', e.type)
     if (e.type === 'compositionend') {
       //composition結束，代表中文輸入完成
       isOnComposition = false;
       if (navigator.userAgent.indexOf('Chrome') > -1 && !isOnComposition && e.target.value) {
-        handleTicketSearch(titleField.current.value);
+        handleTicketSearch(searchFieldRef.current.value);
       }
     } else {
       //composition進行中，代表中文正在輸入
       isOnComposition = true;
     }
-    console.log('isOnComposition', isOnComposition)
   };
 
   const handleChange = (e) => {
     if (e.target.value && !isOnComposition) {
-      handleTicketSearch(titleField.current.value)
+      handleTicketSearch(searchFieldRef.current.value);
     }
   };
 
   return {
-    titleField,
+    searchFieldRef,
     isOnComposition,
     searchedResult,
     handleComposition,

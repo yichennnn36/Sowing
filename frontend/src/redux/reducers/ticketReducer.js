@@ -136,14 +136,5 @@ export const {
 
 export const selectState = state => state.ticket;
 export const selectTicketsData = state => state.ticket.ticketsData;
-export const selectTickets = state => state.ticket.ticketsData.tickets;
-export const selectColumnOrder = state => state.ticket.ticketsData.columnOrder;
-export const selectColumns = state => state.ticket.ticketsData.columns;
-export const selectStatus = state => state.ticket.status;
-export const selectGetTicketsError = state => state.ticket.getTicketsError;
-export const selectDeleteError = state => state.ticket.deleteError;
-export const selectPostTicketError = state => state.ticket.postTicketError;
-export const selectEditError = state => state.ticket.editError;
-export const selectUpdatTicketStatusError = state => state.ticket.updateTicketStatusError;
 
 export default ticketReducer.reducer;

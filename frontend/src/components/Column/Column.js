@@ -5,7 +5,7 @@ import { ItemTypes } from '../../constants/itemTypes';
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { ColumnWrapper, Container, TicketList } from './ColumnStyle';
-import { selectTickets } from '../../redux/reducers/ticketReducer';
+import { selectTicketsData } from '../../redux/reducers/ticketReducer';
 import Ticket from '../Ticket/Ticket';
 
 const Column = ({
@@ -16,7 +16,7 @@ const Column = ({
   handleDrag
 }) => {
   let neededTickets = [];
-  const tickets = useSelector(selectTickets);
+  const { tickets } = useSelector(selectTicketsData);
   if (tickets.length > 0) {
     neededTickets = tickets.filter(ticket => ticket.status === id);
   }

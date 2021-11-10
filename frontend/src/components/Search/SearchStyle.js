@@ -36,7 +36,6 @@ export const TicketWrapper = styled.div`
   border: 2px dashed ${theme.COLOR.secondary};
   border-radius: 6px;
   border-top-right-radius: 30px;
-  transition: 0.5s;
 `;
 
 export const Subject = styled.div`

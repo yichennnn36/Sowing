@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import SectionWrapper from './SectionStyle';
 import Column from '../Column/Column';
 import {
-  selectColumnOrder,
-  selectColumns,
+  selectTicketsData,
   updateTicketStatusAsync,
   setUpdateTicketStatusError
 } from '../../redux/reducers/ticketReducer';
@@ -21,8 +20,10 @@ const Section = ({
     update: false
   });
   const dispatch = useDispatch();
-  const columnOrder = useSelector(selectColumnOrder);
-  const columns = useSelector(selectColumns);
+  const {
+    columnOrder,
+    columns
+  } = useSelector(selectTicketsData);
 
   const handleDrag = (item, finish) => {
     dispatch(setUpdateTicketStatusError(null));

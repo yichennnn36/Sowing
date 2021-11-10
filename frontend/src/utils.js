@@ -30,31 +30,59 @@ export const initialData = {
 };
 
 export const availableLocations = [
-  "基隆市",
-  "台北市",
-  "新北市",
-  "桃園縣",
-  "新竹市",
-  "新竹縣",
-  "苗栗縣",
-  "台中市",
-  "彰化縣",
-  "雲林縣",
-  "嘉義市",
-  "嘉義縣",
-  "台南市",
-  "高雄市",
-  "小琉球",
-  "屏東縣",
-  "台東縣",
-  "綠島",
-  "蘭嶼",
-  "花蓮縣",
-  "宜蘭縣",
-  "南投縣",
-  "澎湖縣",
-  "金門縣",
-  "連江縣",
+  { location: "基隆市", coordinates: [1, 14] },
+  { location: "台北市", coordinates: [1, 13] },
+  { location: "新北市", coordinates: [3, 12] },
+  { location: "桃園縣", coordinates: [2, 11] },
+  { location: "新竹市", coordinates: [3, 9] },
+  { location: "新竹縣", coordinates: [4, 11] },
+  { location: "苗栗縣", coordinates: [5, 9] },
+  { location: "台中市", coordinates: [7, 8] },
+  { location: "彰化縣", coordinates: [8, 6] },
+  { location: "雲林縣", coordinates: [9, 5] },
+  { location: "嘉義市", coordinates: [11, 6] },
+  { location: "嘉義縣", coordinates: [11, 8] },
+  { location: "台南市", coordinates: [13, 6] },
+  { location: "高雄市", coordinates: [14, 7] },
+  { location: "小琉球", coordinates: [18, 6] },
+  { location: "屏東縣", coordinates: [16, 7] },
+  { location: "台東縣", coordinates: [14, 10] },
+  { location: "綠島", coordinates: [16, 12] },
+  { location: "蘭嶼", coordinates: [19, 12] },
+  { location: "花蓮縣", coordinates: [9, 12] },
+  { location: "宜蘭縣", coordinates: [5, 13] },
+  { location: "南投縣", coordinates: [9, 9] },
+  { location: "澎湖縣", coordinates: [10, 1] },
+  { location: "金門縣", coordinates: [5, 2] },
+  { location: "連江縣", coordinates: [1, 1] }
+];
+
+export const locationSum = [
+  { location: "基隆市", sum: 0 },
+  { location: "台北市", sum: 0 },
+  { location: "新北市", sum: 0 },
+  { location: "桃園縣", sum: 0 },
+  { location: "新竹市", sum: 0 },
+  { location: "新竹縣", sum: 0 },
+  { location: "苗栗縣", sum: 0 },
+  { location: "台中市", sum: 0 },
+  { location: "彰化縣", sum: 0 },
+  { location: "雲林縣", sum: 0 },
+  { location: "嘉義市", sum: 0 },
+  { location: "嘉義縣", sum: 0 },
+  { location: "台南市", sum: 0 },
+  { location: "高雄市", sum: 0 },
+  { location: "小琉球", sum: 0 },
+  { location: "屏東縣", sum: 0 },
+  { location: "台東縣", sum: 0 },
+  { location: "花蓮縣", sum: 0 },
+  { location: "宜蘭縣", sum: 0 },
+  { location: "南投縣", sum: 0 },
+  { location: "澎湖縣", sum: 0 },
+  { location: "金門縣", sum: 0 },
+  { location: "連江縣", sum: 0 },
+  { location: "綠島", sum: 0 },
+  { location: "蘭嶼", sum: 0 }
 ];
 
 export const ScrollToTop = () => {
@@ -80,7 +108,7 @@ export const getAuthToken = (name) => {
   return localStorage.getItem(name);
 };
 
+export const dateFormat = 'YYYY-MM-DD';
 export const timeFormator = (date) => {
-  const timeFormat = 'YYYY-MM-DD';
-  return moment(date).format(timeFormat);
+  return moment(date).format(dateFormat);
 }

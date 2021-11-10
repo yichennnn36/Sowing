@@ -1,7 +1,11 @@
 import React from 'react';
 import useSearch from '../../hooks/useSearch';
-import { SearchOutlined, PushpinFilled, EnvironmentFilled } from '@ant-design/icons';
 import { categoryColors, timeFormator } from '../../utils';
+import {
+  SearchOutlined,
+  PushpinFilled,
+  EnvironmentFilled
+} from '@ant-design/icons';
 import {
   SearchWrapper,
   InputWrapper,
@@ -13,7 +17,7 @@ import {
 
 const Search = () => {
   let {
-    titleField,
+    searchFieldRef,
     searchedResult,
     handleComposition,
     handleChange
@@ -27,7 +31,7 @@ const Search = () => {
           type='text'
           name='search'
           placeholder="Search the Title！"
-          ref={titleField}
+          ref={searchFieldRef}
           onCompositionStart={handleComposition}
           onCompositionUpdate={handleComposition}
           onCompositionEnd={handleComposition}

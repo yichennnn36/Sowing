@@ -3,9 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthToken } from '../utils';
 import {
-  selectResponse,
-  selectStatus,
-  selectError,
+  selectUser,
   loginAsync,
   setErrorMessage,
   setResponse
@@ -15,9 +13,11 @@ import error from '../constants/error';
 const useLogin = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const status = useSelector(selectStatus);
-  const response = useSelector(selectResponse);
-  const errorMessage = useSelector(selectError);
+  const {
+    response,
+    status,
+    errorMessage
+  } = useSelector(selectUser);
   const [inputValue, setInputValue] = useState({
     username: '',
     password: ''

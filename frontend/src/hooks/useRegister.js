@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  selectResponse,
-  selectStatus,
-  selectError,
-  selectSuccess,
+  selectUser,
   registerAsync,
   setErrorMessage,
   setSuccessMessage,
@@ -15,10 +12,12 @@ import success from '../constants/success';
 
 const useRegister = () => {
   const dispatch = useDispatch();
-  const status = useSelector(selectStatus);
-  const response = useSelector(selectResponse);
-  const successMessage = useSelector(selectSuccess);
-  const errorMessage = useSelector(selectError);
+  const {
+    response,
+    status,
+    successMessage,
+    errorMessage
+  } = useSelector(selectUser);
   const [inputValue, setInputValue] = useState({
     nickname: '',
     username: '',

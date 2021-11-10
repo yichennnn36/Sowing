@@ -87,10 +87,8 @@ export const {
   setUserData
 } = userReducer.actions;
 
-export const selectResponse = state => state.user.response;
-export const selectStatus = state => state.user.status;
-export const selectError = state => state.user.errorMessage;
-export const selectSuccess = state => state.user.successMessage;
+export const selectUser = state => state.user;
+export const selectUserData = state => state.user.userData;
 
 export const getMe = () => dispatch => {
   const data = {

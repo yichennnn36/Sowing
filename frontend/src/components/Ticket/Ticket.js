@@ -2,9 +2,20 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useDrag } from 'react-dnd'
 import { ItemTypes } from '../../constants/itemTypes';
-import { EditOutlined, DeleteOutlined, EnvironmentFilled, PushpinFilled } from '@ant-design/icons';
-import { categoryColors } from '../../utils';
-import { TicketWrapper, Subject, TicketTitle, FunctionBar, Info } from './TicketStyle';
+import { categoryColors, timeFormator } from '../../utils';
+import {
+  EditOutlined,
+  DeleteOutlined,
+  EnvironmentFilled,
+  PushpinFilled
+} from '@ant-design/icons';
+import {
+  TicketWrapper,
+  Subject,
+  TicketTitle,
+  FunctionBar,
+  Info
+} from './TicketStyle';
 import {
   deleteTicketAsync,
   setDeleteError,
@@ -12,7 +23,7 @@ import {
 } from '../../redux/reducers/ticketReducer';
 
 const Ticket = ({ ticket, setIsAddTicket }) => {
-  const {
+  let {
     ticket_id,
     title,
     category,
@@ -22,9 +33,14 @@ const Ticket = ({ ticket, setIsAddTicket }) => {
     content,
     status
   } = ticket;
+  start_date = timeFormator(start_date);
+  end_date = timeFormator(end_date);
+
+  const dispatch = useDispatch();
   const color = categoryColors[category - 1].color;
   const ticketId = `ticket-${ticket_id}`;
-  const dispatch = useDispatch();
+  const dateFormat = start_date === end_date ?
+    start_date : `${start_date} ～ ${end_date}`
 
   const handleDelete = (id) => {
     dispatch(setDeleteError(null));
@@ -63,11 +79,7 @@ const Ticket = ({ ticket, setIsAddTicket }) => {
         </FunctionBar>
       </Subject>
       <Info>
-        {
-          start_date === end_date ?
-            (<span>{`${start_date.slice(0, 10)}`}</span>) :
-            (<span>{`${start_date.slice(0, 10)}～ ${end_date.slice(0, 10)}`}</span>)
-        }
+        <span>{dateFormat}</span>
         <span>{<EnvironmentFilled />} {location}</span>
         <p>{content}</p>
       </Info>

@@ -1,16 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { DatePicker, Radio, Input, Select } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
-import { categoryColors, availableLocations, timeFormator } from '../../utils';
+import { categoryColors, availableLocations, dateFormat } from '../../utils';
 import PropTypes from 'prop-types';
-import error from '../../constants/error';
-import {
-  selectTickets,
-  postTicketAsync,
-  setPostTicketError,
-  editTicketAsync,
-} from '../../redux/reducers/ticketReducer';
+import usePost from '../../hooks/usePost';
+import moment from 'moment';
 import {
   TicketEditorWrapper,
   Editor,
@@ -29,74 +23,23 @@ const TicketEditor = ({
   setIsAddTicket,
   ticketStatus
 }) => {
-  const [inputValue, setInputValue] = useState({
-    title: '',
-    location: '',
-    start_date: '',
-    end_date: '',
-    category: 1,
-    status: ticketStatus
-  });
-  const [errorMessage, setErrorMessage] = useState(null);
-  const dispatch = useDispatch();
-  const ticketsData = useSelector(selectTickets);
-  const ticket = useRef({});
-
-  const handleClose = () => {
-    setIsAddTicket(() => ({
-      id: null,
-      open: false
-    }));
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setInputValue(inputValue => ({
-      ...inputValue,
-      [name]: value,
-    }));
-  };
-
-  const handleSelectChange = (value) => {
-    setInputValue(inputValue => ({
-      ...inputValue,
-      location: value,
-    }));
-  };
-
-  const handleDateChange = (value, dateString) => {
-    const [start_date, end_date] = dateString;
-    setInputValue(inputValue => ({
-      ...inputValue,
-      start_date,
-      end_date
-    }));
-  };
-
-  const handleSave = () => {
-    setErrorMessage(null);
-    dispatch(setPostTicketError(null));
-
-    const { title, location, start_date, end_date } = inputValue;
-    if (!title || !location || !start_date || !end_date) {
-      return setErrorMessage(error.EMPTY_FILEDS.required);
-    }
-    isAddTicket.id ?
-      dispatch(editTicketAsync(inputValue)) :
-      dispatch(postTicketAsync(inputValue));
-    setIsAddTicket(false);
-  };
-
-  if (isAddTicket.id) {
-    [ticket.current] = ticketsData.filter(item => item.ticket_id === isAddTicket.id);
-  }
+  const {
+    errorMessage,
+    setInputValue,
+    ticket,
+    handleClose,
+    handleInputChange,
+    handleSelectChange,
+    handleDateChange,
+    handleSave
+  } = usePost({ isAddTicket, setIsAddTicket, ticketStatus });
 
   useEffect(() => {
     setInputValue((inputValue) => ({
       ...inputValue,
       ...ticket.current
     }));
-  }, [isAddTicket.id]);
+  }, [setInputValue, ticket, isAddTicket.id]);
 
   const {
     title,
@@ -134,9 +77,9 @@ const TicketEditor = ({
             onChange={handleSelectChange}
             defaultValue={location}
           >
-            {availableLocations.map((location, index) => (
-              <Select.Option key={index} value={location}>
-                {location}
+            {availableLocations.map((item, index) => (
+              <Select.Option key={index} value={item.location}>
+                {item.location}
               </Select.Option>
             ))}
           </Select>
@@ -160,8 +103,8 @@ const TicketEditor = ({
               <DatePicker.RangePicker
                 id="date"
                 onChange={handleDateChange}
-                defaultValue={[timeFormator(start_date), timeFormator(end_date)]}
-                format="YYYY-MM-DD"
+                defaultValue={[moment(start_date, dateFormat), moment(end_date, dateFormat)]}
+                format={dateFormat}
               />
             </InputBlock>
           ) :
@@ -171,7 +114,7 @@ const TicketEditor = ({
               <DatePicker.RangePicker
                 id="date"
                 onChange={handleDateChange}
-                format="YYYY-MM-DD"
+                format={dateFormat}
               />
             </InputBlock>
           )

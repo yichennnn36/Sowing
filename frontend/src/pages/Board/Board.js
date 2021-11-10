@@ -5,7 +5,6 @@ import { BoardWrapper } from './BoardStyle';
 import { getMe } from '../../redux/reducers/userReducer';
 import {
   getTicketsAsync,
-  selectStatus,
   selectState,
   setInitialData,
   setInitialError
@@ -21,9 +20,9 @@ import error from '../../constants/error';
 const Board = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const status = useSelector(selectStatus);
   const boardData = useSelector(selectState);
   const {
+    status,
     getTicketsError,
     postTicketError,
     deleteError,
@@ -37,7 +36,6 @@ const Board = () => {
   const [ticketStatus, setTicketStatus] = useState('');
 
   useEffect(() => {
-    console.log('Board effect');
     dispatch(getMe());
     dispatch(getTicketsAsync());
 
