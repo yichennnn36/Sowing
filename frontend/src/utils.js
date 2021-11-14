@@ -32,7 +32,7 @@ export const initialData = {
 export const availableLocations = [
   { location: "基隆市", coordinates: [1, 14] },
   { location: "台北市", coordinates: [1, 13] },
-  { location: "新北市", coordinates: [3, 12] },
+  { location: "新北市", coordinates: [3, 13] },
   { location: "桃園縣", coordinates: [2, 11] },
   { location: "新竹市", coordinates: [3, 9] },
   { location: "新竹縣", coordinates: [4, 11] },

@@ -6,8 +6,7 @@ const Footer = () => {
     <FooterWrapper>
       <FooterLogo />
       <FooterInfo>
-        <a href="http://google.com">Contact</a>
-        <a href="http://google.com">Github</a>
+        Copyright © 2021 Yichen Liu All rights reserved
       </FooterInfo>
     </FooterWrapper>
   )

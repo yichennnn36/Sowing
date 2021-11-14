@@ -3,7 +3,7 @@ import { Card } from 'antd';
 import { theme, MEDIA_QUERY } from '../../constants/style';
 
 export const ColumnWrapper = styled.div`
-  min-width: 360px;
+  max-width: 500px;
   margin: 16px auto;
   ${props => props.isOver &&
     `border: 2px dashed ${theme.COLOR.shadow}`

@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import { Avatar } from 'antd';
 import { UserOutlined, MenuOutlined } from '@ant-design/icons';
 import { MenuButton, MenuWrapper, MenuList, MemberInfo, StyleButton } from './MenuStyle';
+import { selectUserData } from '../../redux/reducers/userReducer';
 
 const Menu = ({ isMenuOpen, handleLogout, handleToggleMenu }) => {
+  const userdata = useSelector(selectUserData);
 
   return (
     <MenuWrapper>
@@ -14,7 +17,7 @@ const Menu = ({ isMenuOpen, handleLogout, handleToggleMenu }) => {
       <MenuList isMenuOpen={isMenuOpen}>
         <MemberInfo>
           <Avatar size="small" icon={<UserOutlined />} />
-          <span>Yichen</span>
+          <span>{userdata.user}</span>
         </MemberInfo>
         <Link to="/board">My Board</Link>
         <Link to="/time">My Time</Link>

@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import { PushpinFilled } from '@ant-design/icons';
 import { categoryColors, initialData } from '../../utils';
-import { TagWrapper } from './FilterButtonStyle';
+import { FilterWrapper } from './FilterButtonStyle';
 import { useDispatch } from 'react-redux';
 import { fetchAllTickets } from '../../api';
 import {
@@ -28,7 +28,7 @@ const FilterButton = () => {
   }
 
   return (
-    <TagWrapper>
+    <FilterWrapper>
       <Button
         shape="circle"
         style={{ background: `pink`, color: `white` }}
@@ -49,7 +49,7 @@ const FilterButton = () => {
         )
         )
       }
-    </TagWrapper>
+    </FilterWrapper>
   )
 };
 

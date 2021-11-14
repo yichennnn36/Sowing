@@ -3,7 +3,7 @@ import { Layout } from 'antd';
 import { MEDIA_QUERY } from '../../constants/style';
 
 const SectionWrapper = styled(Layout.Content)`
-  padding: 50px;
+  padding: 50px 16px;
   width: 100%;
 
   ${MEDIA_QUERY.lg} {

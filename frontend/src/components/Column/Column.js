@@ -54,6 +54,7 @@ const Column = ({
                 return (
                   <Ticket
                     key={index}
+                    index={index}
                     ticket={ticket}
                     setIsAddTicket={setIsAddTicket}
                   />

@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import { theme, MEDIA_QUERY } from '../../constants/style';
 
 export const SearchWrapper = styled.div`
-  width: 480px;
   padding: 50px 40px;
   margin: 0 auto;
   
   ${MEDIA_QUERY.md} {
+    min-width: 400px;
     border-right: 1px solid ${theme.COLOR.card};
   }
 `;

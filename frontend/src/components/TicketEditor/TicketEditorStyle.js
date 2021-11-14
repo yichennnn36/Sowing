@@ -2,7 +2,7 @@ import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
 import { Button, Radio } from 'antd';
 import { DefaultButton } from '../../constants/globalStyle';
-import { theme } from '../../constants/style';
+import { theme, MEDIA_QUERY } from '../../constants/style';
 
 export const TicketEditorWrapper = styled.div`
   &::before {
@@ -24,13 +24,17 @@ export const Editor = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   animation: .5s ${keyframes`${fadeIn}`};
-  width: 500px;
-  height: 600px;
+  width: 80%;
+  min-height: 600px;
   padding: 50px 30px 40px;
   border: 2px solid ${theme.COLOR.secondary};
   border-radius: 6px;
   background: white;
   box-shadow: 6px 6px 4px 3px rgb(0 0 0 / 10%);
+
+  ${MEDIA_QUERY.md} {
+    max-width: 500px;
+  }
 `;
 
 export const InputBlock = styled.div`
@@ -41,12 +45,44 @@ export const InputBlock = styled.div`
 
 export const InputRadioBlock = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   margin-top: 50px;
+
+  ${MEDIA_QUERY.md} {
+    flex-direction: row;
+    align-items: center;
+  } 
 `;
 
 export const Label = styled.label`
   font-size: 16px;
+`;
+
+export const CategoryRadio = styled(Radio)`
+  margin: 0 12px;
+
+  & .ant-radio-inner {
+    background: ${props => props.color};
+    width: 22px;
+    height: 22px;
+
+    &::after {
+      top: 4px;
+      left: 4px;
+      display: block;
+      width: 12px;
+      height: 12px;
+      background-color: ${theme.COLOR.tertiary};
+    }
+  }
+  & .ant-radio-checked::after {
+    top: 0;
+  }
+  ${MEDIA_QUERY.md} {
+    &:first-child {
+      margin-left: 30px;
+    }
+  } 
 `;
 
 export const ButtonClose = styled(Button)`
@@ -69,31 +105,6 @@ export const StyleButton = styled(DefaultButton)`
 
   &:hover {
     transform: scale(1.1);
-  }
-`;
-
-export const CategoryRadio = styled(Radio)`
-  margin: 0 16px;
-
-  &:first-child {
-    margin-left: 30px;
-  }
-  & .ant-radio-inner {
-    background: ${props => props.color};
-    width: 22px;
-    height: 22px;
-
-    &::after {
-      top: 4px;
-      left: 4px;
-      display: block;
-      width: 12px;
-      height: 12px;
-      background-color: ${theme.COLOR.tertiary};
-    }
-  }
-  & .ant-radio-checked::after {
-    top: 0;
   }
 `;
 

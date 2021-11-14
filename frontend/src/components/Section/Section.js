@@ -13,6 +13,10 @@ const Section = ({
   setIsAddTicket,
   setTicketStatus
 }) => {
+  const {
+    columnOrder,
+    columns
+  } = useSelector(selectTicketsData);
   const [dragStatus, setDragStatus] = useState({
     id: '',
     current_status: '',
@@ -20,10 +24,6 @@ const Section = ({
     update: false
   });
   const dispatch = useDispatch();
-  const {
-    columnOrder,
-    columns
-  } = useSelector(selectTicketsData);
 
   const handleDrag = (item, finish) => {
     dispatch(setUpdateTicketStatusError(null));
@@ -43,7 +43,7 @@ const Section = ({
     if (dragStatus.update) {
       dispatch(updateTicketStatusAsync(dragStatus));
     }
-  }, [dispatch, dragStatus])
+  }, [dispatch, dragStatus]);
 
   return (
     <SectionWrapper>

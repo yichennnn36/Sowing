@@ -22,7 +22,7 @@ import {
   setEditError
 } from '../../redux/reducers/ticketReducer';
 
-const Ticket = ({ ticket, setIsAddTicket }) => {
+const Ticket = ({ index, ticket, setIsAddTicket }) => {
   let {
     ticket_id,
     title,
@@ -55,15 +55,15 @@ const Ticket = ({ ticket, setIsAddTicket }) => {
     }));
   };
 
-  const [, dragRef] = useDrag(() => ({
+  const [, dragRef] = useDrag({
     item: { id: ticket_id, start: status },
     type: ItemTypes.TICKET,
-  }))
+  });
 
   return (
     <TicketWrapper key={ticketId} ref={dragRef}>
       <Subject>
-        <TicketTitle>
+        <TicketTitle onClick={() => console.log('id', ticket_id)}>
           <PushpinFilled style={{ color: `${color}` }} />
           <span>{title}</span>
         </TicketTitle>
