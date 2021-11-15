@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { InputBlock, Alert } from './InputStyle';
 
 const Input = ({
@@ -45,5 +46,18 @@ const Input = ({
     </InputBlock>
   )
 };
+
+Input.propTypes = {
+  type: PropTypes.string,
+  name: PropTypes.string,
+  placeholder: PropTypes.string,
+  defaultValue: PropTypes.string,
+  prefix: PropTypes.element,
+  value: PropTypes.string,
+  handleInputChange: PropTypes.func,
+  errorMessage: PropTypes.string,
+  isValid: PropTypes.object,
+  setIsValid: PropTypes.func
+}
 
 export default Input;

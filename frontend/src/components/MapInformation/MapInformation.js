@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { categoryColors, timeFormator } from '../../utils';
 import { ReactComponent as LeafIcon } from '../../image/sowing-icon1.svg';
@@ -82,6 +82,6 @@ const MapInformation = ({ locationInfo, tickets }) => {
 MapInformation.propTypes = {
   locationInfo: PropTypes.array,
   tickets: PropTypes.array
-}
+};
 
 export default MapInformation;

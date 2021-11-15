@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { DatePicker, Radio, Input, Select } from 'antd';
-import { CloseCircleOutlined } from '@ant-design/icons';
-import { categoryColors, availableLocations, dateFormat } from '../../utils';
 import PropTypes from 'prop-types';
 import usePost from '../../hooks/usePost';
 import moment from 'moment';
+import { DatePicker, Radio, Input, Select } from 'antd';
+import { CloseCircleOutlined } from '@ant-design/icons';
+import { categoryColors, availableLocations, dateFormat } from '../../utils';
 import {
   TicketEditorWrapper,
   Editor,

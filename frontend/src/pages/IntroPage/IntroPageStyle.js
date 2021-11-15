@@ -20,12 +20,13 @@ export const Main = styled.div`
     border-radius: 20px;
     display: flex;
     align-items: center;
+    justify-content: space-around;
   }
 `;
 
 export const SiteImage = styled(SiteImg)`
   height: auto;
-  max-width: 80%;
+  max-width: 66%;
   margin: 50px 10px;
 
   ${MEDIA_QUERY.lg} {
@@ -53,9 +54,10 @@ export const SiteDescription = styled.div`
   margin: 0 auto;
 
   ${MEDIA_QUERY.lg} {
-    min-width: 300px;
+    max-width: 600px;
     text-align: left;
-    margin-top: 60px;
+    margin: 0;
+    padding: 80px 40px 0;
   }
   & h1 {
     font-size: ${theme.FONT_SIZE.fs1};
@@ -120,7 +122,7 @@ export const Section = styled.div`
 
 export const Introduction = styled.div`
   text-align: center;
-  margin: 100px auto;
+  margin: 120px auto;
 `;
 
 export const Descrition = styled.div`
@@ -144,7 +146,8 @@ export const BoardIcon = styled(BoardImage)`
   width: 80%;
 
   ${MEDIA_QUERY.lg} {
-    width: 60%;
+    width: 44%;
+    margin: 20px 0;
   }
 `;
 
@@ -153,7 +156,7 @@ export const TimelineIcon = styled(TimeImage)`
   margin: 30px 0;
 
   ${MEDIA_QUERY.lg} {
-    width: 40%;
+    width: 30%;
     margin: 0 40px;
   }
 `;
@@ -163,7 +166,7 @@ export const MapIcon = styled(MapImage)`
   margin: 40px 0;
 
   ${MEDIA_QUERY.lg} {
-    width: 40%;
+    width: 30%;
     margin: 0 40px;
   }
 `;

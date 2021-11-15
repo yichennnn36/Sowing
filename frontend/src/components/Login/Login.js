@@ -1,11 +1,21 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import { RightCircleOutlined, LeftOutlined, UserOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
-import { FunctionBlock, InputWrapper, ButtonWrapper, StyleButton, Alert } from './LoginStyle';
 import Loading from '../../components/Loading/Loading';
 import Input from '../Input/Input';
 import error from '../../constants/error';
 import useLogin from '../../hooks/useLogin';
+import {
+  RightCircleOutlined,
+  LeftOutlined,
+  UserOutlined,
+  EyeInvisibleOutlined
+} from '@ant-design/icons';
+import {
+  FunctionBlock,
+  InputWrapper,
+  ButtonWrapper,
+  StyleButton,
+  Alert
+} from './LoginStyle';
 
 const Login = ({ setIsLogin }) => {
   const {

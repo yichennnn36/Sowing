@@ -1,4 +1,3 @@
-import React from 'react';
 import useSearch from '../../hooks/useSearch';
 import { categoryColors, timeFormator } from '../../utils';
 import {

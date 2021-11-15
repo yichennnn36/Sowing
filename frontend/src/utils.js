@@ -111,4 +111,4 @@ export const getAuthToken = (name) => {
 export const dateFormat = 'YYYY-MM-DD';
 export const timeFormator = (date) => {
   return moment(date).format(dateFormat);
-}
+};

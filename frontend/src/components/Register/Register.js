@@ -1,11 +1,24 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { RightCircleOutlined, LeftOutlined, UserOutlined, EyeInvisibleOutlined, SmileOutlined } from '@ant-design/icons';
-import { FunctionBlock, InputWrapper, ButtonWrapper, StyleButton, Alert, Success } from './RegisterStyle';
 import Loading from '../../components/Loading/Loading';
 import Input from '../Input/Input';
 import error from '../../constants/error';
 import useRegister from '../../hooks/useRegister';
+import {
+  RightCircleOutlined,
+  LeftOutlined,
+  UserOutlined,
+  EyeInvisibleOutlined,
+  SmileOutlined
+} from '@ant-design/icons';
+import {
+  FunctionBlock,
+  InputWrapper,
+  ButtonWrapper,
+  StyleButton,
+  Alert,
+  Success
+} from './RegisterStyle';
 
 const Register = ({ setIsRegister, setIsLogin }) => {
   const {

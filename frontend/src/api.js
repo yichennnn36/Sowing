@@ -18,7 +18,7 @@ export const fetchRegister = async (userData) => {
       }
     });
     if (response.status >= 200 && response.status < 400) {
-      return response.ok;
+      return { ok: response.ok };
     };
     return response.json();
   } catch (error) {

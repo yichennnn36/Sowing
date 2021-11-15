@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import SectionWrapper from './SectionStyle';
@@ -13,17 +13,14 @@ const Section = ({
   setIsAddTicket,
   setTicketStatus
 }) => {
-  const {
-    columnOrder,
-    columns
-  } = useSelector(selectTicketsData);
+  const dispatch = useDispatch();
+  const { columnOrder, columns } = useSelector(selectTicketsData);
   const [dragStatus, setDragStatus] = useState({
     id: '',
     current_status: '',
     new_status: '',
     update: false
   });
-  const dispatch = useDispatch();
 
   const handleDrag = (item, finish) => {
     dispatch(setUpdateTicketStatusError(null));

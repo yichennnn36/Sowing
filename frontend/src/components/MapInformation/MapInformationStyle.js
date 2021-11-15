@@ -80,4 +80,3 @@ export const Date = styled.div`
   font-size: ${theme.FONT_SIZE.fs7};
   color: ${theme.COLOR.tertiary};
 `;
-

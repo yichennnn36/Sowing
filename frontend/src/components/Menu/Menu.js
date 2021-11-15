@@ -3,8 +3,14 @@ import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { Avatar } from 'antd';
 import { UserOutlined, MenuOutlined } from '@ant-design/icons';
-import { MenuButton, MenuWrapper, MenuList, MemberInfo, StyleButton } from './MenuStyle';
 import { selectUserData } from '../../redux/reducers/userReducer';
+import {
+  MenuButton,
+  MenuWrapper,
+  MenuList,
+  MemberInfo,
+  StyleButton
+} from './MenuStyle';
 
 const Menu = ({ isMenuOpen, handleLogout, handleToggleMenu }) => {
   const userdata = useSelector(selectUserData);

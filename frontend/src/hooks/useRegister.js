@@ -43,6 +43,7 @@ const useRegister = () => {
       dispatch(setErrorMessage(error.EMPTY_FILEDS.all));
       return;
     }
+    if (!isValid.username || !isValid.password) return;
     dispatch(registerAsync(inputValue));
   };
 

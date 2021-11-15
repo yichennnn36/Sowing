@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { selectState, selectTicketsData } from '../redux/reducers/ticketReducer';
 import { locationSum } from '../utils';
+import { selectState, selectTicketsData } from '../redux/reducers/ticketReducer';
 
 const useMap = () => {
   const boardData = useSelector(selectState);

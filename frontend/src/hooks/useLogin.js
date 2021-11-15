@@ -70,7 +70,7 @@ const useLogin = () => {
       if (response.member_id) {
         const { nickname, token, token_expire_stamp } = response;
         setAuthToken(nickname, token, token_expire_stamp);
-        history.push('./board');
+        history.push('/board');
       }
     }
   }, [dispatch, errorMessage, history, response]);

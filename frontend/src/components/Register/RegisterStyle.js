@@ -10,7 +10,7 @@ export const FunctionBlock = styled(SiteDescription)`
 
   ${MEDIA_QUERY.md}{
     margin-top: 0;
-    min-width: 400px;
+    min-width: 600px;
   }
 
   & h2 {

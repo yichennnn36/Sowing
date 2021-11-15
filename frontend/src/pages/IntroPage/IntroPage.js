@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { RightCircleOutlined } from '@ant-design/icons';
-import Login from '../../components/Login/Login';
-import Register from '../../components/Register/Register';
 import {
   IntroPageWrapper,
   Main,
@@ -17,6 +15,8 @@ import {
   TimelineIcon,
   MapIcon
 } from './IntroPageStyle';
+import Login from '../../components/Login/Login';
+import Register from '../../components/Register/Register';
 
 const IntroPage = () => {
   const [isRegister, setIsRegister] = useState(false);
@@ -71,6 +71,7 @@ const IntroPage = () => {
           </Descrition>
           <BoardIcon />
         </Introduction>
+
         <Introduction className="display___flex">
           <Descrition className="clear__timeline">
             <h2>Clear Timeline</h2>
@@ -78,6 +79,7 @@ const IntroPage = () => {
           </Descrition>
           <TimelineIcon />
         </Introduction>
+
         <Introduction className="display___flex marked__map-container">
           <Descrition className="marked__map">
             <h2>Marked Map</h2>
@@ -88,6 +90,6 @@ const IntroPage = () => {
       </Section>
     </IntroPageWrapper>
   )
-}
+};
 
 export default IntroPage;

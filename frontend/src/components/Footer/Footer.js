@@ -1,4 +1,3 @@
-import React from 'react';
 import { FooterWrapper, FooterLogo, FooterInfo } from './FooterStyle';
 
 const Footer = () => {

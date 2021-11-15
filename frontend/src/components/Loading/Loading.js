@@ -1,4 +1,3 @@
-import React from 'react';
 import { LoadingWrapper, LoadingIcon } from './LoadingStyle';
 
 const Loading = () => {
@@ -7,6 +6,6 @@ const Loading = () => {
       <LoadingIcon />
     </LoadingWrapper>
   )
-}
+};
 
 export default Loading;

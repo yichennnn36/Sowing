@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { availableLocations } from '../../utils';
 import { ReactComponent as Sprout } from '../../image/sowing-icon4.svg';
@@ -61,7 +60,6 @@ const MapMark = ({ locationInfo }) => {
 
 MapMark.propTypes = {
   locationInfo: PropTypes.array
-}
-
+};
 
 export default MapMark;

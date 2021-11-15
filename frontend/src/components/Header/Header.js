@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Avatar } from 'antd';
 import { Link } from "react-router-dom";
 import { UserOutlined } from '@ant-design/icons';
 import { useHistory } from "react-router-dom";
 import { useSelector } from 'react-redux';
-import Menu from '../Menu/Menu';
 import { selectUserData } from '../../redux/reducers/userReducer';
 import {
   HeaderWrapper,
@@ -15,6 +14,7 @@ import {
   MemberInfo,
   StyleButton
 } from './HeaderStyle';
+import Menu from '../Menu/Menu';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

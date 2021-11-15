@@ -28,5 +28,5 @@ export const LoadingIcon = styled(RedoOutlined)`
     100% {
         transform: rotate(360deg);
     }
-}
+  }
 `;

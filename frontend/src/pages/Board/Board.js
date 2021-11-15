@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { BoardWrapper } from './BoardStyle';
 import { getMe } from '../../redux/reducers/userReducer';
+import { initialData } from '../../utils';
 import {
   getTicketsAsync,
   selectState,
   setInitialData,
   setInitialError
 } from '../../redux/reducers/ticketReducer';
-import { initialData } from '../../utils';
 import Section from '../../components/Section/Section';
 import TicketEditor from '../../components/TicketEditor/TicketEditor';
 import FilterButton from '../../components/FilterButton/FilterButton';
