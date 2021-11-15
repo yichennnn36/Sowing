@@ -6,7 +6,6 @@ export const TicketWrapper = styled.div`
   background: ${theme.COLOR.light};
   padding: 10px 20px;
   border-radius: 6px;
-  border-top-right-radius: 30px;
 
   &:hover {
     cursor: grab;

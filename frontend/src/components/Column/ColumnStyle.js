@@ -17,6 +17,7 @@ export const ColumnWrapper = styled.div`
 
 export const Container = styled(Card)`
   border-radius: 6px;
+  border-top-right-radius: 40px;
   background: ${theme.COLOR.card};
   max-height: 800px;
   overflow-y: scroll;
