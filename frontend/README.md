@@ -8,7 +8,7 @@ Sowing 是一個結合 To-do list、排序時間軸以及地圖標示的網站�
 
 - [Demo](https://github.com/yichennnn36/Sowing/tree/main/frontend#demo)
 - [Technologies](https://github.com/yichennnn36/Sowing/tree/main/frontend#technologies)
-- [功能架構](https://github.com/yichennnn36/Sowing/tree/main/frontend#功能架構)
+- [功能架構](https://github.com/yichennnn36/Sowing/tree/main/frontend#%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%A7%8B)
 - [Features](https://github.com/yichennnn36/Sowing/tree/main/frontend#features)
 - [專案架構](https://github.com/yichennnn36/Sowing/tree/main/frontend#%E5%B0%88%E6%A1%88%E6%9E%B6%E6%A7%8B)
 - [Backend](https://github.com/yichennnn36/Sowing/tree/main/frontend#backend)
