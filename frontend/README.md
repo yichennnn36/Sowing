@@ -4,6 +4,16 @@
 
 Sowing 是一個結合 To-do list、排序時間軸以及地圖標示的網站，能讓使用者以輕鬆、簡易的方式記錄自己的旅遊行程。
 
+## Contents
+
+- [Demo](https://github.com/yichennnn36/Sowing/tree/main/frontend#demo)
+- [Technologies](https://github.com/yichennnn36/Sowing/tree/main/frontend#technologies)
+- [功能架構](https://github.com/yichennnn36/Sowing/tree/main/frontend#功能架構)
+- [Features](https://github.com/yichennnn36/Sowing/tree/main/frontend#features)
+- [專案架構](https://github.com/yichennnn36/Sowing/tree/main/frontend#%E5%B0%88%E6%A1%88%E6%9E%B6%E6%A7%8B)
+- [Backend](https://github.com/yichennnn36/Sowing/tree/main/frontend#backend)
+- [License](https://github.com/yichennnn36/Sowing/tree/main/frontend#license)
+
 ## Demo
 
 ![site-intro](https://user-images.githubusercontent.com/82022020/141728638-c8730f3f-4815-497f-81d2-c6fff28662b0.gif)
@@ -22,13 +32,14 @@ Sowing 是一個結合 To-do list、排序時間軸以及地圖標示的網站�
   - React DnD
   - PropTypes
 - Styled-components
+- Ant Design
 - Responsive Web Design(RWD)
 - Single Page Application(SPA)
 - Module bundler: Webpack
 - Version Control: Git, GitHub
 - Package Manger: NPM
 
-## Features
+## 功能架構
 
 - 前台
   - 使用說明瀏覽
@@ -40,6 +51,10 @@ Sowing 是一個結合 To-do list、排序時間軸以及地圖標示的網站�
     - 個人化排序時間軸
     - 搜尋旅行票卡
     - 圖形化行程分布
+
+![framework](https://user-images.githubusercontent.com/82022020/141775181-6d76911d-bb8e-4efd-a84c-e5d9885f1199.jpg)
+
+## Features
 
 ### Board - 新增旅行票卡
 
@@ -75,7 +90,6 @@ Sowing 是一個結合 To-do list、排序時間軸以及地圖標示的網站�
 .
 ├── .env                       # 環境變數存放處                   
 ├── .gitignore
-├── LICENSE
 ├── README.md
 ├── yarn.lock
 ├── package.json
@@ -122,3 +136,5 @@ Sowing 是一個結合 To-do list、排序時間軸以及地圖標示的網站�
 [專案後端](https://github.com/yichennnn36/Sowing/tree/main/backend)
 
 ## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
