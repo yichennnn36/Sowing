@@ -157,12 +157,12 @@ async function updateTicketInfo({
     SET update_stamp = NOW()
   `;
 
-  if (title) { stat.append(SQL`, title = ${title}`); }
-  if (content) { stat.append(SQL`, content = ${content}`); }
-  if (location) { stat.append(SQL`, location = ${location}`); }
-  if (category) { stat.append(SQL`, category = ${category}`); }
-  if (startDate) { stat.append(SQL`, start_date = ${startDate}`); }
-  if (endDate) { stat.append(SQL`, end_date = ${endDate}`); }
+  if (title !== undefined) { stat.append(SQL`, title = ${title}`); }
+  if (content !== undefined) { stat.append(SQL`, content = ${content}`); }
+  if (location !== undefined) { stat.append(SQL`, location = ${location}`); }
+  if (category !== undefined) { stat.append(SQL`, category = ${category}`); }
+  if (startDate !== undefined) { stat.append(SQL`, start_date = ${startDate}`); }
+  if (endDate !== undefined) { stat.append(SQL`, end_date = ${endDate}`); }
 
   stat.append(SQL` WHERE (member_id, ticket_id) = (${memberId}, ${ticketId})`);
 

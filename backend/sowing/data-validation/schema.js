@@ -4,7 +4,7 @@ import { dataValidation } from '../../infrastructure';
 const NICKNAME = Joi.string();
 const TICKET_ID = Joi.number().positive();
 const TICKET_TITLE = Joi.string();
-const TICKET_CONTENT = Joi.string();
+const TICKET_CONTENT = Joi.string().allow(null);
 const TICKET_CATEGORY = Joi.number();
 const TICKET_STATUS = Joi.string().valid('sowing', 'watering', 'sprouting');
 const EVENT_LOCATION = Joi.string();
