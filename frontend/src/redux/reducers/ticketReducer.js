@@ -110,9 +110,6 @@ export const ticketReducer = createSlice({
         state.status = 'idle';
         state.postTicketError = action.payload.errno;
       })
-      .addCase(editTicketAsync.pending, (state) => {
-        state.status = 'loading';
-      })
       .addCase(editTicketAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.editError = action.payload.errno;
