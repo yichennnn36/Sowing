@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectTicketsData } from '../redux/reducers/ticketReducer';
 
@@ -24,7 +24,7 @@ const useSearch = () => {
       ));
       setSearchedResult(() => ([
         ...searchedTickets
-      ]))
+      ]));
     }
   };
 
@@ -47,13 +47,23 @@ const useSearch = () => {
     }
   };
 
+  useEffect(() => {
+    if (searchFieldRef.current.value) {
+      const searchedTickets = tickets.filter(item => (
+        item.title.includes(searchFieldRef.current.value)
+      ));
+      setSearchedResult(() => ([
+        ...searchedTickets
+      ]));
+    }
+  }, [tickets, searchFieldRef, setSearchedResult]);
+
   return {
     searchFieldRef,
-    isOnComposition,
-    searchedResult,
     handleComposition,
-    handleTicketSearch,
-    handleChange
+    handleChange,
+    searchedResult,
+    setSearchedResult
   }
 };
 

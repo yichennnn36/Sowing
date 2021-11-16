@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { BoardWrapper } from './BoardStyle';
+import { BoardWrapper, FunctionBlock } from './BoardStyle';
 import { getMe } from '../../redux/reducers/userReducer';
 import { initialData } from '../../utils';
 import {
@@ -12,6 +12,7 @@ import {
 } from '../../redux/reducers/ticketReducer';
 import Section from '../../components/Section/Section';
 import TicketEditor from '../../components/TicketEditor/TicketEditor';
+import Search from '../../components/Search/Search';
 import FilterButton from '../../components/FilterButton/FilterButton';
 import Header from '../../components/Header/Header';
 import Loading from '../../components/Loading/Loading';
@@ -72,9 +73,13 @@ const Board = () => {
   return (
     <>
       {status === 'loading' && <Loading />}
+      {status === 'error' && <Loading $error />}
       <Header />
       <BoardWrapper>
-        <FilterButton />
+        <FunctionBlock>
+          <Search setIsAddTicket={setIsAddTicket} />
+          <FilterButton />
+        </FunctionBlock>
         <Section
           setIsAddTicket={setIsAddTicket}
           setTicketStatus={setTicketStatus}

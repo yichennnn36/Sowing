@@ -2,13 +2,27 @@ import styled from 'styled-components';
 import { theme } from '../../constants/style';
 
 export const TicketWrapper = styled.div`
+  min-width: 280px;
   margin-top: 10px;
   background: ${theme.COLOR.light};
+  ${props => props.$secondMode &&
+    `border: 2px dashed ${theme.COLOR.secondary}; 
+    margin-left: 20px;
+    height: 120px;
+    max-width: 360px;
+    
+    & p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    `
+  };
   padding: 10px 20px;
   border-radius: 6px;
 
   &:hover {
-    cursor: grab;
+    cursor: ${props => !props.$secondMode && `grab`};
   }
 `;
 

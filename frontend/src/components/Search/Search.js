@@ -1,30 +1,25 @@
-import useSearch from '../../hooks/useSearch';
-import { categoryColors, timeFormator } from '../../utils';
-import {
-  SearchOutlined,
-  PushpinFilled,
-  EnvironmentFilled
-} from '@ant-design/icons';
+import { SearchOutlined, CloseSquareFilled } from '@ant-design/icons';
 import {
   SearchWrapper,
   InputWrapper,
-  TicketWrapper,
-  Subject,
-  TicketTitle,
-  Info
+  ResultWrapper,
+  CloseButton
 } from './SearchStyle';
+import Ticket from '../Ticket/Ticket';
+import useSearch from '../../hooks/useSearch';
 
-const Search = () => {
-  let {
+const Search = ({ setIsAddTicket }) => {
+  const {
     searchFieldRef,
-    searchedResult,
     handleComposition,
-    handleChange
+    handleChange,
+    searchedResult,
+    setSearchedResult
   } = useSearch();
 
   return (
-    <SearchWrapper>
-      <InputWrapper>
+    <SearchWrapper className="search__wrapper">
+      <InputWrapper className="input__wrapper">
         <SearchOutlined />
         <input
           type='text'
@@ -37,40 +32,24 @@ const Search = () => {
           onChange={handleChange}
         />
       </InputWrapper>
-      {
-        searchedResult.length > 0 &&
-        searchedResult.map((result, index) => {
-          let {
-            title,
-            location,
-            content,
-            category,
-            start_date,
-            end_date
-          } = result;
-          start_date = timeFormator(start_date);
-          end_date = timeFormator(end_date);
-
-          const color = categoryColors[category - 1].color;
-          const dateFormat = start_date === end_date ?
-            start_date : `${start_date} ～ ${end_date}`
-          return (
-            <TicketWrapper key={index}>
-              <Subject>
-                <TicketTitle>
-                  <PushpinFilled style={{ color: `${color}` }} />
-                  <span>{title}</span>
-                </TicketTitle>
-              </Subject>
-              <Info>
-                <span>{dateFormat}</span>
-                <span>{<EnvironmentFilled />} {location}</span>
-                <p>{content}</p>
-              </Info>
-            </TicketWrapper>
-          )
-        })
-      }
+      <ResultWrapper className="result__wrapper">
+        {searchedResult.length > 0 && (
+          <CloseButton onClick={() => setSearchedResult([])}>
+            <CloseSquareFilled /> Clear All
+          </CloseButton>
+        )}
+        {
+          searchedResult.length > 0 &&
+          searchedResult.map((result, index) => (
+            <Ticket
+              key={index}
+              ticket={result}
+              setIsAddTicket={setIsAddTicket}
+              $secondMode
+            />
+          ))
+        }
+      </ResultWrapper>
     </SearchWrapper>
   )
 };

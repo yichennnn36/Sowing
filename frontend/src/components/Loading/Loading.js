@@ -1,8 +1,8 @@
 import { LoadingWrapper, LoadingIcon } from './LoadingStyle';
 
-const Loading = () => {
+const Loading = ({ $error }) => {
   return (
-    <LoadingWrapper>
+    <LoadingWrapper $error={$error} >
       <LoadingIcon />
     </LoadingWrapper>
   )

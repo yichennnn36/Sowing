@@ -1,10 +1,12 @@
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Timeline as TimelineBlock } from 'antd';
 import { EnvironmentFilled, PushpinFilled } from '@ant-design/icons';
 import { TimelineWrapper } from './TimelineStyle';
 import { categoryColors, timeFormator } from '../../utils';
+import { selectTicketsData } from '../../redux/reducers/ticketReducer';
 
-const Timeline = ({ tickets }) => {
+const Timeline = () => {
+  const { tickets } = useSelector(selectTicketsData);
   const sortedTickets = tickets.map(ticket => ({
     ...ticket,
     start_date: Date.parse(ticket.start_date).valueOf()
@@ -44,10 +46,6 @@ const Timeline = ({ tickets }) => {
       </TimelineBlock>
     </TimelineWrapper>
   )
-};
-
-Timeline.propTypes = {
-  tickets: PropTypes.array,
 };
 
 export default Timeline;

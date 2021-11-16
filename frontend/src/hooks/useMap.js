@@ -6,8 +6,26 @@ import { selectState, selectTicketsData } from '../redux/reducers/ticketReducer'
 const useMap = () => {
   const boardData = useSelector(selectState);
   const { tickets } = useSelector(selectTicketsData);
-  const { status, getTicketsError } = boardData;
+  const {
+    status,
+    getTicketsError,
+    editError,
+    deleteError
+  } = boardData;
   const [locationInfo, setLocationInfo] = useState(locationSum);
+  const [ticketsInfo, setTicketsInfo] = useState([]);
+  const [isAddTicket, setIsAddTicket] = useState({
+    id: null,
+    open: false
+  });
+
+  const handleShowInfo = (location) => {
+    const info = tickets.filter(ticket => ticket.location === location);
+    setTicketsInfo(() => ([
+      ...info,
+      ...ticketsInfo
+    ]));
+  };
 
   useEffect(() => {
     let theLocationInfo = JSON.parse(JSON.stringify(locationSum));
@@ -25,11 +43,16 @@ const useMap = () => {
   }, [tickets]);
 
   return {
-    tickets,
     locationInfo,
-    setLocationInfo,
     status,
-    getTicketsError
+    getTicketsError,
+    deleteError,
+    editError,
+    handleShowInfo,
+    ticketsInfo,
+    setTicketsInfo,
+    isAddTicket,
+    setIsAddTicket
   }
 };
 

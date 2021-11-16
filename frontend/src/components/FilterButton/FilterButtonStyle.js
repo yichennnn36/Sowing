@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 export const FilterWrapper = styled.div`
-  text-align: center;
-  margin-top: 120px;
+
 
   & button {
     transform: scale(1.2);

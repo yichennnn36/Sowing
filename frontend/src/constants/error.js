@@ -16,7 +16,7 @@ const errMessage = {
     400: 'Incorrect username or password, please try again！',
     401: 'Username is not exist！',
     402: 'Username or Password does not conform to format！',
-    0: '登入出了錯誤，請稍後再試一次！'
+    0: '有地方出了錯誤，請重新登入！'
   },
   FAIL_POST: {
     400: '* fileds is not allowed to be empty！',

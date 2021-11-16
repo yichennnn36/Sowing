@@ -22,7 +22,7 @@ import {
   setEditError
 } from '../../redux/reducers/ticketReducer';
 
-const Ticket = ({ index, ticket, setIsAddTicket }) => {
+const Ticket = ({ ticket, setIsAddTicket, $secondMode }) => {
   let {
     ticket_id,
     title,
@@ -61,7 +61,11 @@ const Ticket = ({ index, ticket, setIsAddTicket }) => {
   });
 
   return (
-    <TicketWrapper key={ticketId} ref={dragRef}>
+    <TicketWrapper
+      key={ticketId}
+      ref={dragRef}
+      $secondMode={$secondMode}
+    >
       <Subject>
         <TicketTitle onClick={() => console.log('id', ticket_id)}>
           <PushpinFilled style={{ color: `${color}` }} />

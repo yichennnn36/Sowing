@@ -4,6 +4,7 @@ import { theme, MEDIA_QUERY } from '../../constants/style';
 
 export const ColumnWrapper = styled.div`
   max-width: 500px;
+  min-width: 300px;
   margin: 16px auto;
   ${props => props.isOver &&
     `border: 2px dashed ${theme.COLOR.shadow}`
@@ -20,17 +21,13 @@ export const Container = styled(Card)`
   border-top-right-radius: 40px;
   background: ${theme.COLOR.card};
   max-height: 800px;
-  overflow-y: scroll;
+
 
   ${MEDIA_QUERY.md} {
     height: 1000px;
-    
-    &::-webkit-scrollbar {
-      display: none;
-    }
   }
   & button {
-    &:focus,&:hover {
+    &:focus, &:hover {
       color: ${theme.COLOR.primary};
       border-color: ${theme.COLOR.primary};
     }
@@ -45,5 +42,10 @@ export const Container = styled(Card)`
 
 export const TicketList = styled.div`
   flex-grow: 1;
-  min-height: 500px;
+  max-height: 600px;
+  overflow: auto;
+  
+  ${MEDIA_QUERY.md} {
+    max-height: 660px;
+  }
 `;

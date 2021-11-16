@@ -92,13 +92,14 @@ export const ticketReducer = createSlice({
         state.status = 'loading';
       })
       .addCase(getTicketsAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
         if (action.payload.tickets) {
+          state.status = 'idle';
           state.ticketsData.tickets = action.payload.tickets;
           for (let value of action.payload.tickets) {
             state.ticketsData.columns[value.status].ticketIds.push(value.ticket_id)
           }
         } else {
+          state.status = 'error';
           state.getTicketsError = action.payload.errno;
         }
       })

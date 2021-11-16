@@ -47,9 +47,6 @@ const useLogin = () => {
   };
 
   useEffect(() => {
-    if (errorMessage) {
-      return dispatch(setErrorMessage(errorMessage));
-    }
     if (response) {
       if (response.errno) {
         switch (response.errno) {

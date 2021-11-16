@@ -28,7 +28,7 @@ const FilterButton = () => {
   }
 
   return (
-    <FilterWrapper>
+    <FilterWrapper className="filter__wrapper">
       <Button
         shape="circle"
         style={{ background: `pink`, color: `white` }}

@@ -49,7 +49,7 @@ export const fetchLogin = async (userData) => {
 
 export const fetchAllTickets = async () => {
   const token = getAuthToken(TOKEN_NAME);
-  if (!token) return;
+  if (!token) return { errno: "ERR_NOT_AUTHORIZED" };
   try {
     const response = await fetch(TICKET_URL, {
       headers: {
@@ -133,7 +133,7 @@ export const fetchEditTicket = async (data) => {
   const { ticket_id } = data;
   delete data.ticket_id;
   delete data.status;
-  if (!data.content) delete data.content;
+  if (!data.content) data.content = null;
   try {
     const response = await fetch(`${TICKET_URL}/${ticket_id}`, {
       method: 'PUT',

@@ -3,10 +3,9 @@ import { theme, MEDIA_QUERY } from '../../constants/style';
 
 export const SearchWrapper = styled.div`
   padding: 50px 40px;
-  margin: 0 auto;
+  margin: 0 auto 50px;
   
   ${MEDIA_QUERY.md} {
-    min-width: 400px;
     border-right: 1px solid ${theme.COLOR.card};
   }
 `;
@@ -30,52 +29,20 @@ export const InputWrapper = styled.div`
   }
 `;
 
-export const TicketWrapper = styled.div`
-  margin: 16px 0;
-  padding: 10px 20px;
-  border: 2px dashed ${theme.COLOR.secondary};
-  border-radius: 6px;
-  border-top-right-radius: 30px;
-`;
-
-export const Subject = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid ${theme.COLOR.secondary};
-`;
-
-export const TicketTitle = styled.div`
-  display: flex;
-  font-size: ${theme.FONT_SIZE.fs6};
-  padding-bottom: 6px;
-
-  & span {
-    font-weight: 500;
-  }
-  & svg {
-    margin-right: 10px;
+export const ResultWrapper = styled.div`
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 10px;
+  max-height: 450px;
+  overflow: auto;
+  
+  ${MEDIA_QUERY.md} {
+    min-width: 400px;
+    max-height: 800px;
   }
 `;
 
-export const Info = styled.div`
-  position: relative;
-  margin-top: 6px;
-
-  & span {
-    color: ${theme.COLOR.tertiary};
-    font-size: ${theme.FONT_SIZE.fs7};
-  }
-  & span:first-child {
-    font-style: italic;
-  }
-  & span:nth-child(2) {
-    position: absolute;
-    right: 0;
-    top: 2px;
-  }
-  & p {
-    margin: 10px 0 0;
-    word-break: break-word;
-  }
+export const CloseButton = styled.span`
+  color: ${theme.COLOR.shadow};
+  cursor: pointer;
 `;

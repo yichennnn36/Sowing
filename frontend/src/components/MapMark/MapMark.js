@@ -6,10 +6,11 @@ import {
   MapImage,
   GridMap,
   Row,
-  Square
+  Square,
+  SproutIcon
 } from './MapMarkStyle';
 
-const MapMark = ({ locationInfo }) => {
+const MapMark = ({ locationInfo, handleShowInfo }) => {
   let grid = new Array(20);
   for (var i = 0; i < grid.length; i++) {
     grid[i] = new Array(20).fill(null);
@@ -38,9 +39,13 @@ const MapMark = ({ locationInfo }) => {
 
                               return (
                                 location === col && sum !== 0 &&
-                                <div key={index}>
+                                <SproutIcon
+                                  key={index}
+                                  location={location}
+                                  onClick={() => handleShowInfo(location)}
+                                >
                                   <Sprout />
-                                </div>
+                                </SproutIcon>
                               )
                             })
                           }

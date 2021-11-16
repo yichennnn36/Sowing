@@ -1,32 +1,24 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { categoryColors, timeFormator } from '../../utils';
 import { ReactComponent as LeafIcon } from '../../image/sowing-icon1.svg';
 import {
   PlusCircleFilled,
-  PushpinFilled,
   CloseCircleFilled
 } from '@ant-design/icons';
 import {
   InformationContainer,
   ListItem,
-  TicketWrapper,
-  TicketTitle,
-  Date,
   TicketInfo,
   LocationInfo
 } from './MapInformationStyle';
+import Ticket from '../Ticket/Ticket';
 
-const MapInformation = ({ locationInfo, tickets }) => {
-  const [ticketsInfo, setTicketsInfo] = useState([]);
-
-  const handleShowInfo = (location) => {
-    const info = tickets.filter(item => item.location === location);
-    setTicketsInfo(() => ([
-      ...info
-    ]));
-  }
-
+const MapInformation = ({
+  locationInfo,
+  ticketsInfo,
+  setTicketsInfo,
+  handleShowInfo,
+  setIsAddTicket
+}) => {
   return (
     <InformationContainer>
       <LocationInfo>
@@ -50,29 +42,14 @@ const MapInformation = ({ locationInfo, tickets }) => {
         />
         {
           ticketsInfo.length > 0 &&
-          ticketsInfo.map((info, index) => {
-            let {
-              title,
-              category,
-              start_date,
-              end_date
-            } = info;
-            start_date = timeFormator(start_date);
-            end_date = timeFormator(end_date);
-
-            const color = categoryColors[category - 1].color;
-            const dateFormat = start_date === end_date ?
-              start_date : `${start_date} ～ ${end_date}`
-            return (
-              <TicketWrapper key={index}>
-                <TicketTitle>
-                  <PushpinFilled style={{ color: `${color}` }} />
-                  <span>{title}</span>
-                </TicketTitle>
-                <Date>{dateFormat}</Date>
-              </TicketWrapper>
-            )
-          })
+          ticketsInfo.map((info, index) => (
+            <Ticket
+              key={index}
+              ticket={info}
+              setIsAddTicket={setIsAddTicket}
+              $secondMode
+            />
+          ))
         }
       </TicketInfo>
     </InformationContainer>
@@ -81,7 +58,10 @@ const MapInformation = ({ locationInfo, tickets }) => {
 
 MapInformation.propTypes = {
   locationInfo: PropTypes.array,
-  tickets: PropTypes.array
+  ticketsInfo: PropTypes.array,
+  setTicketsInfo: PropTypes.func,
+  handleShowInfo: PropTypes.func,
+  setIsAddTicket: PropTypes.func
 };
 
 export default MapInformation;

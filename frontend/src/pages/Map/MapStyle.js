@@ -3,7 +3,7 @@ import { MEDIA_QUERY } from '../../constants/style';
 
 export const MapWrapper = styled.div`
   min-height: 680px;
-  margin: 160px auto;
+  margin: 200px auto 100px;
   position: relative;
   display: flex;
   flex-direction: column;
