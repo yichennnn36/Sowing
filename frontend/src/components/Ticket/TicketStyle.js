@@ -5,19 +5,12 @@ export const TicketWrapper = styled.div`
   min-width: 280px;
   margin-top: 10px;
   background: ${theme.COLOR.light};
-  ${props => props.$secondMode &&
-    `border: 2px dashed ${theme.COLOR.secondary}; 
+  ${props => props.$secondMode && `
+    border: 2px dashed ${theme.COLOR.secondary}; 
     margin-left: 20px;
     height: 120px;
     max-width: 360px;
-    
-    & p {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    `
-  };
+  `};
   padding: 10px 20px;
   border-radius: 6px;
 
@@ -71,6 +64,15 @@ export const Info = styled.div`
   }
   & p {
     margin: 10px 0 0;
-    word-break: break-word;
+    white-space: break-spaces;
   }
+  ${props => props.$secondMode && `
+    & p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+  `};
 `;

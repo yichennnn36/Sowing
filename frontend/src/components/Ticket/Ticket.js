@@ -82,7 +82,7 @@ const Ticket = ({ ticket, setIsAddTicket, $secondMode }) => {
           />
         </FunctionBar>
       </Subject>
-      <Info>
+      <Info $secondMode={$secondMode} >
         <span>{dateFormat}</span>
         <span>{<EnvironmentFilled />} {location}</span>
         <p>{content}</p>
