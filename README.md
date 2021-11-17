@@ -2,7 +2,9 @@
 
 ![sowing-logo](https://user-images.githubusercontent.com/82022020/141731887-d13890e7-93e7-4495-ad99-3397e1b4a3e9.png)
 
-Sowing 是一個結合 To-do list、排序時間軸以及地圖標示的網站，能讓使用者以輕鬆、簡易的方式記錄自己的旅遊行程。
+Sowing 是一個結合 To-do list、排序時間軸以及圖形標示紀錄的網站，能讓使用者以輕鬆、簡易的方式記錄屬於自己的台灣旅行紀錄票卡。
+
+旅行票卡如同一顆種子，以播種的概念來呈現，將票卡分為播種中（Sowing）、澆水中（Watering）、發芽成長中（Sprouting），如同待辦清單中的 Todo、Doing、Done 方式表現，並將旅行目的地以圖形化的方式呈現，標示出未來或是過去所到過的地區。
 
 ## Contents
 
@@ -25,79 +27,81 @@ Sowing 是一個結合 To-do list、排序時間軸以及地圖標示的網站�
 
 ## Technologies
 
-- React
-  - React hook
-  - React Redux Toolkit
-  - React Router
-  - React DnD
-  - PropTypes
-- Styled-components
-- Ant Design
-- Responsive Web Design(RWD)
-- Single Page Application(SPA)
-- Module bundler: Webpack
-- Version Control: Git, GitHub
-- Package Manger: NPM
+- Frontend
+  - React
+    - React hook
+    - React Redux Toolkit
+    - React Router
+    - React DnD
+    - PropTypes
+  - Styled-components
+  - Ant Design
+  - Responsive Web Design(RWD)
+  - Single Page Application(SPA)
+  - Version Control: Git, GitHub
+  - Package Manger: NPM
+- Backend
+  - Nodejs
+  - AWS APIGateway
+  - AWS Lambda
+  - serverless
+  - MySQL
 
 ## 功能架構
 
-- 前台
-  - 使用說明瀏覽
-  - 登入註冊功能
-- 後台
-  - 使用者
-    - 新增、刪除、編輯旅行票卡
-    - 拖曳更改狀態、分類過濾顯示
-    - 個人化排序時間軸
-    - 搜尋旅行票卡
-    - 圖形化行程分布
+ - 登入註冊功能
+ - 使用者
+   - 新增、刪除、編輯、顯示旅行票卡
+   - 拖曳更改狀態、分類過濾顯示
+   - 個人化排序時間軸
+   - 搜尋旅行票卡
+   - 圖形化行程分布
 
-![framework](https://user-images.githubusercontent.com/82022020/141775181-6d76911d-bb8e-4efd-a84c-e5d9885f1199.jpg)
+<img width="3458" alt="framework" src="https://user-images.githubusercontent.com/82022020/142141903-48bcc672-e20b-4de6-8897-e4e3d96d5c78.png">
 
 ## Features
 
 ### Board - 新增旅行票卡
 
-![sowing-add](https://user-images.githubusercontent.com/82022020/141735594-1be2f36b-7c75-48d8-a8db-6eaf6574aa2d.gif)
+![sowing-add](https://user-images.githubusercontent.com/82022020/142139548-b7632225-6050-4166-a5bc-6ed9af615caa.gif)
 
 ### Board - 編輯旅行票卡
 
-![sowing-edit](https://user-images.githubusercontent.com/82022020/141746932-183653fc-94bb-4ddc-abe1-6c632f4d91f8.gif)
+![sowing-edit](https://user-images.githubusercontent.com/82022020/142139560-92297358-2810-4349-862a-e5bebc6f3f6c.gif)
 
 ### Board - 刪除旅行票卡
 
-![sowing-delete](https://user-images.githubusercontent.com/82022020/141738233-73494c23-dcbe-492f-831a-86736fe4b370.gif)
+![sowing-delete](https://user-images.githubusercontent.com/82022020/142139571-12b0fe36-aa42-4e15-931e-dd25b10db462.gif)
 
 ### Board - Drag & Drop
 
-![sowing-dragdrop](https://user-images.githubusercontent.com/82022020/141747461-965a594b-d87c-4ec1-8175-41d2e05f2918.gif)
+![sowing-dragdrop](https://user-images.githubusercontent.com/82022020/142139574-ed66087d-eb7a-4bc7-a134-cd884c45c0f1.gif)
 
-### Board - 分類按鈕
+### Board - 分類按鈕、搜尋功能
 
-![sowing-filter](https://user-images.githubusercontent.com/82022020/141748270-6d45ea86-624c-4a44-b765-7cfddbf005af.gif)
+![sowinf-filter](https://user-images.githubusercontent.com/82022020/142141682-c46888b7-c618-444c-9bad-bec84e7a4871.gif)
 
 ### Time - 旅行紀錄時間軸、搜尋功能
 
-![sowing-time](https://user-images.githubusercontent.com/82022020/141751399-c8814885-79a4-470c-be67-f8de5c020274.gif)
+![sowing-time](https://user-images.githubusercontent.com/82022020/142141698-faacfb95-7fb9-4583-8106-cf0beca2dad6.gif)
 
 ### Map - 旅行地點分布圖、以地區分類的旅行票卡
 
-![sowing-map](https://user-images.githubusercontent.com/82022020/141751422-e00509bb-4a55-4b9f-a87c-ac143ad98257.gif)
+![sowing-map](https://user-images.githubusercontent.com/82022020/142141713-b283af64-f591-4b92-bab1-5bd2676b64a0.gif)
 
 ## 專案架構
 
 ```
-.
+frontend
 ├── .env                       # 環境變數存放處                   
 ├── .gitignore
-├── README.md
 ├── yarn.lock
 ├── package.json
 ├── public
 │   ├── index.html
 │   └── sowing.ico
 └── src
-    ├── components                  
+    ├── components
     │   ├── Column
     │   ├── FilterButton
     │   ├── Footer
