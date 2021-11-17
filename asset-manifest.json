@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/Sowing/static/js/main.91ec0b61.chunk.js",
-    "main.js.map": "/Sowing/static/js/main.91ec0b61.chunk.js.map",
+    "main.js": "/Sowing/static/js/main.d987fcfc.chunk.js",
+    "main.js.map": "/Sowing/static/js/main.d987fcfc.chunk.js.map",
     "runtime-main.js": "/Sowing/static/js/runtime-main.573b9622.js",
     "runtime-main.js.map": "/Sowing/static/js/runtime-main.573b9622.js.map",
     "static/css/2.a95be28f.chunk.css": "/Sowing/static/css/2.a95be28f.chunk.css",
@@ -23,6 +23,6 @@
     "static/js/runtime-main.573b9622.js",
     "static/css/2.a95be28f.chunk.css",
     "static/js/2.018fade0.chunk.js",
-    "static/js/main.91ec0b61.chunk.js"
+    "static/js/main.d987fcfc.chunk.js"
   ]
 }
