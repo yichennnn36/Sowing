@@ -1,6 +1,6 @@
-# Sowing
+<div align=center><img src="https://user-images.githubusercontent.com/82022020/141731887-d13890e7-93e7-4495-ad99-3397e1b4a3e9.png" alt="sowing-logo"></div>
 
-![sowing-logo](https://user-images.githubusercontent.com/82022020/141731887-d13890e7-93e7-4495-ad99-3397e1b4a3e9.png)
+# Sowing
 
 Sowing 是一個結合 To-do list、排序時間軸以及圖形標示紀錄的網站，能讓使用者以輕鬆、簡易的方式記錄屬於自己的台灣旅行紀錄票卡。
 
@@ -13,15 +13,15 @@ Sowing 是一個結合 To-do list、排序時間軸以及圖形標示紀錄的�
 - [功能架構](https://github.com/yichennnn36/Sowing/tree/main/frontend#%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%A7%8B)
 - [Features](https://github.com/yichennnn36/Sowing/tree/main/frontend#features)
 - [專案架構](https://github.com/yichennnn36/Sowing/tree/main/frontend#%E5%B0%88%E6%A1%88%E6%9E%B6%E6%A7%8B)
-- [Backend](https://github.com/yichennnn36/Sowing/tree/main/frontend#backend)
+- [Installing](https://github.com/yichennnn36/Sowing/tree/main/frontend#installing)
+- [Contributor and Responsibility](https://github.com/yichennnn36/Sowing/tree/main/frontend#contact)
 - [License](https://github.com/yichennnn36/Sowing/tree/main/frontend#license)
-- [Contact](https://github.com/yichennnn36/Sowing/tree/main/frontend#contact)
 
 ## Demo
 
 ![site-intro](https://user-images.githubusercontent.com/82022020/141728638-c8730f3f-4815-497f-81d2-c6fff28662b0.gif)
 
-專案網站： [Sowing](https://yichennnn36.github.io/Sowing/)
+> 專案網站： [Sowing](https://yichennnn36.github.io/Sowing/)
 
  - Test User：sowing01
  - Password：sowing01
@@ -40,7 +40,7 @@ Sowing 是一個結合 To-do list、排序時間軸以及圖形標示紀錄的�
   - Responsive Web Design(RWD)
   - Single Page Application(SPA)
   - Version Control: Git, GitHub
-  - Package Manger: NPM
+  - Package Manger: Yarn
 - Backend
   - Nodejs
   - AWS APIGateway
@@ -52,11 +52,12 @@ Sowing 是一個結合 To-do list、排序時間軸以及圖形標示紀錄的�
 
  - 登入註冊功能
  - 使用者
-   - 新增、刪除、編輯、顯示旅行票卡
-   - 拖曳更改狀態、分類過濾顯示
-   - 個人化排序時間軸
-   - 搜尋旅行票卡
-   - 圖形化行程分布
+   1. 新增、刪除、編輯、顯示旅行票卡
+   2. 拖曳更改狀態
+   3. 分類過濾顯示
+   4. 搜尋旅行票卡
+   5. 個人化排序時間軸
+   6. 圖形化行程分布
 
 <img width="3458" alt="framework" src="https://user-images.githubusercontent.com/82022020/142141903-48bcc672-e20b-4de6-8897-e4e3d96d5c78.png">
 
@@ -90,7 +91,7 @@ Sowing 是一個結合 To-do list、排序時間軸以及圖形標示紀錄的�
 
 ![sowing-map](https://user-images.githubusercontent.com/82022020/142141713-b283af64-f591-4b92-bab1-5bd2676b64a0.gif)
 
-## 專案架構
+## 專案架構（frontend）
 
 ```
 frontend
@@ -136,14 +137,39 @@ frontend
     └── utils.js                  # 共用功能與 initialData
 ```
 
-## Backend
+## Installing
 
-[專案後端](https://github.com/yichennnn36/Sowing/tree/main/backend)
+1. 打開你的 terminal，Clone 此專案至本機電腦
+```
+git clone https://github.com/yichennnn36/Sowing.git
+```
+2. 開啟終端機（Terminal），進入存放此專案的資料夾
+```
+cd frontend
+```
+3. 安裝 yarn 套件
+```
+$yarn install
+```
+4. 建立環境變數檔
+```
+在專案根目錄新增環境變數檔案 .env，填入專案所需之所有環境變數。
+```
+5. 建立專案 production 版本
+```
+$yarn build
+```
+6. 部署 GitHub，設定部屬 branch 為 gh-pages
+```
+$yarn deploy
+```
+
+## Contributor and Responsibility
+
+[Yichen Liu](mailto:yichennnnliu@gmail.com)：確立專案規格（User Story、Wireframe）、前端功能開發
+
+[PCC](mailto:chenargar@gmail.com)：建立資料庫架構、後端功能開發
 
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
-
-## Contact
-
-Email：[yichennnnliu@gmail.com](mailto:yichennnnliu@gmail.com)
