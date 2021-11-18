@@ -11,7 +11,7 @@ import Footer from './components/Footer/Footer';
 const App = () => {
   return (
     <Root>
-      <Router basename="/sowing">
+      <Router basename="/Sowing">
         <GlobalStyle />
         <ScrollToTop />
         <Switch>
