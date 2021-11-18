@@ -8,14 +8,14 @@ Sowing 是一個結合 To-do list、排序時間軸以及圖形標示紀錄的�
 
 ## Contents
 
-- [Demo](https://github.com/yichennnn36/Sowing/tree/main/frontend#demo)
-- [Technologies](https://github.com/yichennnn36/Sowing/tree/main/frontend#technologies)
-- [功能架構](https://github.com/yichennnn36/Sowing/tree/main/frontend#%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%A7%8B)
-- [Features](https://github.com/yichennnn36/Sowing/tree/main/frontend#features)
-- [專案架構](https://github.com/yichennnn36/Sowing/tree/main/frontend#%E5%B0%88%E6%A1%88%E6%9E%B6%E6%A7%8B)
-- [Installing](https://github.com/yichennnn36/Sowing/tree/main/frontend#installing)
-- [Contributor and Responsibility](https://github.com/yichennnn36/Sowing/tree/main/frontend#contact)
-- [License](https://github.com/yichennnn36/Sowing/tree/main/frontend#license)
+- [Demo](https://github.com/yichennnn36/Sowing#demo)
+- [Technologies](https://github.com/yichennnn36/Sowing#technologies)
+- [功能架構](https://github.com/yichennnn36/Sowing#%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%A7%8B)
+- [Features](https://github.com/yichennnn36/Sowing#features)
+- [專案架構（frontend）](https://github.com/yichennnn36/Sowing#%E5%B0%88%E6%A1%88%E6%9E%B6%E6%A7%8Bfrontend)
+- [Installing](https://github.com/yichennnn36/Sowing#installing)
+- [Contributor and Responsibility](https://github.com/yichennnn36/Sowing#contributor-and-responsibility)
+- [License](https://github.com/yichennnn36/Sowing#license)
 
 ## Demo
 
