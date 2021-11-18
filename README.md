@@ -15,6 +15,7 @@ Sowing 是一個結合 To-do list、排序時間軸以及圖形標示紀錄的�
 - [專案架構](https://github.com/yichennnn36/Sowing/tree/main/frontend#%E5%B0%88%E6%A1%88%E6%9E%B6%E6%A7%8B)
 - [Backend](https://github.com/yichennnn36/Sowing/tree/main/frontend#backend)
 - [License](https://github.com/yichennnn36/Sowing/tree/main/frontend#license)
+- [Contact](https://github.com/yichennnn36/Sowing/tree/main/frontend#contact)
 
 ## Demo
 
@@ -142,3 +143,7 @@ frontend
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+## Contact
+
+Email：[yichennnnliu@gmail.com](mailto:yichennnnliu@gmail.com)
