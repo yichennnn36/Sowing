@@ -23,8 +23,8 @@ Sowing 是一個結合 To-do list、排序時間軸以及圖形標示紀錄的�
 
 > 專案網站： [Sowing](https://yichennnn36.github.io/Sowing/)
 
- - Test User：sowing01
- - Password：sowing01
+- Test User：sowing01
+- Password：sowing01
 
 ## Technologies
 
@@ -34,6 +34,7 @@ Sowing 是一個結合 To-do list、排序時間軸以及圖形標示紀錄的�
     - React Redux Toolkit
     - React Router
     - React DnD
+    - React animations
     - PropTypes
   - Styled-components
   - Ant Design
@@ -50,14 +51,14 @@ Sowing 是一個結合 To-do list、排序時間軸以及圖形標示紀錄的�
 
 ## 功能架構
 
- - 登入註冊功能
- - 使用者
-   1. 新增、刪除、編輯、顯示旅行票卡
-   2. 拖曳更改狀態
-   3. 分類過濾顯示
-   4. 搜尋旅行票卡
-   5. 個人化排序時間軸
-   6. 圖形化行程分布
+- 登入註冊功能
+- 使用者
+  1.  新增、刪除、編輯、顯示旅行票卡
+  2.  拖曳更改狀態
+  3.  分類過濾顯示
+  4.  搜尋旅行票卡
+  5.  個人化排序時間軸
+  6.  圖形化行程分布
 
 <img width="3458" alt="framework" src="https://user-images.githubusercontent.com/82022020/142141903-48bcc672-e20b-4de6-8897-e4e3d96d5c78.png">
 
@@ -95,7 +96,7 @@ Sowing 是一個結合 To-do list、排序時間軸以及圖形標示紀錄的�
 
 ```
 frontend
-├── .env                       # 環境變數存放處                   
+├── .env                       # 環境變數存放處
 ├── .gitignore
 ├── yarn.lock
 ├── package.json
@@ -107,7 +108,7 @@ frontend
     │   ├── Column
     │   ├── FilterButton
     │   ├── Footer
-    │   ├── Header           
+    │   ├── Header
     │   ├── Input
     │   ├── Loading
     │   ├── Login
@@ -118,15 +119,15 @@ frontend
     │   ├── Ticket
     │   ├── TicketEditor
     │   └── Timeline
-    ├── constants                 # 包括 global style、共用 style 以及 error、success 訊息統整 
+    ├── constants                 # 包括 global style、共用 style 以及 error、success 訊息統整
     ├── hooks                     # Custom hooks
     ├── images
-    ├── pages                       
+    ├── pages
     │   ├── Board                 # 後台 Bulletin board 頁面
     │   ├── IntroPage             # 前台介紹頁／登入畫面／註冊畫面
     │   ├── Map                   # 後台 Map 旅行地點分布圖
     │   └── Time                  # 後台 Time 旅行紀錄時間軸
-    ├── redux  
+    ├── redux
     │   ├── reducers
     │   │   ├── ticketReducer.js  # 處理後台新增、刪除、取得、編輯、拖曳等事件
     │   │   └── userReducer.js    # 處理登入、註冊事件
@@ -140,26 +141,37 @@ frontend
 ## Installing
 
 1. 打開你的 terminal，Clone 此專案至本機電腦
+
 ```
 git clone https://github.com/yichennnn36/Sowing.git
 ```
+
 2. 開啟終端機（Terminal），進入存放此專案的資料夾
+
 ```
 cd frontend
 ```
+
 3. 安裝 yarn 套件
+
 ```
 $yarn install
 ```
+
 4. 建立環境變數檔
+
 ```
 在專案根目錄新增環境變數檔案 .env，填入專案所需之所有環境變數。
 ```
+
 5. 建立專案 production 版本
+
 ```
 $yarn build
 ```
+
 6. 部署 GitHub，設定部屬 branch 為 gh-pages
+
 ```
 $yarn deploy
 ```

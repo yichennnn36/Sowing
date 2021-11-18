@@ -1,4 +1,4 @@
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { GlobalStyle, Root } from './constants/globalStyle';
 import { ScrollToTop } from './utils';
 import 'antd/dist/antd.css';
