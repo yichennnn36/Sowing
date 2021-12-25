@@ -14,18 +14,27 @@ async function signUp({
 
   const isUserExist = await memberModel.checkIfUserExist({ username });
   if (isUserExist) {
-    throw new errorHandling.SowingError({
+    const httpError = new errorHandling.SowingError({
       errno: errorHandling.errno.ERR_USER_EXIST,
     });
+    return { error: httpError };
   }
 
   const hashPassword = infraUtils.hashPassword(username, password);
 
-  await memberModel.signUp({
+  const { affectedRows } = await memberModel.signUp({
     username,
     hashPassword,
     nickname,
   });
+  if (affectedRows <= 0) {
+    const httpError = new errorHandling.SowingError({
+      errno: errorHandling.errno.ERR_USER_NOT_CREATED,
+    });
+    return { error: httpError };
+  }
+
+  return { error: null };
 }
 
 async function login({ username, password }) {
@@ -33,34 +42,44 @@ async function login({ username, password }) {
 
   const isUserExist = await memberModel.checkIfUserExist({ username });
   if (!isUserExist) {
-    throw new errorHandling.SowingError({
+    const httpError = new errorHandling.SowingError({
       errno: errorHandling.errno.ERR_USER_NOT_EXIST,
     });
+    return { error: httpError };
   }
 
   const hashPassword = infraUtils.hashPassword(username, password);
 
   const { memberId, nickname } = await memberModel.getAuthInfo({ username, hashPassword });
   if (!memberId) {
-    throw new errorHandling.SowingError({
+    const httpError = new errorHandling.SowingError({
       errno: errorHandling.errno.ERR_USER_LOGIN_FAILED,
     });
+    return { error: httpError };
   }
 
   const tokenExpireStamp = moment().add(1, 'days');
   const token = infraUtils.createToken(memberId, tokenExpireStamp);
 
-  await memberModel.updateToken({
+  const { affectedRows } = await memberModel.updateToken({
     memberId,
     token,
     tokenExpireStamp: tokenExpireStamp.format(),
   });
+  if (affectedRows <= 0) {
+    const httpError = new errorHandling.SowingError({
+      errno: errorHandling.errno.ERR_USER_NOT_UPDATED,
+    });
+    return { error: httpError };
+  }
 
   return {
     memberId,
     nickname,
     token,
     tokenExpireStamp,
+
+    error: null,
   };
 }
 

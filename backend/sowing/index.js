@@ -19,6 +19,7 @@ export const doCreateTicket = requestHandling.createAuthAPIGatewayEventHandler(
   sowingHandler.createTicket,
 );
 export const doGetTickets = requestHandling.createAuthAPIGatewayEventHandler(
+  undefined,
   sowingHandler.getTickets,
 );
 export const doUpdateTicketStatus = requestHandling.createAuthAPIGatewayEventHandler(

@@ -1,5 +1,3 @@
-import { strict as assert } from 'assert';
-import util from 'util';
 import HttpStatus from './httpStatus';
 import errorHandling from '../../error-handling';
 import { createResponse } from './httpResponse';
@@ -31,7 +29,7 @@ async function parseAPIGatewayEvent({
     } catch (err) {
       const httpError = new errorHandling.ServiceError(err.message, 'ERR_INVALID_REQUEST_BODY');
       httpError.status = HttpStatus.BAD_REQUEST;
-      throw httpError;
+      return { error: httpError };
     }
   }
 
@@ -41,7 +39,7 @@ async function parseAPIGatewayEvent({
     if (!memberId) {
       const httpError = new errorHandling.ServiceError('Authorization error', 'ERR_NOT_AUTHORIZED');
       httpError.status = HttpStatus.UNAUTHORIZED;
-      throw httpError;
+      return { error: httpError };
     }
     req.user = { memberId };
   }
@@ -49,49 +47,45 @@ async function parseAPIGatewayEvent({
   return req;
 }
 
-async function validateRequestData(data, schema) {
-  assert.ok(schema instanceof Object, 'invalid schema for request params');
-
+async function validateRequestData(req, schema) {
   try {
-    data = await schema.validateAsync(data);
+    if (req.params && schema.params) {
+      req.params = await schema.params.validateAsync(req.params);
+    }
+    if (req.query && schema.query) {
+      req.query = await schema.query.validateAsync(req.query);
+    }
+    if (req.body && schema.body) {
+      req.body = await schema.body.validateAsync(req.body);
+    }
   } catch (err) {
     const httpError = new errorHandling.ServiceError(err.message, 'ERR_INVALID_PARAMS');
     httpError.status = HttpStatus.BAD_REQUEST;
-    throw httpError;
+    return { error: httpError };
   }
 
-  return data;
+  return { error: null };
 }
 
 async function handleAPIGatewayEvent(args, auth, event, context) {
   context.callbackWaitsForEmptyEventLoop = false;
 
-  const [schema = {}] = args;
+  const [schema = {}, fn] = args;
   const res = createResponse();
-  let req;
 
-  try {
-    req = await parseAPIGatewayEvent(event, { auth });
-  } catch (err) {
-    res.status(err.status).json(err);
+  const req = await parseAPIGatewayEvent(event, { auth });
+  if (req.error) {
+    res.status(req.error.status).json(req.error);
     return res.toJSON();
   }
 
-  try {
-    if (req.params && schema.params) req.params = await validateRequestData(req.params, schema.params);
-    if (req.query && schema.query) req.query = await validateRequestData(req.query, schema.query);
-    if (req.body && schema.body) req.body = await validateRequestData(req.body, schema.body);
-  } catch (err) {
-    res.status(err.status).json(err);
+  const { error } = await validateRequestData(req, schema);
+  if (error) {
+    res.status(error.status).json(error);
     return res.toJSON();
   }
 
-  for (const fn of args) {
-    if (fn instanceof Function) {
-      util.types.isAsyncFunction(fn) ? await fn(req, res) : fn(req, res);
-      if (res.statusCode < 200 || res.statusCode >= 300) break;
-    }
-  }
+  await fn(req, res);
 
   return res.toJSON();
 }

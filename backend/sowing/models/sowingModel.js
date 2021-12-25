@@ -1,5 +1,4 @@
 import SQL from 'sql-template-strings';
-import errorHandling from '../error-handling';
 import { mysqlConnector, logging } from '../../infrastructure';
 import { TicketStatus } from '../common';
 
@@ -48,11 +47,7 @@ async function createTicket({
     )
   `);
 
-  if (affectedRows <= 0) {
-    throw new errorHandling.SowingError({
-      errno: errorHandling.errno.ERR_TICKET_NOT_CREATED,
-    });
-  }
+  return { affectedRows };
 }
 
 async function getTickets({ memberId }) {
@@ -103,11 +98,7 @@ async function updateTicketStatus({
     )
   `);
 
-  if (affectedRows <= 0) {
-    throw new errorHandling.SowingError({
-      errno: errorHandling.errno.ERR_TICKET_NOT_UPDATED,
-    });
-  }
+  return { affectedRows };
 }
 
 async function deleteTicket({ memberId, ticketId }) {
@@ -124,11 +115,7 @@ async function deleteTicket({ memberId, ticketId }) {
     )
   `);
 
-  if (affectedRows <= 0) {
-    throw new errorHandling.SowingError({
-      errno: errorHandling.errno.ERR_TICKET_NOT_DELETED,
-    });
-  }
+  return { affectedRows };
 }
 
 async function updateTicketInfo({
@@ -168,11 +155,7 @@ async function updateTicketInfo({
 
   const { affectedRows = 0 } = await mysqlConnector.query(stat);
 
-  if (affectedRows <= 0) {
-    throw new errorHandling.SowingError({
-      errno: errorHandling.errno.ERR_TICKET_NOT_UPDATED,
-    });
-  }
+  return { affectedRows };
 }
 
 const sowingModel = {

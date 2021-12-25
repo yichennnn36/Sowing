@@ -1,3 +1,4 @@
+import errorHandling from '../error-handling';
 import { logging } from '../../infrastructure';
 import { sowingModel } from '../models';
 
@@ -24,7 +25,7 @@ async function createTicket({
     endDate,
   });
 
-  await sowingModel.createTicket({
+  const { affectedRows } = await sowingModel.createTicket({
     memberId,
     title,
     content,
@@ -34,6 +35,14 @@ async function createTicket({
     startDate,
     endDate,
   });
+  if (affectedRows <= 0) {
+    const httpError = new errorHandling.SowingError({
+      errno: errorHandling.errno.ERR_TICKET_NOT_CREATED,
+    });
+    return { error: httpError };
+  }
+
+  return { error: null };
 }
 
 async function getTickets({ memberId }) {
@@ -57,18 +66,34 @@ async function updateTicketStatus({
 
   if (currentStatus === newStatus) return;
 
-  await sowingModel.updateTicketStatus({
+  const { affectedRows } = await sowingModel.updateTicketStatus({
     memberId,
     ticketId,
     currentStatus,
     newStatus,
   });
+  if (affectedRows <= 0) {
+    const httpError = new errorHandling.SowingError({
+      errno: errorHandling.errno.ERR_TICKET_NOT_UPDATED,
+    });
+    return { error: httpError };
+  }
+
+  return { error: null };
 }
 
 async function deleteTicket({ memberId, ticketId }) {
   logging.debug(`${MANAGER_NAME}.deleteTicket`, { memberId, ticketId });
 
-  await sowingModel.deleteTicket({ memberId, ticketId });
+  const { affectedRows } = await sowingModel.deleteTicket({ memberId, ticketId });
+  if (affectedRows <= 0) {
+    const httpError = new errorHandling.SowingError({
+      errno: errorHandling.errno.ERR_TICKET_NOT_DELETED,
+    });
+    return { error: httpError };
+  }
+
+  return { error: null };
 }
 
 async function updateTicketInfo({
@@ -92,7 +117,7 @@ async function updateTicketInfo({
     endDate,
   });
 
-  await sowingModel.updateTicketInfo({
+  const { affectedRows } = await sowingModel.updateTicketInfo({
     memberId,
     ticketId,
     title,
@@ -102,6 +127,14 @@ async function updateTicketInfo({
     startDate,
     endDate,
   });
+  if (affectedRows <= 0) {
+    const httpError = new errorHandling.SowingError({
+      errno: errorHandling.errno.ERR_TICKET_NOT_UPDATED,
+    });
+    return { error: httpError };
+  }
+
+  return { error: null };
 }
 
 const sowingManager = {

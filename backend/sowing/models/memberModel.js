@@ -1,5 +1,4 @@
 import SQL from 'sql-template-strings';
-import errorHandling from '../error-handling';
 import { mysqlConnector, logging } from '../../infrastructure';
 
 const MODEL_NAME = 'memberModel';
@@ -33,11 +32,7 @@ async function signUp({ username, hashPassword, nickname }) {
     )
   `);
 
-  if (affectedRows <= 0) {
-    throw new errorHandling.SowingError({
-      errno: errorHandling.errno.ERR_USER_NOT_CREATED,
-    });
-  }
+  return { affectedRows };
 }
 
 async function getAuthInfo({ username, hashPassword }) {
@@ -68,11 +63,7 @@ async function updateToken({ memberId, token, tokenExpireStamp }) {
     WHERE member_id = ${memberId}
   `);
 
-  if (affectedRows <= 0) {
-    throw new errorHandling.SowingError({
-      errno: errorHandling.errno.ERR_USER_NOT_UPDATED,
-    });
-  }
+  return { affectedRows };
 }
 
 const memberModel = {
